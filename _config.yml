@@ -1,0 +1,67 @@
+# AMCP GitHub Pages Configuration
+title: "AMCP - Agent Mesh Communication Protocol"
+description: "Enterprise-grade multi-agent communication framework for modern distributed systems"
+url: "https://amcp.github.io"
+baseurl: ""
+
+# Author information
+author:
+  name: "AMCP Development Team"
+  email: "contact@amcp.dev"
+
+# Build settings
+markdown: kramdown
+highlighter: rouge
+theme: minima
+
+# Plugins
+plugins:
+  - jekyll-feed
+  - jekyll-sitemap
+  - jekyll-seo-tag
+
+# Collections
+collections:
+  docs:
+    output: true
+    permalink: /:collection/:name/
+  examples:
+    output: true
+    permalink: /:collection/:name/
+
+# Navigation
+navigation:
+  - title: "Home"
+    url: "/"
+  - title: "Documentation"
+    url: "/docs/"
+  - title: "Examples"
+    url: "/examples/"
+  - title: "Download"
+    url: "/download/"
+  - title: "Community"
+    url: "/community/"
+  - title: "Blog"
+    url: "/blog/"
+
+# Social links
+github_username: xaviercallens
+twitter_username: amcp_framework
+
+# SEO
+lang: en
+locale: en_US
+
+# Analytics (add your tracking ID)
+google_analytics: # UA-XXXXXXXX-X
+
+# Exclude from processing
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - node_modules
+  - vendor/bundle/
+  - vendor/cache/
+  - vendor/gems/
+  - vendor/ruby/
+  - README.md
