@@ -4,6 +4,9 @@ description: "Enterprise-grade multi-agent communication framework for modern di
 url: "https://amcp.github.io"
 baseurl: ""
 
+# Repository information
+repository: "xaviercallens/amcp.github.io"
+
 # Author information
 author:
   name: "AMCP Development Team"
