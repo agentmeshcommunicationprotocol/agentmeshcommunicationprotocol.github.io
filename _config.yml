@@ -5,12 +5,17 @@ url: "https://agentmeshcommunicationprotocol.github.io"
 baseurl: ""
 
 # Repository information
-repository: "agentmeshcommunicationprotocol/agentmeshcommunicationprotocol.github.io"
+repository: "agentmeshcommunicationprotocol/amcp.github.io"
+github_repository: "agentmeshcommunicationprotocol/amcpcore.github.io"
 
 # Author information
 author:
   name: "AMCP Development Team"
   email: "contact@amcp.dev"
+
+# External links
+amcp_core_url: "https://github.com/agentmeshcommunicationprotocol/amcpcore.github.io"
+amcp_docs_url: "https://agentmeshcommunicationprotocol.github.io/amcp.github.io"
 
 # Build settings
 markdown: kramdown
