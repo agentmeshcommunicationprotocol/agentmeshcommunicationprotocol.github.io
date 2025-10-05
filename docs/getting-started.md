@@ -32,8 +32,8 @@ Before you begin, ensure you have:
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/xaviercallens/amcp-v1.5-opensource.git
-cd amcp-v1.5-opensource
+git clone https://github.com/agentmeshcommunicationprotocol/amcpcore.github.io.git
+cd amcpcore.github.io
 ```
 
 ### 2. Build the Project
@@ -190,8 +190,8 @@ source .env
 
 ### Getting Help
 
-- **GitHub Issues**: [Report bugs](https://github.com/xaviercallens/amcp-v1.5-opensource/issues)
-- **Discussions**: [Community discussions](https://github.com/xaviercallens/amcp-v1.5-opensource/discussions)
+- **GitHub Issues**: [Report bugs](https://github.com/agentmeshcommunicationprotocol/amcpcore.github.io/issues)
+- **Discussions**: [Community discussions](https://github.com/agentmeshcommunicationprotocol/amcpcore.github.io/discussions)
 - **Documentation**: [Full documentation]({{ '/docs/' | relative_url }})
 
 ## What's Next?

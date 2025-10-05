@@ -48,7 +48,7 @@ Perfect for getting started with AMCP:
     </div>
     <div class="example-actions">
       <a href="{{ '/examples/weather-agent/' | relative_url }}" class="btn btn-primary">View Example</a>
-      <a href="https://github.com/xaviercallens/amcp-v1.5-opensource/tree/main/examples/src/main/java/io/amcp/examples/weather" class="btn btn-outline">Source Code</a>
+      <a href="https://github.com/agentmeshcommunicationprotocol/amcpcore.github.io/tree/main/examples/src/main/java/io/amcp/examples/weather" class="btn btn-outline">Source Code</a>
     </div>
   </div>
 
@@ -69,7 +69,7 @@ Perfect for getting started with AMCP:
     </div>
     <div class="example-actions">
       <a href="{{ '/examples/meshchat/' | relative_url }}" class="btn btn-primary">View Example</a>
-      <a href="https://github.com/xaviercallens/amcp-v1.5-opensource/tree/main/examples/src/main/java/io/amcp/examples/meshchat" class="btn btn-outline">Source Code</a>
+      <a href="https://github.com/agentmeshcommunicationprotocol/amcpcore.github.io/tree/main/examples/src/main/java/io/amcp/examples/meshchat" class="btn btn-outline">Source Code</a>
     </div>
   </div>
 
@@ -90,7 +90,7 @@ Perfect for getting started with AMCP:
     </div>
     <div class="example-actions">
       <a href="{{ '/examples/orchestration/' | relative_url }}" class="btn btn-primary">View Example</a>
-      <a href="https://github.com/xaviercallens/amcp-v1.5-opensource/tree/main/connectors/src/main/java/io/amcp/connectors/ai" class="btn btn-outline">Source Code</a>
+      <a href="https://github.com/agentmeshcommunicationprotocol/amcpcore.github.io/tree/main/connectors/src/main/java/io/amcp/connectors/ai" class="btn btn-outline">Source Code</a>
     </div>
   </div>
 </div>
@@ -279,7 +279,7 @@ Ready to try these examples?
   <p>These examples are just the beginning. AMCP's flexible architecture enables endless possibilities for multi-agent applications.</p>
   <div class="cta-actions">
     <a href="{{ '/docs/getting-started/' | relative_url }}" class="btn btn-primary btn-large">Get Started Now</a>
-    <a href="https://github.com/xaviercallens/amcp-v1.5-opensource" class="btn btn-outline btn-large">View Source Code</a>
+    <a href="https://github.com/agentmeshcommunicationprotocol/amcpcore.github.io" class="btn btn-outline btn-large">View Source Code</a>
   </div>
 </div>
 

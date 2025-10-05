@@ -49,7 +49,7 @@ There are many ways to contribute to AMCP, regardless of your skill level:
       <li>Improve performance</li>
       <li>Enhance documentation</li>
     </ul>
-    <a href="https://github.com/xaviercallens/amcp-v1.5-opensource/blob/main/CONTRIBUTING.md" class="btn btn-primary">Contributing Guide</a>
+    <a href="https://github.com/agentmeshcommunicationprotocol/amcpcore.github.io/blob/main/CONTRIBUTING.md" class="btn btn-primary">Contributing Guide</a>
   </div>
 
   <div class="contribution-card">
@@ -62,7 +62,7 @@ There are many ways to contribute to AMCP, regardless of your skill level:
       <li>Create examples</li>
       <li>Fix typos</li>
     </ul>
-    <a href="https://github.com/xaviercallens/amcp-v1.5-opensource/tree/main/docs" class="btn btn-primary">Edit Docs</a>
+    <a href="https://github.com/agentmeshcommunicationprotocol/amcpcore.github.io/tree/main/docs" class="btn btn-primary">Edit Docs</a>
   </div>
 
   <div class="contribution-card">
@@ -75,7 +75,7 @@ There are many ways to contribute to AMCP, regardless of your skill level:
       <li>Test releases</li>
       <li>Provide feedback</li>
     </ul>
-    <a href="https://github.com/xaviercallens/amcp-v1.5-opensource/issues/new" class="btn btn-primary">Report Issue</a>
+    <a href="https://github.com/agentmeshcommunicationprotocol/amcpcore.github.io/issues/new" class="btn btn-primary">Report Issue</a>
   </div>
 
   <div class="contribution-card">
@@ -88,7 +88,7 @@ There are many ways to contribute to AMCP, regardless of your skill level:
       <li>Write blog posts</li>
       <li>Speak at events</li>
     </ul>
-    <a href="https://github.com/xaviercallens/amcp-v1.5-opensource/discussions" class="btn btn-primary">Join Discussions</a>
+    <a href="https://github.com/agentmeshcommunicationprotocol/amcpcore.github.io/discussions" class="btn btn-primary">Join Discussions</a>
   </div>
 </div>
 
@@ -131,7 +131,7 @@ Stay connected with the AMCP community:
     </div>
     <h3>GitHub</h3>
     <p>Main repository for code, issues, and discussions</p>
-    <a href="https://github.com/xaviercallens/amcp-v1.5-opensource" class="channel-link">Visit Repository →</a>
+    <a href="https://github.com/agentmeshcommunicationprotocol/amcpcore.github.io" class="channel-link">Visit Repository →</a>
   </div>
 
   <div class="channel-card">
@@ -257,8 +257,8 @@ Get involved in shaping the future of AMCP:
 
 ### Getting in Touch
 
-- **General Questions**: [GitHub Discussions](https://github.com/xaviercallens/amcp-v1.5-opensource/discussions)
-- **Bug Reports**: [GitHub Issues](https://github.com/xaviercallens/amcp-v1.5-opensource/issues)
+- **General Questions**: [GitHub Discussions](https://github.com/agentmeshcommunicationprotocol/amcpcore.github.io/discussions)
+- **Bug Reports**: [GitHub Issues](https://github.com/agentmeshcommunicationprotocol/amcpcore.github.io/issues)
 - **Security Issues**: security@amcp.dev
 - **Partnership Inquiries**: partnerships@amcp.dev
 - **Media Inquiries**: press@amcp.dev
@@ -269,8 +269,8 @@ Get involved in shaping the future of AMCP:
   <h2>Ready to Join the Community?</h2>
   <p>Whether you're just getting started or you're an experienced developer, we'd love to have you as part of the AMCP community!</p>
   <div class="cta-actions">
-    <a href="https://github.com/xaviercallens/amcp-v1.5-opensource" class="btn btn-primary btn-large">Star on GitHub</a>
-    <a href="https://github.com/xaviercallens/amcp-v1.5-opensource/discussions" class="btn btn-outline btn-large">Join Discussions</a>
+    <a href="https://github.com/agentmeshcommunicationprotocol/amcpcore.github.io" class="btn btn-primary btn-large">Star on GitHub</a>
+    <a href="https://github.com/agentmeshcommunicationprotocol/amcpcore.github.io/discussions" class="btn btn-outline btn-large">Join Discussions</a>
   </div>
 </div>
 

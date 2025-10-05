@@ -59,8 +59,8 @@ amcp.github.io/
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/amcp/amcp.github.io.git
-   cd amcp.github.io
+   git clone https://github.com/agentmeshcommunicationprotocol/amcpcore.github.io.git
+   cd amcpcore.github.io
    ```
 
 2. **Install dependencies**
@@ -270,14 +270,14 @@ This website is licensed under the MIT License. See [LICENSE](LICENSE) for detai
 ## 🆘 Support
 
 - **Documentation**: [AMCP Docs](https://amcp.github.io/docs/)
-- **GitHub Issues**: [Report bugs](https://github.com/amcp/amcp.github.io/issues)
-- **Discussions**: [Community discussions](https://github.com/amcp/amcp.github.io/discussions)
+- **GitHub Issues**: [Report bugs](https://github.com/agentmeshcommunicationprotocol/amcpcore.github.io/issues)
+- **Discussions**: [Community discussions](https://github.com/agentmeshcommunicationprotocol/amcpcore.github.io/discussions)
 
 ## 📞 Contact
 
 - **Website**: https://amcp.github.io
 - **Email**: contact@amcp.dev
-- **GitHub**: https://github.com/amcp
+- **GitHub**: https://github.com/agentmeshcommunicationprotocol/amcpcore.github.io
 
 ---
 
