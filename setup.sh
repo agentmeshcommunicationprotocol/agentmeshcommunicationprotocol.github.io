@@ -67,17 +67,36 @@ print_info "Installing Jekyll dependencies..."
 if bundle install; then
     print_status "Dependencies installed successfully"
 else
-    print_error "Failed to install dependencies"
-    exit 1
+    print_warning "Bundle install failed, trying with sudo..."
+    if sudo bundle install; then
+        print_status "Dependencies installed successfully with sudo"
+    else
+        print_error "Failed to install dependencies even with sudo"
+        exit 1
+    fi
 fi
+
+# Fix permissions if needed
+print_info "Ensuring proper file permissions..."
+if [ -d "_site" ]; then
+    sudo chown -R $USER:$USER _site 2>/dev/null || true
+fi
+sudo chown -R $USER:$USER . 2>/dev/null || true
 
 # Test local build
 print_info "Testing Jekyll build..."
 if bundle exec jekyll build; then
     print_status "Jekyll build successful"
 else
-    print_error "Jekyll build failed"
-    exit 1
+    print_warning "Jekyll build failed, trying with sudo..."
+    if sudo bundle exec jekyll build; then
+        print_status "Jekyll build successful with sudo"
+        # Fix permissions after sudo build
+        sudo chown -R $USER:$USER _site 2>/dev/null || true
+    else
+        print_error "Jekyll build failed even with sudo"
+        exit 1
+    fi
 fi
 
 # Clean up build files
