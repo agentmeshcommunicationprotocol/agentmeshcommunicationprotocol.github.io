@@ -1,11 +1,11 @@
 # AMCP GitHub Pages Configuration
 title: "AMCP - Agent Mesh Communication Protocol"
 description: "Enterprise-grade multi-agent communication framework for modern distributed systems"
-url: "https://agentmeshcommunicationprotocol.github.io/amcp.github.io"
+url: "https://agentmeshcommunicationprotocol.github.io"
 baseurl: ""
 
 # Repository information
-repository: "agentmeshcommunicationprotocol/amcp.github.io"
+repository: "agentmeshcommunicationprotocol/agentmeshcommunicationprotocol.github.io"
 
 # Author information
 author:
