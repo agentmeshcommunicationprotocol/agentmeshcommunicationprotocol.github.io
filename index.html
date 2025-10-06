@@ -77,6 +77,55 @@ description: "Enterprise grade multi-agent communication framework for modern di
   </div>
 </section>
 
+<section class="audio-section">
+  <div class="container">
+    <div class="audio-content">
+      <div class="audio-text">
+        <h2>🎙️ AMCP Explained: How Asynchronous AI Agents Scale</h2>
+        <p class="audio-subtitle">
+          Listen to an in-depth explanation of how AMCP's publish-subscribe architecture enables massive scalability for AI agent systems.
+        </p>
+        <div class="audio-highlights">
+          <div class="highlight-item">
+            <span class="highlight-icon">🎯</span>
+            <span>Expert technical explanation</span>
+          </div>
+          <div class="highlight-item">
+            <span class="highlight-icon">⚡</span>
+            <span>Asynchronous architecture benefits</span>
+          </div>
+          <div class="highlight-item">
+            <span class="highlight-icon">📈</span>
+            <span>Scalability and performance insights</span>
+          </div>
+        </div>
+        <div class="audio-actions">
+          <a href="/whitepaper/" class="btn btn-primary">Read Whitepaper</a>
+          <a href="/examples/live-demo/" class="btn btn-outline">Try Live Demo</a>
+        </div>
+      </div>
+      <div class="audio-player">
+        <div class="audio-wrapper">
+          <div class="audio-header">
+            <div class="audio-title">AMCP Technical Deep Dive</div>
+            <div class="audio-duration">~6 minutes</div>
+          </div>
+          <audio 
+            controls 
+            preload="metadata" 
+            class="amcp-audio">
+            <source src="/promo/AMCP_Explained__How_Asynchronous_AI_Agents_Scale_with_Publish-S.m4a" type="audio/mp4">
+            <p>Your browser does not support the audio element. <a href="/promo/AMCP_Explained__How_Asynchronous_AI_Agents_Scale_with_Publish-S.m4a">Download the audio</a> to listen.</p>
+          </audio>
+          <div class="audio-description">
+            <p>Technical overview covering event-driven architecture, agent mobility, and enterprise scalability patterns</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <section class="features-section">
   <div class="container">
     <h2 class="section-title">Why Choose AMCP?</h2>
@@ -608,6 +657,104 @@ description: "Enterprise grade multi-agent communication framework for modern di
   margin: 0;
 }
 
+/* Audio Section */
+.audio-section {
+  padding: 80px 0;
+  background: linear-gradient(135deg, #e8f5e8 0%, #f0f8f0 100%);
+}
+
+.audio-content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  align-items: center;
+}
+
+.audio-text h2 {
+  font-size: 2.5rem;
+  color: #333;
+  margin-bottom: 20px;
+  font-weight: 700;
+}
+
+.audio-subtitle {
+  font-size: 1.2rem;
+  color: #666;
+  margin-bottom: 30px;
+  line-height: 1.6;
+}
+
+.audio-highlights {
+  margin-bottom: 30px;
+}
+
+.audio-actions {
+  display: flex;
+  gap: 15px;
+  flex-wrap: wrap;
+}
+
+.audio-player {
+  position: relative;
+}
+
+.audio-wrapper {
+  background: white;
+  border-radius: 16px;
+  padding: 25px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+}
+
+.audio-wrapper:hover {
+  transform: translateY(-5px);
+}
+
+.audio-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  padding-bottom: 15px;
+  border-bottom: 2px solid #f0f0f0;
+}
+
+.audio-title {
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: #333;
+}
+
+.audio-duration {
+  background: #4CAF50;
+  color: white;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+.amcp-audio {
+  width: 100%;
+  margin-bottom: 15px;
+  border-radius: 8px;
+}
+
+.amcp-audio::-webkit-media-controls-panel {
+  background-color: #f8f9fa;
+}
+
+.audio-description {
+  text-align: center;
+}
+
+.audio-description p {
+  color: #666;
+  font-style: italic;
+  margin: 0;
+  font-size: 0.95rem;
+}
+
 /* Features Section */
 .features-section {
   padding: 80px 0;
@@ -840,6 +987,19 @@ description: "Enterprise grade multi-agent communication framework for modern di
   }
   
   .video-text h2 {
+    font-size: 2rem;
+  }
+  
+  .audio-content {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+  
+  .audio-text {
+    text-align: center;
+  }
+  
+  .audio-text h2 {
     font-size: 2rem;
   }
 }
