@@ -32,6 +32,51 @@ description: "Enterprise grade multi-agent communication framework for modern di
   </div>
 </section>
 
+<section class="video-section">
+  <div class="container">
+    <div class="video-content">
+      <div class="video-text">
+        <h2>AMCP: The Agent Superhighway</h2>
+        <p class="video-subtitle">
+          Discover how AMCP revolutionizes multi-agent communication and orchestration in modern distributed systems.
+        </p>
+        <div class="video-highlights">
+          <div class="highlight-item">
+            <span class="highlight-icon">🚀</span>
+            <span>High-performance agent coordination</span>
+          </div>
+          <div class="highlight-item">
+            <span class="highlight-icon">🧠</span>
+            <span>Intelligent LLM-powered orchestration</span>
+          </div>
+          <div class="highlight-item">
+            <span class="highlight-icon">🌐</span>
+            <span>Enterprise-scale distributed architecture</span>
+          </div>
+        </div>
+        <div class="video-actions">
+          <a href="/docs/getting-started/" class="btn btn-primary">Get Started</a>
+          <a href="/examples/" class="btn btn-outline">View Examples</a>
+        </div>
+      </div>
+      <div class="video-player">
+        <div class="video-wrapper">
+          <video 
+            controls 
+            preload="metadata" 
+            class="amcp-video">
+            <source src="/promo/AMCP__The_Agent_Superhighway.mp4" type="video/mp4">
+            <p>Your browser does not support the video tag. <a href="/promo/AMCP__The_Agent_Superhighway.mp4">Download the video</a> to watch it.</p>
+          </video>
+        </div>
+        <div class="video-caption">
+          <p>Watch how AMCP enables seamless multi-agent communication and intelligent orchestration</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <section class="features-section">
   <div class="container">
     <h2 class="section-title">Why Choose AMCP?</h2>
@@ -478,6 +523,91 @@ description: "Enterprise grade multi-agent communication framework for modern di
   51%, 100% { opacity: 0; }
 }
 
+/* Video Section */
+.video-section {
+  padding: 80px 0;
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+}
+
+.video-content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  align-items: center;
+}
+
+.video-text h2 {
+  font-size: 2.5rem;
+  color: #333;
+  margin-bottom: 20px;
+  font-weight: 700;
+}
+
+.video-subtitle {
+  font-size: 1.2rem;
+  color: #666;
+  margin-bottom: 30px;
+  line-height: 1.6;
+}
+
+.video-highlights {
+  margin-bottom: 30px;
+}
+
+.highlight-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
+  font-size: 1.1rem;
+}
+
+.highlight-icon {
+  font-size: 1.5rem;
+  margin-right: 15px;
+  width: 30px;
+}
+
+.video-actions {
+  display: flex;
+  gap: 15px;
+  flex-wrap: wrap;
+}
+
+.video-player {
+  position: relative;
+}
+
+.video-wrapper {
+  position: relative;
+  background: #000;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+  transition: transform 0.3s ease;
+}
+
+.video-wrapper:hover {
+  transform: translateY(-5px);
+}
+
+.amcp-video {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 12px;
+}
+
+.video-caption {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.video-caption p {
+  color: #666;
+  font-style: italic;
+  margin: 0;
+}
+
 /* Features Section */
 .features-section {
   padding: 80px 0;
@@ -698,6 +828,19 @@ description: "Enterprise grade multi-agent communication framework for modern di
   
   .stats-grid {
     grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .video-content {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+  
+  .video-text {
+    text-align: center;
+  }
+  
+  .video-text h2 {
+    font-size: 2rem;
   }
 }
 </style>
