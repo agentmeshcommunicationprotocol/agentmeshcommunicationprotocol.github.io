@@ -41,6 +41,8 @@ collections:
 navigation:
   - title: "Home"
     url: "/"
+  - title: "Whitepaper"
+    url: "/whitepaper/"
   - title: "Documentation"
     url: "/docs/"
   - title: "Examples"
