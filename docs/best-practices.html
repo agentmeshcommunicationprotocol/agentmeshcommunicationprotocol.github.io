@@ -1,0 +1,727 @@
+---
+layout: default
+title: "AMCP Best Practices"
+description: "Best practices for building production-ready AMCP applications"
+permalink: /docs/best-practices/
+---
+
+<div class="docs-container">
+  <div class="container">
+    <header class="docs-header">
+      <h1>⭐ AMCP Best Practices</h1>
+      <p class="docs-subtitle">Production-ready patterns and recommendations</p>
+    </header>
+
+    <div class="docs-content">
+      <nav class="docs-nav">
+        <h3>Best Practices Guide</h3>
+        <ul>
+          <li><a href="#agent-design">Agent Design</a></li>
+          <li><a href="#event-patterns">Event Patterns</a></li>
+          <li><a href="#performance">Performance</a></li>
+          <li><a href="#security">Security</a></li>
+          <li><a href="#monitoring">Monitoring</a></li>
+          <li><a href="#deployment">Deployment</a></li>
+        </ul>
+      </nav>
+
+      <section id="agent-design" class="docs-section">
+        <h2>🤖 Agent Design Principles</h2>
+        
+        <div class="practice-item">
+          <h3>✅ Single Responsibility</h3>
+          <p>Each agent should have a single, well-defined responsibility.</p>
+          <div class="code-example">
+            <div class="good-example">
+              <h4>✅ Good</h4>
+              <pre><code>// Focused on weather data processing only
+public class WeatherProcessorAgent extends Agent {
+    public void processWeatherData(WeatherData data) {
+        // Process weather data
+    }
+}</code></pre>
+            </div>
+            <div class="bad-example">
+              <h4>❌ Avoid</h4>
+              <pre><code>// Too many responsibilities
+public class WeatherAgent extends Agent {
+    public void processWeatherData() { }
+    public void sendNotifications() { }
+    public void manageUsers() { }
+    public void generateReports() { }
+}</code></pre>
+            </div>
+          </div>
+        </div>
+
+        <div class="practice-item">
+          <h3>✅ Stateless Design</h3>
+          <p>Design agents to be stateless when possible for better scalability.</p>
+          <pre><code>@Agent("order-processor")
+public class OrderProcessorAgent extends Agent {
+    
+    // Avoid instance variables for state
+    // Use event payload or external storage instead
+    
+    @EventHandler
+    public void processOrder(Event event) {
+        OrderData order = event.getPayload(OrderData.class);
+        
+        // Process order without storing state
+        ProcessedOrder result = processOrderData(order);
+        
+        // Publish result
+        publish(Event.builder()
+            .topic("order.processed")
+            .payload(result)
+            .build());
+    }
+}</code></pre>
+        </div>
+      </section>
+
+      <section id="event-patterns" class="docs-section">
+        <h2>📡 Event Design Patterns</h2>
+        
+        <div class="pattern-grid">
+          <div class="pattern-card">
+            <h3>Topic Naming Convention</h3>
+            <p>Use hierarchical, descriptive topic names</p>
+            <pre><code>// Good topic naming
+weather.data.raw.london
+order.created.ecommerce
+user.profile.updated
+
+// Avoid generic names
+data
+event
+message</code></pre>
+          </div>
+
+          <div class="pattern-card">
+            <h3>Event Versioning</h3>
+            <p>Include version information for backward compatibility</p>
+            <pre><code>Event event = Event.builder()
+    .topic("order.created.v2")
+    .payload(orderData)
+    .metadata("version", "2.0")
+    .build();</code></pre>
+          </div>
+
+          <div class="pattern-card">
+            <h3>Correlation IDs</h3>
+            <p>Use correlation IDs to track related events</p>
+            <pre><code>Event response = Event.builder()
+    .topic("order.processed")
+    .payload(result)
+    .correlationId(originalEvent.getCorrelationId())
+    .build();</code></pre>
+          </div>
+        </div>
+      </section>
+
+      <section id="performance" class="docs-section">
+        <h2>⚡ Performance Optimization</h2>
+        
+        <div class="perf-recommendations">
+          <div class="perf-item">
+            <h3>🔄 Batch Processing</h3>
+            <p>Process events in batches when possible to improve throughput.</p>
+            <pre><code>@EventHandler
+@BatchSize(100)
+@BatchTimeout(5000) // 5 seconds
+public void processBatchedEvents(List&lt;Event&gt; events) {
+    // Process events in batch
+    List&lt;ProcessedData&gt; results = events.stream()
+        .map(this::processEvent)
+        .collect(Collectors.toList());
+    
+    // Publish batch results
+    publishBatch(results);
+}</code></pre>
+          </div>
+
+          <div class="perf-item">
+            <h3>🧵 Async Processing</h3>
+            <p>Use asynchronous processing for non-blocking operations.</p>
+            <pre><code>@EventHandler
+public void handleEvent(Event event) {
+    // Quick validation
+    if (!isValidEvent(event)) {
+        return;
+    }
+    
+    // Async processing
+    CompletableFuture.supplyAsync(() -> {
+        return heavyProcessing(event);
+    }).thenAccept(result -> {
+        publishResult(result);
+    });
+}</code></pre>
+          </div>
+
+          <div class="perf-item">
+            <h3>💾 Caching Strategy</h3>
+            <p>Implement intelligent caching for frequently accessed data.</p>
+            <pre><code>@Agent("data-service")
+public class DataServiceAgent extends Agent {
+    
+    private final Cache&lt;String, Data&gt; cache = CacheBuilder.newBuilder()
+        .maximumSize(10000)
+        .expireAfterWrite(10, TimeUnit.MINUTES)
+        .build();
+    
+    @EventHandler
+    public void handleDataRequest(Event event) {
+        String key = event.getPayload(String.class);
+        
+        Data data = cache.get(key, () -> {
+            return expensiveDataLookup(key);
+        });
+        
+        publishData(data);
+    }
+}</code></pre>
+          </div>
+        </div>
+      </section>
+
+      <section id="security" class="docs-section">
+        <h2>🔒 Security Best Practices</h2>
+        
+        <div class="security-practices">
+          <div class="security-item">
+            <h3>🔐 Authentication</h3>
+            <p>Always authenticate agents before allowing mesh participation.</p>
+            <pre><code>@Agent("secure-agent")
+@RequireAuthentication
+public class SecureAgent extends Agent {
+    
+    @Override
+    public void onActivation() {
+        // Agent automatically authenticated before activation
+        subscribe("secure.data.*");
+    }
+}</code></pre>
+          </div>
+
+          <div class="security-item">
+            <h3>🛡️ Input Validation</h3>
+            <p>Validate all incoming event data to prevent injection attacks.</p>
+            <pre><code>@EventHandler
+public void handleUserInput(Event event) {
+    UserInput input = event.getPayload(UserInput.class);
+    
+    // Validate input
+    if (!inputValidator.isValid(input)) {
+        publishError("Invalid input received");
+        return;
+    }
+    
+    // Sanitize input
+    UserInput sanitized = inputSanitizer.sanitize(input);
+    
+    processInput(sanitized);
+}</code></pre>
+          </div>
+
+          <div class="security-item">
+            <h3>🔑 Topic Permissions</h3>
+            <p>Implement topic-level access control.</p>
+            <pre><code>@Agent("financial-agent")
+@TopicPermissions({
+    @Permission(topic = "financial.data.*", access = READ_WRITE),
+    @Permission(topic = "public.data.*", access = READ_ONLY)
+})
+public class FinancialAgent extends Agent {
+    // Agent can only access permitted topics
+}</code></pre>
+          </div>
+        </div>
+      </section>
+
+      <section id="monitoring" class="docs-section">
+        <h2>📊 Monitoring & Observability</h2>
+        
+        <div class="monitoring-grid">
+          <div class="monitoring-card">
+            <h3>📈 Metrics Collection</h3>
+            <p>Collect key performance metrics for monitoring.</p>
+            <pre><code>@Agent("monitored-agent")
+public class MonitoredAgent extends Agent {
+    
+    private final MeterRegistry meterRegistry;
+    private final Counter eventCounter;
+    private final Timer processingTimer;
+    
+    @EventHandler
+    public void handleEvent(Event event) {
+        Timer.Sample sample = Timer.start(meterRegistry);
+        
+        try {
+            processEvent(event);
+            eventCounter.increment("success");
+        } catch (Exception e) {
+            eventCounter.increment("error");
+            throw e;
+        } finally {
+            sample.stop(processingTimer);
+        }
+    }
+}</code></pre>
+          </div>
+
+          <div class="monitoring-card">
+            <h3>📝 Structured Logging</h3>
+            <p>Use structured logging for better observability.</p>
+            <pre><code>@EventHandler
+public void processOrder(Event event) {
+    String orderId = event.getMetadata("orderId");
+    
+    log.info("Processing order", 
+        kv("orderId", orderId),
+        kv("agentId", getAgentId()),
+        kv("timestamp", Instant.now()));
+    
+    try {
+        // Process order
+        log.info("Order processed successfully", 
+            kv("orderId", orderId));
+    } catch (Exception e) {
+        log.error("Order processing failed", 
+            kv("orderId", orderId),
+            kv("error", e.getMessage()));
+    }
+}</code></pre>
+          </div>
+
+          <div class="monitoring-card">
+            <h3>🚨 Health Checks</h3>
+            <p>Implement comprehensive health checks.</p>
+            <pre><code>@Agent("health-monitored-agent")
+public class HealthMonitoredAgent extends Agent implements HealthIndicator {
+    
+    @Override
+    public Health health() {
+        return Health.up()
+            .withDetail("activeConnections", getActiveConnections())
+            .withDetail("lastEventTime", getLastEventTime())
+            .withDetail("errorRate", getErrorRate())
+            .build();
+    }
+    
+    @Scheduled(fixedRate = 30000) // Every 30 seconds
+    public void publishHealthStatus() {
+        Health health = health();
+        
+        publish(Event.builder()
+            .topic("agent.health." + getAgentId())
+            .payload(health)
+            .build());
+    }
+}</code></pre>
+          </div>
+        </div>
+      </section>
+
+      <section id="deployment" class="docs-section">
+        <h2>🚀 Deployment Best Practices</h2>
+        
+        <div class="deployment-practices">
+          <div class="deployment-item">
+            <h3>🐳 Containerization</h3>
+            <p>Use Docker for consistent deployments across environments.</p>
+            <pre><code># Dockerfile
+FROM openjdk:17-jre-slim
+
+COPY target/my-agent-1.0.jar /app/agent.jar
+
+EXPOSE 8080
+
+HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
+  CMD curl -f http://localhost:8080/health || exit 1
+
+ENTRYPOINT ["java", "-jar", "/app/agent.jar"]</code></pre>
+          </div>
+
+          <div class="deployment-item">
+            <h3>☸️ Kubernetes Deployment</h3>
+            <p>Use Kubernetes for orchestration and scaling.</p>
+            <pre><code>apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: weather-agent
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: weather-agent
+  template:
+    metadata:
+      labels:
+        app: weather-agent
+    spec:
+      containers:
+      - name: weather-agent
+        image: amcp/weather-agent:1.5.0
+        ports:
+        - containerPort: 8080
+        env:
+        - name: AMCP_BROKER_URL
+          value: "kafka:9092"
+        resources:
+          requests:
+            memory: "512Mi"
+            cpu: "250m"
+          limits:
+            memory: "1Gi"
+            cpu: "500m"
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 8080
+          initialDelaySeconds: 30
+          periodSeconds: 10</code></pre>
+          </div>
+
+          <div class="deployment-item">
+            <h3>🔄 Blue-Green Deployment</h3>
+            <p>Implement zero-downtime deployments.</p>
+            <pre><code># Blue-Green deployment strategy
+apiVersion: argoproj.io/v1alpha1
+kind: Rollout
+metadata:
+  name: weather-agent-rollout
+spec:
+  replicas: 5
+  strategy:
+    blueGreen:
+      activeService: weather-agent-active
+      previewService: weather-agent-preview
+      autoPromotionEnabled: false
+      scaleDownDelaySeconds: 30
+      prePromotionAnalysis:
+        templates:
+        - templateName: success-rate
+        args:
+        - name: service-name
+          value: weather-agent-preview
+  selector:
+    matchLabels:
+      app: weather-agent
+  template:
+    metadata:
+      labels:
+        app: weather-agent
+    spec:
+      containers:
+      - name: weather-agent
+        image: amcp/weather-agent:1.5.0</code></pre>
+          </div>
+        </div>
+      </section>
+
+      <div class="docs-footer">
+        <div class="best-practices-summary">
+          <h3>📋 Quick Reference Checklist</h3>
+          <div class="checklist-grid">
+            <div class="checklist-column">
+              <h4>Agent Design</h4>
+              <ul class="checklist">
+                <li>Single responsibility principle</li>
+                <li>Stateless when possible</li>
+                <li>Proper error handling</li>
+                <li>Resource cleanup</li>
+              </ul>
+            </div>
+            <div class="checklist-column">
+              <h4>Events</h4>
+              <ul class="checklist">
+                <li>Descriptive topic names</li>
+                <li>Event versioning</li>
+                <li>Correlation IDs</li>
+                <li>Input validation</li>
+              </ul>
+            </div>
+            <div class="checklist-column">
+              <h4>Production</h4>
+              <ul class="checklist">
+                <li>Comprehensive monitoring</li>
+                <li>Health checks</li>
+                <li>Security measures</li>
+                <li>Deployment automation</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="next-steps">
+          <h3>Next Steps</h3>
+          <div class="next-links">
+            <a href="/docs/architecture/" class="btn btn-primary">Architecture Guide</a>
+            <a href="/docs/monitoring/" class="btn btn-outline">Monitoring Setup</a>
+            <a href="/docs/tutorials/production-deployment/" class="btn btn-outline">Production Deployment</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+.docs-container {
+  font-family: var(--font-family-sans);
+  background: #f8f9fa;
+  min-height: 100vh;
+  padding: 40px 0;
+}
+
+.docs-header {
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+.docs-header h1 {
+  font-size: 2.5rem;
+  color: #333;
+  margin-bottom: 15px;
+}
+
+.docs-subtitle {
+  font-size: 1.2rem;
+  color: #666;
+}
+
+.docs-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+  padding: 40px;
+}
+
+.docs-nav {
+  background: #f8f9fa;
+  padding: 20px;
+  border-radius: 8px;
+  margin-bottom: 40px;
+}
+
+.docs-nav ul {
+  list-style: none;
+  padding: 0;
+  margin: 10px 0 0 0;
+}
+
+.docs-nav li {
+  margin-bottom: 8px;
+}
+
+.docs-nav a {
+  color: #1a73e8;
+  text-decoration: none;
+}
+
+.docs-section {
+  margin-bottom: 50px;
+}
+
+.docs-section h2 {
+  font-size: 1.8rem;
+  color: #333;
+  margin-bottom: 25px;
+  padding-bottom: 10px;
+  border-bottom: 2px solid #e9ecef;
+}
+
+.practice-item {
+  margin-bottom: 40px;
+  padding: 25px;
+  background: #f8f9fa;
+  border-radius: 8px;
+}
+
+.practice-item h3 {
+  margin-bottom: 15px;
+  color: #333;
+}
+
+.code-example {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.good-example {
+  border-left: 4px solid #4CAF50;
+  padding-left: 15px;
+}
+
+.bad-example {
+  border-left: 4px solid #f44336;
+  padding-left: 15px;
+}
+
+.good-example h4 {
+  color: #4CAF50;
+  margin-bottom: 10px;
+}
+
+.bad-example h4 {
+  color: #f44336;
+  margin-bottom: 10px;
+}
+
+.pattern-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 25px;
+  margin-top: 25px;
+}
+
+.pattern-card {
+  background: #f8f9fa;
+  padding: 25px;
+  border-radius: 8px;
+  border-left: 4px solid #1a73e8;
+}
+
+.pattern-card h3 {
+  margin-bottom: 15px;
+  color: #333;
+}
+
+.perf-recommendations,
+.security-practices,
+.deployment-practices {
+  margin-top: 25px;
+}
+
+.perf-item,
+.security-item,
+.deployment-item {
+  margin-bottom: 30px;
+  padding: 25px;
+  background: #f8f9fa;
+  border-radius: 8px;
+}
+
+.perf-item h3,
+.security-item h3,
+.deployment-item h3 {
+  margin-bottom: 15px;
+  color: #333;
+}
+
+.monitoring-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 25px;
+  margin-top: 25px;
+}
+
+.monitoring-card {
+  background: #f8f9fa;
+  padding: 25px;
+  border-radius: 8px;
+  border-left: 4px solid #FF9800;
+}
+
+.monitoring-card h3 {
+  margin-bottom: 15px;
+  color: #333;
+}
+
+pre {
+  background: #1e1e1e;
+  color: #e6e6e6;
+  padding: 15px;
+  border-radius: 6px;
+  overflow-x: auto;
+  font-family: var(--font-family-mono);
+  font-size: 0.9rem;
+  margin-top: 15px;
+}
+
+.best-practices-summary {
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  padding: 30px;
+  border-radius: 12px;
+  margin-bottom: 30px;
+}
+
+.best-practices-summary h3 {
+  text-align: center;
+  margin-bottom: 25px;
+  color: #333;
+}
+
+.checklist-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 25px;
+}
+
+.checklist-column h4 {
+  margin-bottom: 15px;
+  color: #333;
+}
+
+.checklist {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.checklist li {
+  margin-bottom: 8px;
+  padding-left: 20px;
+  position: relative;
+}
+
+.checklist li::before {
+  content: "✅";
+  position: absolute;
+  left: 0;
+}
+
+.docs-footer {
+  margin-top: 50px;
+  padding-top: 30px;
+  border-top: 2px solid #e9ecef;
+}
+
+.next-steps h3 {
+  margin-bottom: 20px;
+  color: #333;
+  text-align: center;
+}
+
+.next-links {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  flex-wrap: wrap;
+}
+
+@media (max-width: 768px) {
+  .docs-content {
+    padding: 20px;
+  }
+  
+  .code-example {
+    grid-template-columns: 1fr;
+  }
+  
+  .pattern-grid,
+  .monitoring-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .checklist-grid {
+    grid-template-columns: 1fr;
+  }
+}
+</style>

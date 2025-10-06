@@ -1,0 +1,424 @@
+---
+layout: default
+title: "AMCP Architecture Overview"
+description: "Deep dive into AMCP's event-driven architecture and core components"
+permalink: /docs/architecture/
+---
+
+<div class="docs-container">
+  <div class="container">
+    <header class="docs-header">
+      <h1>🏗️ AMCP Architecture Overview</h1>
+      <p class="docs-subtitle">Understanding the event-driven foundation of AMCP</p>
+    </header>
+
+    <div class="docs-content">
+      <nav class="docs-nav">
+        <h3>Architecture Guide</h3>
+        <ul>
+          <li><a href="#overview">System Overview</a></li>
+          <li><a href="#components">Core Components</a></li>
+          <li><a href="#event-mesh">Event Mesh</a></li>
+          <li><a href="#agent-lifecycle">Agent Lifecycle</a></li>
+          <li><a href="#patterns">Design Patterns</a></li>
+        </ul>
+      </nav>
+
+      <section id="overview" class="docs-section">
+        <h2>🌐 System Overview</h2>
+        <p>AMCP implements a distributed, event-driven architecture that enables scalable multi-agent communication through an asynchronous publish-subscribe model.</p>
+        
+        <div class="architecture-diagram">
+          <div class="arch-layer">
+            <h3>Application Layer</h3>
+            <div class="arch-components">
+              <div class="arch-component">Agent A</div>
+              <div class="arch-component">Agent B</div>
+              <div class="arch-component">Agent C</div>
+            </div>
+          </div>
+          <div class="arch-layer">
+            <h3>AMCP Core Layer</h3>
+            <div class="arch-components">
+              <div class="arch-component">Agent Manager</div>
+              <div class="arch-component">Event Router</div>
+              <div class="arch-component">Mobility Engine</div>
+            </div>
+          </div>
+          <div class="arch-layer">
+            <h3>Event Mesh Layer</h3>
+            <div class="arch-components">
+              <div class="arch-component">Kafka</div>
+              <div class="arch-component">NATS</div>
+              <div class="arch-component">Solace</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="components" class="docs-section">
+        <h2>⚙️ Core Components</h2>
+        
+        <div class="component-grid">
+          <div class="component-card">
+            <h3>🤖 Agent Manager</h3>
+            <p>Handles agent lifecycle, registration, and discovery within the mesh.</p>
+            <ul>
+              <li>Agent activation and deactivation</li>
+              <li>Capability announcement</li>
+              <li>Health monitoring</li>
+            </ul>
+          </div>
+
+          <div class="component-card">
+            <h3>📡 Event Router</h3>
+            <p>Routes events between agents based on topic subscriptions and patterns.</p>
+            <ul>
+              <li>Topic-based routing</li>
+              <li>Wildcard subscriptions</li>
+              <li>Event transformation</li>
+            </ul>
+          </div>
+
+          <div class="component-card">
+            <h3>🚀 Mobility Engine</h3>
+            <p>Enables agent migration, cloning, and replication across contexts.</p>
+            <ul>
+              <li>Strong mobility with state</li>
+              <li>Cross-context migration</li>
+              <li>State serialization</li>
+            </ul>
+          </div>
+
+          <div class="component-card">
+            <h3>🔒 Security Manager</h3>
+            <p>Implements zero-trust security model with authentication and authorization.</p>
+            <ul>
+              <li>Agent authentication</li>
+              <li>Topic-level permissions</li>
+              <li>Encrypted communication</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section id="event-mesh" class="docs-section">
+        <h2>🕸️ Event Mesh Architecture</h2>
+        <p>The event mesh provides the communication backbone for all agent interactions.</p>
+        
+        <div class="mesh-features">
+          <div class="mesh-feature">
+            <h3>📢 Publish-Subscribe Model</h3>
+            <p>Agents publish events to topics and subscribe to topics of interest, enabling loose coupling and dynamic scalability.</p>
+            <pre><code>// Publishing an event
+Event event = Event.builder()
+    .topic("weather.update.london")
+    .payload(weatherData)
+    .build();
+eventMesh.publish(event);
+
+// Subscribing to events
+agent.subscribe("weather.update.*");</code></pre>
+          </div>
+
+          <div class="mesh-feature">
+            <h3>🔄 Asynchronous Processing</h3>
+            <p>All communication is non-blocking, allowing agents to process multiple events concurrently without waiting for responses.</p>
+          </div>
+
+          <div class="mesh-feature">
+            <h3>📈 Dynamic Scaling</h3>
+            <p>New agents can join the mesh at runtime, automatically discovering available topics and services without system reconfiguration.</p>
+          </div>
+        </div>
+      </section>
+
+      <section id="agent-lifecycle" class="docs-section">
+        <h2>🔄 Agent Lifecycle</h2>
+        
+        <div class="lifecycle-stages">
+          <div class="lifecycle-stage">
+            <h3>1. Creation</h3>
+            <p>Agent is instantiated with initial configuration and capabilities.</p>
+          </div>
+          <div class="lifecycle-stage">
+            <h3>2. Activation</h3>
+            <p>Agent registers with the mesh and announces its capabilities.</p>
+          </div>
+          <div class="lifecycle-stage">
+            <h3>3. Operation</h3>
+            <p>Agent processes events, publishes responses, and maintains state.</p>
+          </div>
+          <div class="lifecycle-stage">
+            <h3>4. Migration</h3>
+            <p>Agent can move to different contexts while preserving state.</p>
+          </div>
+          <div class="lifecycle-stage">
+            <h3>5. Deactivation</h3>
+            <p>Agent gracefully shuts down and cleans up resources.</p>
+          </div>
+        </div>
+      </section>
+
+      <section id="patterns" class="docs-section">
+        <h2>🎯 Design Patterns</h2>
+        
+        <div class="pattern-grid">
+          <div class="pattern-card">
+            <h3>Event Sourcing</h3>
+            <p>All state changes are captured as events, providing audit trails and replay capabilities.</p>
+          </div>
+
+          <div class="pattern-card">
+            <h3>CQRS</h3>
+            <p>Command and Query Responsibility Segregation for optimized read and write operations.</p>
+          </div>
+
+          <div class="pattern-card">
+            <h3>Saga Pattern</h3>
+            <p>Long-running transactions managed through event choreography.</p>
+          </div>
+
+          <div class="pattern-card">
+            <h3>Circuit Breaker</h3>
+            <p>Fault tolerance through automatic failure detection and recovery.</p>
+          </div>
+        </div>
+      </section>
+
+      <div class="docs-footer">
+        <div class="next-steps">
+          <h3>Next Steps</h3>
+          <div class="next-links">
+            <a href="/docs/installation/" class="btn btn-primary">Install AMCP</a>
+            <a href="/docs/tutorials/first-agent/" class="btn btn-outline">Build Your First Agent</a>
+            <a href="/docs/api-reference/" class="btn btn-outline">API Documentation</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+.docs-container {
+  font-family: var(--font-family-sans);
+  background: #f8f9fa;
+  min-height: 100vh;
+  padding: 40px 0;
+}
+
+.docs-header {
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+.docs-header h1 {
+  font-size: 2.5rem;
+  color: #333;
+  margin-bottom: 15px;
+}
+
+.docs-subtitle {
+  font-size: 1.2rem;
+  color: #666;
+}
+
+.docs-content {
+  max-width: 1000px;
+  margin: 0 auto;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+  padding: 40px;
+}
+
+.docs-nav {
+  background: #f8f9fa;
+  padding: 20px;
+  border-radius: 8px;
+  margin-bottom: 40px;
+}
+
+.docs-nav ul {
+  list-style: none;
+  padding: 0;
+  margin: 10px 0 0 0;
+}
+
+.docs-nav li {
+  margin-bottom: 8px;
+}
+
+.docs-nav a {
+  color: #1a73e8;
+  text-decoration: none;
+}
+
+.docs-section {
+  margin-bottom: 50px;
+}
+
+.docs-section h2 {
+  font-size: 1.8rem;
+  color: #333;
+  margin-bottom: 25px;
+  padding-bottom: 10px;
+  border-bottom: 2px solid #e9ecef;
+}
+
+.architecture-diagram {
+  background: #f8f9fa;
+  padding: 30px;
+  border-radius: 12px;
+  margin: 30px 0;
+}
+
+.arch-layer {
+  margin-bottom: 25px;
+  text-align: center;
+}
+
+.arch-layer h3 {
+  margin-bottom: 15px;
+  color: #333;
+}
+
+.arch-components {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.arch-component {
+  background: white;
+  padding: 15px 25px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  font-weight: 500;
+}
+
+.component-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 25px;
+  margin: 30px 0;
+}
+
+.component-card {
+  background: #f8f9fa;
+  padding: 25px;
+  border-radius: 12px;
+  border-left: 4px solid #1a73e8;
+}
+
+.component-card h3 {
+  margin-bottom: 15px;
+  color: #333;
+}
+
+.component-card ul {
+  margin-top: 15px;
+  padding-left: 20px;
+}
+
+.mesh-features {
+  margin: 30px 0;
+}
+
+.mesh-feature {
+  margin-bottom: 30px;
+  padding: 20px;
+  background: #f8f9fa;
+  border-radius: 8px;
+}
+
+.mesh-feature h3 {
+  margin-bottom: 15px;
+  color: #333;
+}
+
+pre {
+  background: #1e1e1e;
+  color: #e6e6e6;
+  padding: 15px;
+  border-radius: 6px;
+  overflow-x: auto;
+  font-family: var(--font-family-mono);
+  font-size: 0.9rem;
+  margin-top: 15px;
+}
+
+.lifecycle-stages {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+  margin: 30px 0;
+}
+
+.lifecycle-stage {
+  background: #f8f9fa;
+  padding: 20px;
+  border-radius: 8px;
+  text-align: center;
+  border-top: 4px solid #4CAF50;
+}
+
+.lifecycle-stage h3 {
+  margin-bottom: 10px;
+  color: #333;
+}
+
+.pattern-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+  margin: 30px 0;
+}
+
+.pattern-card {
+  background: #f8f9fa;
+  padding: 20px;
+  border-radius: 8px;
+  border-left: 4px solid #9C27B0;
+}
+
+.pattern-card h3 {
+  margin-bottom: 10px;
+  color: #333;
+}
+
+.docs-footer {
+  margin-top: 50px;
+  padding-top: 30px;
+  border-top: 2px solid #e9ecef;
+}
+
+.next-steps h3 {
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.next-links {
+  display: flex;
+  gap: 15px;
+  flex-wrap: wrap;
+}
+
+@media (max-width: 768px) {
+  .docs-content {
+    padding: 20px;
+  }
+  
+  .component-grid,
+  .pattern-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .arch-components {
+    flex-direction: column;
+    align-items: center;
+  }
+}
+</style>
