@@ -1,0 +1,652 @@
+---
+layout: default
+title: "Advanced Event Communication"
+description: "Master AMCP's event-driven communication patterns"
+permalink: /docs/tutorials/event-communication/
+---
+
+<div class="tutorial-container">
+  <div class="container">
+    <header class="tutorial-header">
+      <h1>📡 Advanced Event Communication</h1>
+      <p class="tutorial-subtitle">Master pub/sub patterns and event orchestration</p>
+      <div class="tutorial-meta">
+        <span class="difficulty">Advanced</span>
+        <span class="duration">30 minutes</span>
+        <span class="language">Java</span>
+      </div>
+    </header>
+
+    <div class="tutorial-content">
+      <nav class="tutorial-nav">
+        <h3>Tutorial Outline</h3>
+        <ol>
+          <li><a href="#patterns">Communication Patterns</a></li>
+          <li><a href="#routing">Event Routing</a></li>
+          <li><a href="#orchestration">Event Orchestration</a></li>
+          <li><a href="#error-handling">Error Handling</a></li>
+          <li><a href="#performance">Performance Optimization</a></li>
+        </ol>
+      </nav>
+
+      <section id="patterns" class="tutorial-step">
+        <h2>🎯 Communication Patterns</h2>
+        <p>Learn advanced event communication patterns for complex distributed systems.</p>
+        
+        <div class="pattern-example">
+          <h3>Request-Response Pattern</h3>
+          <pre><code>@EventHandler
+@Subscribe("order.process.request")
+public void handleOrderRequest(Event event) {
+    OrderRequest request = event.getPayload(OrderRequest.class);
+    
+    try {
+        OrderResult result = processOrder(request);
+        
+        // Send response with correlation ID
+        Event response = Event.builder()
+            .topic("order.process.response")
+            .payload(result)
+            .correlationId(event.getCorrelationId())
+            .build();
+            
+        publish(response);
+        
+    } catch (Exception e) {
+        // Send error response
+        Event errorResponse = Event.builder()
+            .topic("order.process.error")
+            .payload(ErrorDetails.from(e))
+            .correlationId(event.getCorrelationId())
+            .build();
+            
+        publish(errorResponse);
+    }
+}</code></pre>
+        </div>
+
+        <div class="pattern-example">
+          <h3>Saga Pattern Implementation</h3>
+          <pre><code>@Agent("order-saga")
+public class OrderSagaAgent extends Agent {
+    
+    private final Map&lt;String, SagaState&gt; sagaStates = new ConcurrentHashMap&lt;&gt;();
+    
+    @EventHandler
+    @Subscribe("order.created")
+    public void startOrderSaga(Event event) {
+        Order order = event.getPayload(Order.class);
+        String sagaId = UUID.randomUUID().toString();
+        
+        // Initialize saga state
+        SagaState state = new SagaState(sagaId, order);
+        sagaStates.put(sagaId, state);
+        
+        // Start first step: reserve inventory
+        publishSagaStep("inventory.reserve", order, sagaId, 1);
+    }
+    
+    @EventHandler
+    @Subscribe("inventory.reserved")
+    public void handleInventoryReserved(Event event) {
+        String sagaId = event.getCorrelationId();
+        SagaState state = sagaStates.get(sagaId);
+        
+        if (state != null) {
+            state.markStepCompleted(1);
+            // Next step: process payment
+            publishSagaStep("payment.process", state.getOrder(), sagaId, 2);
+        }
+    }
+    
+    @EventHandler
+    @Subscribe("payment.processed")
+    public void handlePaymentProcessed(Event event) {
+        String sagaId = event.getCorrelationId();
+        SagaState state = sagaStates.get(sagaId);
+        
+        if (state != null) {
+            state.markStepCompleted(2);
+            // Final step: confirm order
+            publishSagaStep("order.confirm", state.getOrder(), sagaId, 3);
+        }
+    }
+    
+    // Compensation handlers for rollback
+    @EventHandler
+    @Subscribe("inventory.reservation.failed")
+    public void handleInventoryFailed(Event event) {
+        String sagaId = event.getCorrelationId();
+        compensateSaga(sagaId, "inventory_failed");
+    }
+}</code></pre>
+        </div>
+      </section>
+
+      <section id="routing" class="tutorial-step">
+        <h2>🛤️ Advanced Event Routing</h2>
+        <p>Implement sophisticated routing logic for complex event flows.</p>
+        
+        <div class="routing-example">
+          <h3>Content-Based Routing</h3>
+          <pre><code>@Agent("smart-router")
+public class SmartRouterAgent extends Agent {
+    
+    @EventHandler
+    @Subscribe("data.incoming.*")
+    public void routeIncomingData(Event event) {
+        DataPayload data = event.getPayload(DataPayload.class);
+        String sourceType = extractSourceFromTopic(event.getTopic());
+        
+        // Route based on data characteristics
+        if (data.getPriority() == Priority.HIGH) {
+            routeToHighPriorityProcessors(data, sourceType);
+        } else if (data.getSize() > LARGE_DATA_THRESHOLD) {
+            routeToBatchProcessors(data, sourceType);
+        } else {
+            routeToStandardProcessors(data, sourceType);
+        }
+        
+        // Also route based on content type
+        switch (data.getContentType()) {
+            case "image":
+                routeToImageProcessors(data);
+                break;
+            case "text":
+                routeToTextProcessors(data);
+                break;
+            case "video":
+                routeToVideoProcessors(data);
+                break;
+        }
+    }
+    
+    private void routeToHighPriorityProcessors(DataPayload data, String source) {
+        Event priorityEvent = Event.builder()
+            .topic("processing.high_priority." + source)
+            .payload(data)
+            .priority(EventPriority.HIGH)
+            .build();
+            
+        publish(priorityEvent);
+    }
+}</code></pre>
+        </div>
+
+        <div class="routing-example">
+          <h3>Dynamic Topic Routing</h3>
+          <pre><code>@Agent("dynamic-router")
+public class DynamicRouterAgent extends Agent {
+    
+    private final RoutingRuleEngine ruleEngine;
+    
+    @EventHandler
+    @Subscribe("route.dynamic.*")
+    public void dynamicRoute(Event event) {
+        RoutingContext context = RoutingContext.builder()
+            .event(event)
+            .timestamp(Instant.now())
+            .sourceAgent(event.getSender())
+            .build();
+        
+        // Get routing decisions from rule engine
+        List&lt;RoutingDecision&gt; decisions = ruleEngine.evaluate(context);
+        
+        for (RoutingDecision decision : decisions) {
+            Event routedEvent = Event.builder()
+                .from(event)
+                .topic(decision.getTargetTopic())
+                .metadata("routing_rule", decision.getRuleName())
+                .metadata("routing_score", decision.getConfidence())
+                .build();
+                
+            if (decision.shouldTransform()) {
+                routedEvent = transformEvent(routedEvent, decision.getTransformation());
+            }
+            
+            publish(routedEvent);
+        }
+    }
+    
+    @EventHandler
+    @Subscribe("routing.rules.update")
+    public void updateRoutingRules(Event event) {
+        RoutingRules newRules = event.getPayload(RoutingRules.class);
+        ruleEngine.updateRules(newRules);
+        
+        log("Routing rules updated: " + newRules.size() + " rules loaded");
+    }
+}</code></pre>
+        </div>
+      </section>
+
+      <section id="orchestration" class="tutorial-step">
+        <h2>🎼 Event Orchestration</h2>
+        <p>Coordinate complex workflows using event orchestration patterns.</p>
+        
+        <div class="orchestration-example">
+          <h3>Workflow Orchestrator</h3>
+          <pre><code>@Agent("workflow-orchestrator")
+public class WorkflowOrchestratorAgent extends Agent {
+    
+    private final Map&lt;String, WorkflowInstance&gt; activeWorkflows = new ConcurrentHashMap&lt;&gt;();
+    
+    @EventHandler
+    @Subscribe("workflow.start.*")
+    public void startWorkflow(Event event) {
+        String workflowType = extractWorkflowType(event.getTopic());
+        WorkflowDefinition definition = getWorkflowDefinition(workflowType);
+        
+        String instanceId = UUID.randomUUID().toString();
+        WorkflowInstance instance = new WorkflowInstance(instanceId, definition);
+        instance.setInput(event.getPayload());
+        
+        activeWorkflows.put(instanceId, instance);
+        
+        // Start first step
+        executeNextStep(instance);
+    }
+    
+    @EventHandler
+    @Subscribe("workflow.step.completed")
+    public void handleStepCompleted(Event event) {
+        String instanceId = event.getCorrelationId();
+        WorkflowInstance instance = activeWorkflows.get(instanceId);
+        
+        if (instance != null) {
+            StepResult result = event.getPayload(StepResult.class);
+            instance.completeCurrentStep(result);
+            
+            if (instance.hasMoreSteps()) {
+                executeNextStep(instance);
+            } else {
+                completeWorkflow(instance);
+            }
+        }
+    }
+    
+    private void executeNextStep(WorkflowInstance instance) {
+        WorkflowStep nextStep = instance.getNextStep();
+        
+        Event stepEvent = Event.builder()
+            .topic("workflow.step.execute." + nextStep.getType())
+            .payload(nextStep.getInput())
+            .correlationId(instance.getId())
+            .metadata("step_name", nextStep.getName())
+            .metadata("step_index", String.valueOf(nextStep.getIndex()))
+            .build();
+            
+        publish(stepEvent);
+        
+        // Set timeout for step completion
+        scheduleTimeout(instance.getId(), nextStep.getTimeoutMs());
+    }
+    
+    @EventHandler
+    @Subscribe("workflow.step.timeout")
+    public void handleStepTimeout(Event event) {
+        String instanceId = event.getPayload(String.class);
+        WorkflowInstance instance = activeWorkflows.get(instanceId);
+        
+        if (instance != null && !instance.isCurrentStepCompleted()) {
+            // Handle timeout - retry or fail workflow
+            if (instance.getCurrentStep().canRetry()) {
+                retryCurrentStep(instance);
+            } else {
+                failWorkflow(instance, "Step timeout exceeded");
+            }
+        }
+    }
+}</code></pre>
+        </div>
+      </section>
+
+      <section id="error-handling" class="tutorial-step">
+        <h2>🛡️ Error Handling & Recovery</h2>
+        <p>Implement robust error handling and recovery mechanisms.</p>
+        
+        <div class="error-handling-example">
+          <h3>Circuit Breaker Pattern</h3>
+          <pre><code>@Agent("resilient-processor")
+public class ResilientProcessorAgent extends Agent {
+    
+    private final CircuitBreaker circuitBreaker;
+    private final RetryPolicy retryPolicy;
+    
+    public ResilientProcessorAgent() {
+        this.circuitBreaker = CircuitBreaker.builder()
+            .failureThreshold(5)
+            .recoveryTimeout(Duration.ofMinutes(1))
+            .build();
+            
+        this.retryPolicy = RetryPolicy.builder()
+            .maxRetries(3)
+            .backoff(Duration.ofSeconds(1), Duration.ofSeconds(10))
+            .build();
+    }
+    
+    @EventHandler
+    @Subscribe("data.process.request")
+    public void processData(Event event) {
+        String requestId = event.getCorrelationId();
+        
+        try {
+            // Execute with circuit breaker protection
+            ProcessingResult result = circuitBreaker.execute(() -> {
+                return retryPolicy.execute(() -> {
+                    return performDataProcessing(event.getPayload());
+                });
+            });
+            
+            // Publish success result
+            publishResult(requestId, result);
+            
+        } catch (CircuitBreakerOpenException e) {
+            // Circuit breaker is open - service unavailable
+            publishError(requestId, "Service temporarily unavailable", 503);
+            
+        } catch (RetryExhaustedException e) {
+            // All retries exhausted
+            publishError(requestId, "Processing failed after retries", 500);
+            
+        } catch (Exception e) {
+            // Unexpected error
+            publishError(requestId, "Unexpected processing error", 500);
+        }
+    }
+    
+    private void publishError(String requestId, String message, int errorCode) {
+        ErrorResponse error = ErrorResponse.builder()
+            .message(message)
+            .errorCode(errorCode)
+            .timestamp(Instant.now())
+            .build();
+            
+        Event errorEvent = Event.builder()
+            .topic("data.process.error")
+            .payload(error)
+            .correlationId(requestId)
+            .build();
+            
+        publish(errorEvent);
+    }
+}</code></pre>
+        </div>
+      </section>
+
+      <section id="performance" class="tutorial-step">
+        <h2>⚡ Performance Optimization</h2>
+        <p>Optimize event processing for high-throughput scenarios.</p>
+        
+        <div class="performance-example">
+          <h3>Batch Event Processing</h3>
+          <pre><code>@Agent("high-throughput-processor")
+public class HighThroughputProcessorAgent extends Agent {
+    
+    private final BlockingQueue&lt;Event&gt; eventQueue = new ArrayBlockingQueue&lt;&gt;(10000);
+    private final ScheduledExecutorService batchProcessor = Executors.newScheduledThreadPool(4);
+    
+    @Override
+    public void onActivation() {
+        subscribe("data.high_volume.*");
+        
+        // Start batch processing threads
+        for (int i = 0; i < 4; i++) {
+            batchProcessor.scheduleAtFixedRate(this::processBatch, 0, 100, TimeUnit.MILLISECONDS);
+        }
+    }
+    
+    @EventHandler
+    @Subscribe("data.high_volume.*")
+    public void queueEvent(Event event) {
+        if (!eventQueue.offer(event)) {
+            // Queue is full - apply backpressure
+            publishBackpressureSignal(event);
+        }
+    }
+    
+    private void processBatch() {
+        List&lt;Event&gt; batch = new ArrayList&lt;&gt;();
+        eventQueue.drainTo(batch, 100); // Process up to 100 events per batch
+        
+        if (!batch.isEmpty()) {
+            try {
+                // Process batch efficiently
+                List&lt;ProcessingResult&gt; results = processBatchEfficiently(batch);
+                
+                // Publish results in batch
+                publishBatchResults(results);
+                
+                // Update metrics
+                updateThroughputMetrics(batch.size());
+                
+            } catch (Exception e) {
+                // Handle batch processing error
+                handleBatchError(batch, e);
+            }
+        }
+    }
+    
+    private List&lt;ProcessingResult&gt; processBatchEfficiently(List&lt;Event&gt; events) {
+        // Use parallel processing for CPU-intensive operations
+        return events.parallelStream()
+            .map(this::processEvent)
+            .collect(Collectors.toList());
+    }
+}</code></pre>
+        </div>
+      </section>
+
+      <div class="tutorial-footer">
+        <div class="completion-badge">
+          <h3>🎉 Advanced Communication Mastery!</h3>
+          <p>You've mastered advanced AMCP event communication patterns including:</p>
+          <ul>
+            <li>Request-response and saga patterns</li>
+            <li>Content-based and dynamic routing</li>
+            <li>Workflow orchestration</li>
+            <li>Circuit breaker and retry mechanisms</li>
+            <li>High-throughput batch processing</li>
+          </ul>
+        </div>
+
+        <div class="next-steps">
+          <h3>🚀 Next Steps</h3>
+          <div class="next-links">
+            <a href="/docs/tutorials/llm-integration/" class="btn btn-primary">LLM Integration</a>
+            <a href="/docs/tutorials/production-deployment/" class="btn btn-outline">Production Deployment</a>
+            <a href="/docs/best-practices/" class="btn btn-outline">Best Practices</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+.tutorial-container {
+  font-family: var(--font-family-sans);
+  background: #f8f9fa;
+  min-height: 100vh;
+  padding: 40px 0;
+}
+
+.tutorial-header {
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+.tutorial-header h1 {
+  font-size: 2.5rem;
+  color: #333;
+  margin-bottom: 15px;
+}
+
+.tutorial-subtitle {
+  font-size: 1.2rem;
+  color: #666;
+  margin-bottom: 20px;
+}
+
+.tutorial-meta {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.tutorial-meta span {
+  padding: 6px 15px;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: white;
+}
+
+.difficulty {
+  background: #f44336;
+}
+
+.duration {
+  background: #FF9800;
+}
+
+.language {
+  background: #9C27B0;
+}
+
+.tutorial-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+  padding: 40px;
+}
+
+.tutorial-nav {
+  background: #f8f9fa;
+  padding: 25px;
+  border-radius: 8px;
+  margin-bottom: 40px;
+}
+
+.tutorial-nav h3 {
+  margin-bottom: 15px;
+  color: #333;
+}
+
+.tutorial-nav ol {
+  margin: 0;
+  padding-left: 20px;
+}
+
+.tutorial-nav li {
+  margin-bottom: 8px;
+}
+
+.tutorial-nav a {
+  color: #1a73e8;
+  text-decoration: none;
+}
+
+.tutorial-step {
+  margin-bottom: 50px;
+  padding-bottom: 30px;
+  border-bottom: 2px solid #e9ecef;
+}
+
+.tutorial-step h2 {
+  font-size: 1.8rem;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.pattern-example,
+.routing-example,
+.orchestration-example,
+.error-handling-example,
+.performance-example {
+  margin: 30px 0;
+  padding: 25px;
+  background: #f8f9fa;
+  border-radius: 8px;
+  border-left: 4px solid #1a73e8;
+}
+
+.pattern-example h3,
+.routing-example h3,
+.orchestration-example h3,
+.error-handling-example h3,
+.performance-example h3 {
+  margin-bottom: 15px;
+  color: #333;
+}
+
+pre {
+  background: #1e1e1e;
+  color: #e6e6e6;
+  padding: 20px;
+  border-radius: 8px;
+  overflow-x: auto;
+  font-family: var(--font-family-mono);
+  font-size: 0.9rem;
+  line-height: 1.4;
+  margin-top: 15px;
+}
+
+.tutorial-footer {
+  margin-top: 50px;
+  padding-top: 30px;
+  border-top: 2px solid #e9ecef;
+}
+
+.completion-badge {
+  background: linear-gradient(135deg, #1a73e8 0%, #4285f4 100%);
+  color: white;
+  padding: 30px;
+  border-radius: 12px;
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.completion-badge h3 {
+  margin-bottom: 15px;
+  font-size: 1.5rem;
+}
+
+.completion-badge ul {
+  text-align: left;
+  max-width: 600px;
+  margin: 20px auto 0;
+}
+
+.next-steps h3 {
+  margin-bottom: 20px;
+  color: #333;
+  text-align: center;
+}
+
+.next-links {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  flex-wrap: wrap;
+}
+
+@media (max-width: 768px) {
+  .tutorial-content {
+    padding: 20px;
+  }
+  
+  .tutorial-meta {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .next-links {
+    flex-direction: column;
+    align-items: center;
+  }
+}
+</style>
