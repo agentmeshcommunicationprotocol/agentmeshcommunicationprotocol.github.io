@@ -1,0 +1,810 @@
+---
+layout: default
+title: "LLM Integration with AMCP"
+description: "Integrate Large Language Models with AMCP agents for intelligent automation"
+permalink: /docs/tutorials/llm-integration/
+---
+
+<div class="tutorial-container">
+  <div class="container">
+    <header class="tutorial-header">
+      <h1>🧠 LLM Integration with AMCP</h1>
+      <p class="tutorial-subtitle">Build intelligent agents powered by Large Language Models</p>
+      <div class="tutorial-meta">
+        <span class="difficulty">Advanced</span>
+        <span class="duration">45 minutes</span>
+        <span class="language">Java + Python</span>
+      </div>
+    </header>
+
+    <div class="tutorial-content">
+      <nav class="tutorial-nav">
+        <h3>Integration Guide</h3>
+        <ol>
+          <li><a href="#setup">LLM Setup</a></li>
+          <li><a href="#agent-design">Intelligent Agent Design</a></li>
+          <li><a href="#prompt-engineering">Prompt Engineering</a></li>
+          <li><a href="#context-management">Context Management</a></li>
+          <li><a href="#examples">Real-world Examples</a></li>
+        </ol>
+      </nav>
+
+      <section id="setup" class="tutorial-step">
+        <h2>🔧 LLM Setup & Configuration</h2>
+        <p>Configure AMCP to work with various LLM providers and local models.</p>
+        
+        <div class="setup-example">
+          <h3>OpenAI Integration</h3>
+          <pre><code>// Add OpenAI dependency
+&lt;dependency&gt;
+    &lt;groupId&gt;com.theokanning.openai-gpt3-java&lt;/groupId&gt;
+    &lt;artifactId&gt;service&lt;/artifactId&gt;
+    &lt;version&gt;0.18.2&lt;/version&gt;
+&lt;/dependency&gt;
+
+// Configuration
+@Configuration
+public class LLMConfig {
+    
+    @Value("${openai.api.key}")
+    private String openaiApiKey;
+    
+    @Bean
+    public OpenAiService openAiService() {
+        return new OpenAiService(openaiApiKey, Duration.ofSeconds(30));
+    }
+    
+    @Bean
+    public LLMProvider llmProvider(OpenAiService openAiService) {
+        return new OpenAIProvider(openAiService);
+    }
+}</code></pre>
+        </div>
+
+        <div class="setup-example">
+          <h3>Local LLM with Ollama</h3>
+          <pre><code>// Ollama configuration for local LLMs
+@Configuration
+public class OllamaConfig {
+    
+    @Value("${ollama.base.url:http://localhost:11434}")
+    private String ollamaBaseUrl;
+    
+    @Bean
+    public OllamaClient ollamaClient() {
+        return OllamaClient.builder()
+            .baseUrl(ollamaBaseUrl)
+            .timeout(Duration.ofMinutes(2))
+            .build();
+    }
+    
+    @Bean
+    public LLMProvider localLLMProvider(OllamaClient client) {
+        return new OllamaProvider(client, "llama2"); // Use Llama 2 model
+    }
+}</code></pre>
+        </div>
+      </section>
+
+      <section id="agent-design" class="tutorial-step">
+        <h2>🤖 Intelligent Agent Design</h2>
+        <p>Design agents that leverage LLM capabilities for decision making and content generation.</p>
+        
+        <div class="agent-example">
+          <h3>Customer Service Agent</h3>
+          <pre><code>@Agent("intelligent-customer-service")
+public class IntelligentCustomerServiceAgent extends Agent {
+    
+    private final LLMProvider llmProvider;
+    private final CustomerDataService customerService;
+    private final OrderService orderService;
+    
+    @Override
+    public void onActivation() {
+        subscribe("customer.inquiry.*");
+        subscribe("customer.complaint.*");
+        subscribe("customer.feedback.*");
+    }
+    
+    @EventHandler
+    @Subscribe("customer.inquiry.*")
+    public void handleCustomerInquiry(Event event) {
+        CustomerInquiry inquiry = event.getPayload(CustomerInquiry.class);
+        
+        // Gather context
+        CustomerContext context = buildCustomerContext(inquiry.getCustomerId());
+        
+        // Generate intelligent response
+        LLMRequest request = LLMRequest.builder()
+            .systemPrompt(buildSystemPrompt())
+            .userMessage(inquiry.getMessage())
+            .context(context)
+            .temperature(0.7)
+            .maxTokens(500)
+            .build();
+            
+        LLMResponse response = llmProvider.generate(request);
+        
+        // Determine if human escalation is needed
+        if (response.getConfidence() < 0.8 || containsEscalationKeywords(inquiry.getMessage())) {
+            escalateToHuman(inquiry, response);
+        } else {
+            sendAutomatedResponse(inquiry, response);
+        }
+    }
+    
+    private CustomerContext buildCustomerContext(String customerId) {
+        Customer customer = customerService.getCustomer(customerId);
+        List&lt;Order&gt; recentOrders = orderService.getRecentOrders(customerId, 5);
+        List&lt;Interaction&gt; history = customerService.getInteractionHistory(customerId, 10);
+        
+        return CustomerContext.builder()
+            .customer(customer)
+            .recentOrders(recentOrders)
+            .interactionHistory(history)
+            .build();
+    }
+    
+    private String buildSystemPrompt() {
+        return """
+            You are a helpful customer service representative for an e-commerce company.
+            
+            Guidelines:
+            - Be polite, professional, and empathetic
+            - Provide accurate information based on the customer context
+            - If you're unsure about something, say so rather than guessing
+            - Offer specific solutions when possible
+            - Keep responses concise but complete
+            
+            Available actions:
+            - Check order status
+            - Process returns/refunds
+            - Update customer information
+            - Escalate to human agent if needed
+            """;
+    }
+}</code></pre>
+        </div>
+
+        <div class="agent-example">
+          <h3>Content Generation Agent</h3>
+          <pre><code>@Agent("content-generator")
+public class ContentGeneratorAgent extends Agent {
+    
+    private final LLMProvider llmProvider;
+    private final ContentRepository contentRepo;
+    
+    @EventHandler
+    @Subscribe("content.generate.request")
+    public void generateContent(Event event) {
+        ContentRequest request = event.getPayload(ContentRequest.class);
+        
+        try {
+            GeneratedContent content = switch (request.getType()) {
+                case BLOG_POST -> generateBlogPost(request);
+                case PRODUCT_DESCRIPTION -> generateProductDescription(request);
+                case EMAIL_TEMPLATE -> generateEmailTemplate(request);
+                case SOCIAL_MEDIA -> generateSocialMediaPost(request);
+                default -> throw new UnsupportedOperationException("Content type not supported");
+            };
+            
+            // Store generated content
+            contentRepo.save(content);
+            
+            // Publish result
+            publish(Event.builder()
+                .topic("content.generated")
+                .payload(content)
+                .correlationId(event.getCorrelationId())
+                .build());
+                
+        } catch (Exception e) {
+            publishError("content.generation.failed", e, event.getCorrelationId());
+        }
+    }
+    
+    private GeneratedContent generateBlogPost(ContentRequest request) {
+        String prompt = String.format("""
+            Write a professional blog post about: %s
+            
+            Requirements:
+            - Target audience: %s
+            - Tone: %s
+            - Length: %d words
+            - Include SEO keywords: %s
+            
+            Structure:
+            1. Engaging introduction
+            2. Main content with subheadings
+            3. Conclusion with call-to-action
+            """, 
+            request.getTopic(),
+            request.getTargetAudience(),
+            request.getTone(),
+            request.getWordCount(),
+            String.join(", ", request.getKeywords())
+        );
+        
+        LLMResponse response = llmProvider.generate(
+            LLMRequest.builder()
+                .systemPrompt("You are a professional content writer.")
+                .userMessage(prompt)
+                .temperature(0.8)
+                .maxTokens(2000)
+                .build()
+        );
+        
+        return GeneratedContent.builder()
+            .type(ContentType.BLOG_POST)
+            .title(extractTitle(response.getText()))
+            .content(response.getText())
+            .metadata(request.getMetadata())
+            .build();
+    }
+}</code></pre>
+        </div>
+      </section>
+
+      <section id="prompt-engineering" class="tutorial-step">
+        <h2>✍️ Advanced Prompt Engineering</h2>
+        <p>Master prompt engineering techniques for reliable and consistent LLM responses.</p>
+        
+        <div class="prompt-example">
+          <h3>Few-Shot Learning</h3>
+          <pre><code>@Component
+public class PromptTemplateService {
+    
+    public String buildClassificationPrompt(String text, List&lt;String&gt; categories) {
+        return String.format("""
+            Classify the following text into one of these categories: %s
+            
+            Examples:
+            Text: "I love this product! It works perfectly."
+            Category: positive
+            
+            Text: "The delivery was delayed and the package was damaged."
+            Category: negative
+            
+            Text: "The product is okay, nothing special."
+            Category: neutral
+            
+            Text: "How do I return this item?"
+            Category: inquiry
+            
+            Now classify this text:
+            Text: "%s"
+            Category:
+            """, 
+            String.join(", ", categories),
+            text
+        );
+    }
+    
+    public String buildExtractionPrompt(String text, List&lt;String&gt; fields) {
+        return String.format("""
+            Extract the following information from the text and return as JSON:
+            Fields to extract: %s
+            
+            Example:
+            Text: "John Smith ordered 2 laptops for $2000, delivery to 123 Main St"
+            JSON: {
+                "customer_name": "John Smith",
+                "quantity": 2,
+                "product": "laptops",
+                "total_amount": 2000,
+                "delivery_address": "123 Main St"
+            }
+            
+            Text: "%s"
+            JSON:
+            """,
+            String.join(", ", fields),
+            text
+        );
+    }
+}</code></pre>
+        </div>
+
+        <div class="prompt-example">
+          <h3>Chain of Thought Reasoning</h3>
+          <pre><code>@Service
+public class ReasoningService {
+    
+    public String buildReasoningPrompt(String problem) {
+        return String.format("""
+            Solve this problem step by step, showing your reasoning:
+            
+            Problem: %s
+            
+            Please follow this format:
+            1. Understanding: [Restate the problem in your own words]
+            2. Analysis: [Break down the problem into components]
+            3. Solution Steps: [List the steps to solve it]
+            4. Final Answer: [Provide the final answer]
+            5. Confidence: [Rate your confidence 1-10 and explain why]
+            
+            Let's work through this systematically:
+            """, problem);
+    }
+    
+    public String buildDecisionPrompt(String scenario, List&lt;String&gt; options) {
+        return String.format("""
+            Make a decision for the following scenario by evaluating each option:
+            
+            Scenario: %s
+            
+            Options: %s
+            
+            Please analyze each option considering:
+            1. Pros and cons
+            2. Risk assessment
+            3. Expected outcomes
+            4. Resource requirements
+            
+            Then provide:
+            - Recommended option with justification
+            - Alternative approaches if the primary fails
+            - Key success metrics to monitor
+            """,
+            scenario,
+            String.join(", ", options)
+        );
+    }
+}</code></pre>
+        </div>
+      </section>
+
+      <section id="context-management" class="tutorial-step">
+        <h2>🧠 Context Management & Memory</h2>
+        <p>Implement sophisticated context management for conversational agents.</p>
+        
+        <div class="context-example">
+          <h3>Conversation Context Manager</h3>
+          <pre><code>@Component
+public class ConversationContextManager {
+    
+    private final RedisTemplate&lt;String, ConversationContext&gt; redisTemplate;
+    private final VectorDatabase vectorDB;
+    
+    public ConversationContext getContext(String conversationId) {
+        ConversationContext context = redisTemplate.opsForValue()
+            .get("conversation:" + conversationId);
+            
+        if (context == null) {
+            context = new ConversationContext(conversationId);
+        }
+        
+        return context;
+    }
+    
+    public void updateContext(String conversationId, String userMessage, String assistantResponse) {
+        ConversationContext context = getContext(conversationId);
+        
+        // Add to conversation history
+        context.addExchange(userMessage, assistantResponse);
+        
+        // Extract and store key information
+        KeyInformation keyInfo = extractKeyInformation(userMessage, assistantResponse);
+        context.addKeyInformation(keyInfo);
+        
+        // Store in vector database for semantic search
+        storeInVectorDB(conversationId, userMessage, assistantResponse);
+        
+        // Update Redis cache
+        redisTemplate.opsForValue().set(
+            "conversation:" + conversationId, 
+            context, 
+            Duration.ofHours(24)
+        );
+    }
+    
+    public String buildContextualPrompt(String conversationId, String newMessage) {
+        ConversationContext context = getContext(conversationId);
+        
+        // Get relevant past conversations
+        List&lt;String&gt; relevantHistory = vectorDB.semanticSearch(
+            newMessage, 
+            "conversation:" + conversationId, 
+            5
+        );
+        
+        StringBuilder prompt = new StringBuilder();
+        prompt.append("Previous conversation context:\n");
+        
+        // Add key information
+        context.getKeyInformation().forEach(info -> 
+            prompt.append("- ").append(info.getSummary()).append("\n")
+        );
+        
+        // Add relevant history
+        prompt.append("\nRelevant past exchanges:\n");
+        relevantHistory.forEach(exchange -> 
+            prompt.append(exchange).append("\n")
+        );
+        
+        // Add recent conversation
+        prompt.append("\nRecent conversation:\n");
+        context.getRecentExchanges(3).forEach(exchange ->
+            prompt.append("User: ").append(exchange.getUserMessage()).append("\n")
+                  .append("Assistant: ").append(exchange.getAssistantResponse()).append("\n")
+        );
+        
+        prompt.append("\nNew message: ").append(newMessage);
+        
+        return prompt.toString();
+    }
+}</code></pre>
+        </div>
+      </section>
+
+      <section id="examples" class="tutorial-step">
+        <h2>🌟 Real-world Examples</h2>
+        <p>Complete examples of LLM-powered AMCP agents in production scenarios.</p>
+        
+        <div class="example-showcase">
+          <h3>Intelligent Document Processor</h3>
+          <pre><code>@Agent("document-processor")
+public class IntelligentDocumentProcessor extends Agent {
+    
+    private final LLMProvider llmProvider;
+    private final DocumentStorage documentStorage;
+    private final WorkflowOrchestrator orchestrator;
+    
+    @EventHandler
+    @Subscribe("document.uploaded")
+    public void processDocument(Event event) {
+        DocumentUpload upload = event.getPayload(DocumentUpload.class);
+        
+        // Extract text from document
+        String documentText = extractText(upload.getDocumentPath());
+        
+        // Classify document type
+        DocumentType type = classifyDocument(documentText);
+        
+        // Extract structured data based on type
+        StructuredData data = extractStructuredData(documentText, type);
+        
+        // Validate extracted data
+        ValidationResult validation = validateData(data, type);
+        
+        if (validation.isValid()) {
+            // Process document based on type
+            processDocumentByType(upload, type, data);
+        } else {
+            // Send for human review
+            sendForHumanReview(upload, validation.getIssues());
+        }
+    }
+    
+    private DocumentType classifyDocument(String text) {
+        String prompt = """
+            Classify this document into one of these types:
+            - invoice
+            - contract
+            - receipt
+            - legal_document
+            - technical_specification
+            - other
+            
+            Document text: %s
+            
+            Classification:
+            """.formatted(text.substring(0, Math.min(text.length(), 2000)));
+            
+        LLMResponse response = llmProvider.generate(
+            LLMRequest.builder()
+                .systemPrompt("You are a document classification expert.")
+                .userMessage(prompt)
+                .temperature(0.1)
+                .build()
+        );
+        
+        return DocumentType.fromString(response.getText().trim());
+    }
+    
+    private StructuredData extractStructuredData(String text, DocumentType type) {
+        String extractionPrompt = buildExtractionPrompt(type);
+        
+        LLMResponse response = llmProvider.generate(
+            LLMRequest.builder()
+                .systemPrompt("Extract structured data from documents accurately.")
+                .userMessage(extractionPrompt + "\n\nDocument:\n" + text)
+                .temperature(0.0)
+                .build()
+        );
+        
+        return parseStructuredData(response.getText(), type);
+    }
+}</code></pre>
+        </div>
+
+        <div class="example-showcase">
+          <h3>Code Review Assistant</h3>
+          <pre><code>@Agent("code-review-assistant")
+public class CodeReviewAssistant extends Agent {
+    
+    @EventHandler
+    @Subscribe("code.review.request")
+    public void reviewCode(Event event) {
+        CodeReviewRequest request = event.getPayload(CodeReviewRequest.class);
+        
+        // Analyze code for different aspects
+        List&lt;ReviewComment&gt; comments = new ArrayList&lt;&gt;();
+        
+        // Security analysis
+        comments.addAll(analyzeSecurityIssues(request.getCode()));
+        
+        // Performance analysis
+        comments.addAll(analyzePerformance(request.getCode()));
+        
+        // Code quality analysis
+        comments.addAll(analyzeCodeQuality(request.getCode()));
+        
+        // Best practices check
+        comments.addAll(checkBestPractices(request.getCode(), request.getLanguage()));
+        
+        // Generate summary
+        String summary = generateReviewSummary(comments, request.getCode());
+        
+        CodeReviewResult result = CodeReviewResult.builder()
+            .comments(comments)
+            .summary(summary)
+            .overallScore(calculateOverallScore(comments))
+            .recommendations(generateRecommendations(comments))
+            .build();
+            
+        publish(Event.builder()
+            .topic("code.review.completed")
+            .payload(result)
+            .correlationId(event.getCorrelationId())
+            .build());
+    }
+    
+    private List&lt;ReviewComment&gt; analyzeSecurityIssues(String code) {
+        String prompt = """
+            Analyze this code for security vulnerabilities:
+            
+            Look for:
+            - SQL injection vulnerabilities
+            - XSS vulnerabilities
+            - Authentication/authorization issues
+            - Input validation problems
+            - Sensitive data exposure
+            
+            For each issue found, provide:
+            - Line number (if applicable)
+            - Severity (high/medium/low)
+            - Description of the issue
+            - Suggested fix
+            
+            Code:
+            %s
+            """.formatted(code);
+            
+        LLMResponse response = llmProvider.generate(
+            LLMRequest.builder()
+                .systemPrompt("You are a security expert reviewing code for vulnerabilities.")
+                .userMessage(prompt)
+                .temperature(0.2)
+                .build()
+        );
+        
+        return parseSecurityComments(response.getText());
+    }
+}</code></pre>
+        </div>
+      </section>
+
+      <div class="tutorial-footer">
+        <div class="completion-badge">
+          <h3>🎉 LLM Integration Mastery!</h3>
+          <p>You've successfully learned to integrate LLMs with AMCP agents:</p>
+          <ul>
+            <li>Multiple LLM provider integration (OpenAI, local models)</li>
+            <li>Intelligent agent design patterns</li>
+            <li>Advanced prompt engineering techniques</li>
+            <li>Context management and conversation memory</li>
+            <li>Production-ready examples and best practices</li>
+          </ul>
+        </div>
+
+        <div class="next-steps">
+          <h3>🚀 Next Steps</h3>
+          <div class="next-links">
+            <a href="/docs/tutorials/production-deployment/" class="btn btn-primary">Production Deployment</a>
+            <a href="/docs/best-practices/" class="btn btn-outline">Best Practices</a>
+            <a href="/examples/orchestration/" class="btn btn-outline">Orchestration Examples</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+.tutorial-container {
+  font-family: var(--font-family-sans);
+  background: #f8f9fa;
+  min-height: 100vh;
+  padding: 40px 0;
+}
+
+.tutorial-header {
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+.tutorial-header h1 {
+  font-size: 2.5rem;
+  color: #333;
+  margin-bottom: 15px;
+}
+
+.tutorial-subtitle {
+  font-size: 1.2rem;
+  color: #666;
+  margin-bottom: 20px;
+}
+
+.tutorial-meta {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.tutorial-meta span {
+  padding: 6px 15px;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: white;
+}
+
+.difficulty {
+  background: #f44336;
+}
+
+.duration {
+  background: #FF9800;
+}
+
+.language {
+  background: #9C27B0;
+}
+
+.tutorial-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+  padding: 40px;
+}
+
+.tutorial-nav {
+  background: #f8f9fa;
+  padding: 25px;
+  border-radius: 8px;
+  margin-bottom: 40px;
+}
+
+.tutorial-nav h3 {
+  margin-bottom: 15px;
+  color: #333;
+}
+
+.tutorial-nav ol {
+  margin: 0;
+  padding-left: 20px;
+}
+
+.tutorial-nav li {
+  margin-bottom: 8px;
+}
+
+.tutorial-nav a {
+  color: #1a73e8;
+  text-decoration: none;
+}
+
+.tutorial-step {
+  margin-bottom: 50px;
+  padding-bottom: 30px;
+  border-bottom: 2px solid #e9ecef;
+}
+
+.tutorial-step h2 {
+  font-size: 1.8rem;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.setup-example,
+.agent-example,
+.prompt-example,
+.context-example,
+.example-showcase {
+  margin: 30px 0;
+  padding: 25px;
+  background: #f8f9fa;
+  border-radius: 8px;
+  border-left: 4px solid #4CAF50;
+}
+
+.setup-example h3,
+.agent-example h3,
+.prompt-example h3,
+.context-example h3,
+.example-showcase h3 {
+  margin-bottom: 15px;
+  color: #333;
+}
+
+pre {
+  background: #1e1e1e;
+  color: #e6e6e6;
+  padding: 20px;
+  border-radius: 8px;
+  overflow-x: auto;
+  font-family: var(--font-family-mono);
+  font-size: 0.9rem;
+  line-height: 1.4;
+  margin-top: 15px;
+}
+
+.tutorial-footer {
+  margin-top: 50px;
+  padding-top: 30px;
+  border-top: 2px solid #e9ecef;
+}
+
+.completion-badge {
+  background: linear-gradient(135deg, #4CAF50 0%, #66BB6A 100%);
+  color: white;
+  padding: 30px;
+  border-radius: 12px;
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.completion-badge h3 {
+  margin-bottom: 15px;
+  font-size: 1.5rem;
+}
+
+.completion-badge ul {
+  text-align: left;
+  max-width: 600px;
+  margin: 20px auto 0;
+}
+
+.next-steps h3 {
+  margin-bottom: 20px;
+  color: #333;
+  text-align: center;
+}
+
+.next-links {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  flex-wrap: wrap;
+}
+
+@media (max-width: 768px) {
+  .tutorial-content {
+    padding: 20px;
+  }
+  
+  .tutorial-meta {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .next-links {
+    flex-direction: column;
+    align-items: center;
+  }
+}
+</style>

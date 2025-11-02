@@ -1,0 +1,543 @@
+---
+layout: default
+title: "Create Your First AMCP Agent"
+description: "Step-by-step tutorial to build your first agent using AMCP"
+permalink: /docs/tutorials/first-agent/
+---
+
+<div class="tutorial-container">
+  <div class="container">
+    <header class="tutorial-header">
+      <h1>🤖 Create Your First AMCP Agent</h1>
+      <p class="tutorial-subtitle">Build a weather monitoring agent in 15 minutes</p>
+      <div class="tutorial-meta">
+        <span class="difficulty">Beginner</span>
+        <span class="duration">15 minutes</span>
+        <span class="language">Java</span>
+      </div>
+    </header>
+
+    <div class="tutorial-content">
+      <nav class="tutorial-nav">
+        <h3>Tutorial Steps</h3>
+        <ol>
+          <li><a href="#setup">Project Setup</a></li>
+          <li><a href="#agent-class">Create Agent Class</a></li>
+          <li><a href="#event-handling">Handle Events</a></li>
+          <li><a href="#activation">Activate Agent</a></li>
+          <li><a href="#testing">Test & Verify</a></li>
+        </ol>
+      </nav>
+
+      <section id="setup" class="tutorial-step">
+        <h2>📋 Step 1: Project Setup</h2>
+        <p>First, let's create a new Maven project and add the AMCP dependency.</p>
+        
+        <div class="code-section">
+          <h3>Create Maven Project</h3>
+          <pre><code>mvn archetype:generate \
+  -DgroupId=com.example.amcp \
+  -DartifactId=weather-agent \
+  -DarchetypeArtifactId=maven-archetype-quickstart \
+  -DinteractiveMode=false</code></pre>
+        </div>
+
+        <div class="code-section">
+          <h3>Add AMCP Dependency</h3>
+          <p>Update your <code>pom.xml</code> to include AMCP:</p>
+          <pre><code>&lt;dependencies&gt;
+    &lt;dependency&gt;
+        &lt;groupId&gt;org.amcp&lt;/groupId&gt;
+        &lt;artifactId&gt;amcp-core&lt;/artifactId&gt;
+        &lt;version&gt;1.5.0&lt;/version&gt;
+    &lt;/dependency&gt;
+    &lt;dependency&gt;
+        &lt;groupId&gt;com.fasterxml.jackson.core&lt;/groupId&gt;
+        &lt;artifactId&gt;jackson-databind&lt;/artifactId&gt;
+        &lt;version&gt;2.15.2&lt;/version&gt;
+    &lt;/dependency&gt;
+&lt;/dependencies&gt;</code></pre>
+        </div>
+      </section>
+
+      <section id="agent-class" class="tutorial-step">
+        <h2>🏗️ Step 2: Create Agent Class</h2>
+        <p>Create a WeatherAgent class that extends the AMCP Agent base class.</p>
+        
+        <div class="code-section">
+          <h3>WeatherAgent.java</h3>
+          <pre><code>package com.example.amcp;
+
+import org.amcp.core.Agent;
+import org.amcp.core.Event;
+import org.amcp.core.annotation.EventHandler;
+import org.amcp.core.annotation.Subscribe;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import java.util.HashMap;
+import java.util.Map;
+
+public class WeatherAgent extends Agent {
+    
+    private final ObjectMapper objectMapper = new ObjectMapper();
+    private Map&lt;String, WeatherData&gt; weatherCache = new HashMap&lt;&gt;();
+    
+    public WeatherAgent(String agentId) {
+        super(agentId, "WeatherAgent");
+    }
+    
+    @Override
+    public void onActivation() {
+        // Subscribe to weather request topics
+        subscribe("weather.request.*");
+        subscribe("weather.update.*");
+        
+        // Announce capabilities
+        announceCapability("weather-monitoring", "1.0");
+        
+        log("Weather Agent activated and ready!");
+    }
+    
+    // Weather data model
+    public static class WeatherData {
+        public String city;
+        public double temperature;
+        public String condition;
+        public long timestamp;
+        
+        public WeatherData() {}
+        
+        public WeatherData(String city, double temperature, String condition) {
+            this.city = city;
+            this.temperature = temperature;
+            this.condition = condition;
+            this.timestamp = System.currentTimeMillis();
+        }
+    }
+}</code></pre>
+        </div>
+      </section>
+
+      <section id="event-handling" class="tutorial-step">
+        <h2>📡 Step 3: Handle Events</h2>
+        <p>Add event handlers to process weather requests and updates.</p>
+        
+        <div class="code-section">
+          <h3>Add Event Handlers</h3>
+          <pre><code>@EventHandler
+@Subscribe("weather.request.*")
+public void handleWeatherRequest(Event event) {
+    try {
+        String city = extractCityFromTopic(event.getTopic());
+        WeatherData weather = weatherCache.get(city);
+        
+        if (weather != null) {
+            // Send cached weather data
+            Event response = Event.builder()
+                .topic("weather.response." + city)
+                .payload(objectMapper.writeValueAsString(weather))
+                .correlationId(event.getCorrelationId())
+                .sender(getAgentId())
+                .build();
+                
+            publish(response);
+            log("Sent weather data for " + city);
+        } else {
+            // Request fresh data
+            requestWeatherUpdate(city);
+        }
+    } catch (Exception e) {
+        log("Error handling weather request: " + e.getMessage());
+    }
+}
+
+@EventHandler
+@Subscribe("weather.update.*")
+public void handleWeatherUpdate(Event event) {
+    try {
+        String city = extractCityFromTopic(event.getTopic());
+        WeatherData weather = objectMapper.readValue(
+            event.getPayload(), WeatherData.class);
+        
+        // Cache the weather data
+        weatherCache.put(city, weather);
+        
+        // Broadcast update to interested parties
+        Event broadcast = Event.builder()
+            .topic("weather.broadcast." + city)
+            .payload(event.getPayload())
+            .sender(getAgentId())
+            .build();
+            
+        publish(broadcast);
+        log("Updated weather data for " + city);
+    } catch (Exception e) {
+        log("Error handling weather update: " + e.getMessage());
+    }
+}
+
+private String extractCityFromTopic(String topic) {
+    String[] parts = topic.split("\\.");
+    return parts.length > 2 ? parts[2] : "unknown";
+}
+
+private void requestWeatherUpdate(String city) {
+    Event request = Event.builder()
+        .topic("external.weather.fetch." + city)
+        .payload("{\"city\":\"" + city + "\"}")
+        .sender(getAgentId())
+        .build();
+        
+    publish(request);
+    log("Requested weather update for " + city);
+}</code></pre>
+        </div>
+      </section>
+
+      <section id="activation" class="tutorial-step">
+        <h2>🚀 Step 4: Activate Agent</h2>
+        <p>Create a main class to activate your weather agent.</p>
+        
+        <div class="code-section">
+          <h3>WeatherAgentApp.java</h3>
+          <pre><code>package com.example.amcp;
+
+import org.amcp.core.AgentContext;
+import org.amcp.core.config.AMCPConfig;
+
+public class WeatherAgentApp {
+    
+    public static void main(String[] args) {
+        try {
+            // Configure AMCP
+            AMCPConfig config = AMCPConfig.builder()
+                .brokerUrl("kafka://localhost:9092")
+                .agentId("weather-agent-001")
+                .build();
+            
+            // Create agent context
+            AgentContext context = new AgentContext(config);
+            
+            // Create and activate weather agent
+            WeatherAgent weatherAgent = new WeatherAgent("weather-001");
+            context.activateAgent(weatherAgent);
+            
+            System.out.println("Weather Agent started successfully!");
+            System.out.println("Press Ctrl+C to stop...");
+            
+            // Keep the application running
+            Runtime.getRuntime().addShutdownHook(new Thread(() -> {
+                System.out.println("Shutting down Weather Agent...");
+                context.shutdown();
+            }));
+            
+            // Wait indefinitely
+            Thread.currentThread().join();
+            
+        } catch (Exception e) {
+            System.err.println("Failed to start Weather Agent: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
+}</code></pre>
+        </div>
+      </section>
+
+      <section id="testing" class="tutorial-step">
+        <h2>✅ Step 5: Test & Verify</h2>
+        <p>Let's test our weather agent by sending some events.</p>
+        
+        <div class="code-section">
+          <h3>Start Kafka (if using Docker)</h3>
+          <pre><code>docker run -d --name kafka \
+  -p 9092:9092 \
+  -e KAFKA_ZOOKEEPER_CONNECT=zookeeper:2181 \
+  -e KAFKA_ADVERTISED_LISTENERS=PLAINTEXT://localhost:9092 \
+  confluentinc/cp-kafka:latest</code></pre>
+        </div>
+
+        <div class="code-section">
+          <h3>Run the Agent</h3>
+          <pre><code>mvn compile exec:java -Dexec.mainClass="com.example.amcp.WeatherAgentApp"</code></pre>
+        </div>
+
+        <div class="code-section">
+          <h3>Test with curl</h3>
+          <pre><code># Send weather update
+curl -X POST http://localhost:8080/events \
+  -H "Content-Type: application/json" \
+  -d '{
+    "topic": "weather.update.london",
+    "payload": "{\"city\":\"london\",\"temperature\":22.5,\"condition\":\"sunny\"}"
+  }'
+
+# Request weather data
+curl -X POST http://localhost:8080/events \
+  -H "Content-Type: application/json" \
+  -d '{
+    "topic": "weather.request.london",
+    "correlationId": "req-001"
+  }'</code></pre>
+        </div>
+
+        <div class="verification-checklist">
+          <h3>✅ Verification Checklist</h3>
+          <ul>
+            <li>Agent starts without errors</li>
+            <li>Agent subscribes to weather topics</li>
+            <li>Agent responds to weather requests</li>
+            <li>Agent caches weather data</li>
+            <li>Agent broadcasts weather updates</li>
+          </ul>
+        </div>
+      </section>
+
+      <div class="tutorial-footer">
+        <div class="completion-badge">
+          <h3>🎉 Congratulations!</h3>
+          <p>You've successfully created your first AMCP agent. Your WeatherAgent can now:</p>
+          <ul>
+            <li>Subscribe to weather-related events</li>
+            <li>Cache and serve weather data</li>
+            <li>Communicate asynchronously with other agents</li>
+            <li>Handle multiple concurrent requests</li>
+          </ul>
+        </div>
+
+        <div class="next-steps">
+          <h3>🚀 Next Steps</h3>
+          <div class="next-links">
+            <a href="/docs/tutorials/event-communication/" class="btn btn-primary">Advanced Event Communication</a>
+            <a href="/docs/tutorials/llm-integration/" class="btn btn-outline">LLM Integration</a>
+            <a href="/docs/api-reference/" class="btn btn-outline">API Reference</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+.tutorial-container {
+  font-family: var(--font-family-sans);
+  background: #f8f9fa;
+  min-height: 100vh;
+  padding: 40px 0;
+}
+
+.tutorial-header {
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+.tutorial-header h1 {
+  font-size: 2.5rem;
+  color: #333;
+  margin-bottom: 15px;
+}
+
+.tutorial-subtitle {
+  font-size: 1.2rem;
+  color: #666;
+  margin-bottom: 20px;
+}
+
+.tutorial-meta {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.tutorial-meta span {
+  background: #1a73e8;
+  color: white;
+  padding: 6px 15px;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.difficulty {
+  background: #4CAF50 !important;
+}
+
+.duration {
+  background: #FF9800 !important;
+}
+
+.language {
+  background: #9C27B0 !important;
+}
+
+.tutorial-content {
+  max-width: 1000px;
+  margin: 0 auto;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+  padding: 40px;
+}
+
+.tutorial-nav {
+  background: #f8f9fa;
+  padding: 25px;
+  border-radius: 8px;
+  margin-bottom: 40px;
+}
+
+.tutorial-nav h3 {
+  margin-bottom: 15px;
+  color: #333;
+}
+
+.tutorial-nav ol {
+  margin: 0;
+  padding-left: 20px;
+}
+
+.tutorial-nav li {
+  margin-bottom: 8px;
+}
+
+.tutorial-nav a {
+  color: #1a73e8;
+  text-decoration: none;
+}
+
+.tutorial-nav a:hover {
+  text-decoration: underline;
+}
+
+.tutorial-step {
+  margin-bottom: 50px;
+  padding-bottom: 30px;
+  border-bottom: 2px solid #e9ecef;
+}
+
+.tutorial-step:last-child {
+  border-bottom: none;
+}
+
+.tutorial-step h2 {
+  font-size: 1.8rem;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.code-section {
+  margin: 25px 0;
+}
+
+.code-section h3 {
+  margin-bottom: 10px;
+  color: #333;
+  font-size: 1.2rem;
+}
+
+pre {
+  background: #1e1e1e;
+  color: #e6e6e6;
+  padding: 20px;
+  border-radius: 8px;
+  overflow-x: auto;
+  font-family: var(--font-family-mono);
+  font-size: 0.9rem;
+  line-height: 1.4;
+}
+
+code {
+  background: #f0f0f0;
+  color: #333;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-family: var(--font-family-mono);
+  font-size: 0.9rem;
+}
+
+pre code {
+  background: none;
+  color: inherit;
+  padding: 0;
+}
+
+.verification-checklist {
+  background: #f0f8f0;
+  padding: 20px;
+  border-radius: 8px;
+  border-left: 4px solid #4CAF50;
+  margin-top: 25px;
+}
+
+.verification-checklist h3 {
+  margin-bottom: 15px;
+  color: #333;
+}
+
+.verification-checklist ul {
+  margin: 0;
+  padding-left: 20px;
+}
+
+.verification-checklist li {
+  margin-bottom: 8px;
+}
+
+.tutorial-footer {
+  margin-top: 50px;
+  padding-top: 30px;
+  border-top: 2px solid #e9ecef;
+}
+
+.completion-badge {
+  background: linear-gradient(135deg, #4CAF50 0%, #66BB6A 100%);
+  color: white;
+  padding: 30px;
+  border-radius: 12px;
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.completion-badge h3 {
+  margin-bottom: 15px;
+  font-size: 1.5rem;
+}
+
+.completion-badge ul {
+  text-align: left;
+  max-width: 500px;
+  margin: 20px auto 0;
+}
+
+.next-steps h3 {
+  margin-bottom: 20px;
+  color: #333;
+  text-align: center;
+}
+
+.next-links {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  flex-wrap: wrap;
+}
+
+@media (max-width: 768px) {
+  .tutorial-content {
+    padding: 20px;
+  }
+  
+  .tutorial-meta {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .next-links {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  pre {
+    font-size: 0.8rem;
+  }
+}
+</style>
