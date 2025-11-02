@@ -111,7 +111,7 @@ def main():
                     running = False
                 
                 # Émotions
-                elif event.key == pygame.K_l:  # L pour sourire (jaune soleil)
+                elif event.key == pygame.K_SPACE:  # ESPACE pour sourire
                     robo.set_mood(HAPPY)
                     current_emotion = HAPPY
                     auto_reset_timer = pygame.time.get_ticks()
@@ -225,7 +225,7 @@ def main():
         spacing = 80
         y_pos = menu_y + 10
         
-        draw_icon_button(screen, start_x + spacing * 0, y_pos, "L", ":-)", "Sourire")
+        draw_icon_button(screen, start_x + spacing * 0, y_pos, "SPC", ":-)", "Sourire")
         draw_icon_button(screen, start_x + spacing * 1, y_pos, "C", ">:(", "Colere")
         draw_icon_button(screen, start_x + spacing * 2, y_pos, "D", ":-P", "Degout")
         draw_icon_button(screen, start_x + spacing * 3, y_pos, "T", ":-(", "Triste")
