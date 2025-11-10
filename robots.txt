@@ -1,0 +1,24 @@
+# AMCP GitHub Pages - Robots.txt
+# This file helps search engines crawl and index the AMCP website
+
+User-agent: *
+Allow: /
+Disallow: /admin/
+Disallow: /.git/
+Disallow: /.github/
+Disallow: /node_modules/
+Disallow: /_site/
+Disallow: /vendor/
+
+# Specific rules for search engines
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+# Crawl delay (optional - adjust based on server capacity)
+Crawl-delay: 1
+
+# Sitemap location
+Sitemap: https://agentmeshcommunicationprotocol.github.io/sitemap.xml

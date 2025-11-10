@@ -1,8 +1,9 @@
 # AMCP GitHub Pages Configuration
-title: "AMCP - Agent Mesh Communication Protocol"
-description: "Enterprise-grade multi-agent communication framework for modern distributed systems"
+title: "AMCP: Java Agent Mesh Framework for Mobile & Distributed Systems"
+description: "A Java-based open-source agentic framework implementing Agent Mesh concept with agent mobility and secure communication, inspired by IBM Aglets. Enterprise-grade multi-agent communication protocol for distributed systems."
 url: "https://agentmeshcommunicationprotocol.github.io"
 baseurl: ""
+keywords: "java, agent-framework, distributed-systems, agent-mesh, agent-mobility, aglet, middleware, open-source, multi-agent, event-driven, LLM, microservices"
 
 # Repository information
 repository: "agentmeshcommunicationprotocol/amcp.github.io"
@@ -61,9 +62,30 @@ twitter_username: amcp_framework
 # SEO
 lang: en
 locale: en_US
+image: "/assets/images/amcp-social.png"
+logo: "/assets/images/amcp-logo.png"
 
 # Analytics (add your tracking ID)
 google_analytics: # UA-XXXXXXXX-X
+google_search_console: # Add your verification code here
+
+# SEO Tags
+seo_tags:
+  - "java"
+  - "agent-framework"
+  - "distributed-systems"
+  - "agent-mesh"
+  - "agent-mobility"
+  - "aglet"
+  - "middleware"
+  - "open-source"
+  - "multi-agent"
+  - "event-driven"
+  - "LLM"
+  - "microservices"
+  - "asynchronous-agents"
+  - "publish-subscribe"
+  - "agent-orchestration"
 
 # Exclude from processing
 exclude:
