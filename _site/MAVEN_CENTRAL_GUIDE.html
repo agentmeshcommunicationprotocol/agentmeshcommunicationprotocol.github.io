@@ -1,0 +1,1041 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>🚀 Maven Central Deployment Guide for AMCP Core v1.5.0 | AMCP: Java Agent Mesh Framework for Mobile &amp; Distributed Systems</title>
+  <meta name="description" content="A Java-based open-source agentic framework implementing Agent Mesh concept with agent mobility and secure communication, inspired by IBM Aglets. Enterprise-g...">
+
+  <!-- Google Search Console Verification -->
+  
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://agentmeshcommunicationprotocol.github.io/MAVEN_CENTRAL_GUIDE.html">
+  <meta property="og:title" content="🚀 Maven Central Deployment Guide for AMCP Core v1.5.0 | AMCP: Java Agent Mesh Framework for Mobile &amp; Distributed Systems">
+  <meta property="og:description" content="A Java-based open-source agentic framework implementing Agent Mesh concept with agent mobility and secure communication, inspired by IBM Aglets. Enterprise-g...">
+  <meta property="og:image" content="https://agentmeshcommunicationprotocol.github.io/assets/images/amcp-social.png">
+
+  <!-- Twitter -->
+  <meta property="twitter:card" content="summary_large_image">
+  <meta property="twitter:url" content="https://agentmeshcommunicationprotocol.github.io/MAVEN_CENTRAL_GUIDE.html">
+  <meta property="twitter:title" content="🚀 Maven Central Deployment Guide for AMCP Core v1.5.0 | AMCP: Java Agent Mesh Framework for Mobile &amp; Distributed Systems">
+  <meta property="twitter:description" content="A Java-based open-source agentic framework implementing Agent Mesh concept with agent mobility and secure communication, inspired by IBM Aglets. Enterprise-g...">
+  <meta property="twitter:image" content="https://agentmeshcommunicationprotocol.github.io/assets/images/amcp-social.png">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/x-icon" href="/assets/images/favicon.ico">
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/images/apple-touch-icon.png">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="/assets/css/main.css">
+
+  <!-- RSS -->
+  <link type="application/atom+xml" rel="alternate" href="/feed.xml" title="AMCP: Java Agent Mesh Framework for Mobile &amp; Distributed Systems">
+
+  <!-- Analytics -->
+  
+
+  <!-- JSON-LD Schema -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "AMCP - Agent Mesh Communication Protocol",
+    "description": "A Java-based open-source agentic framework implementing Agent Mesh concept with agent mobility and secure communication, inspired by IBM Aglets. Enterprise-grade multi-agent communication protocol for distributed systems.",
+    "url": "https://agentmeshcommunicationprotocol.github.io",
+    "applicationCategory": "DeveloperApplication",
+    "operatingSystem": "Cross-platform",
+    "programmingLanguage": "Java",
+    "author": {
+      "@type": "Organization",
+      "name": "AMCP Development Team"
+    },
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    }
+  }
+  </script>
+</head>
+
+<body>
+  <header class="site-header">
+  <div class="container">
+    <nav class="navbar">
+      <div class="navbar-brand">
+        <a href="/" class="navbar-brand">
+          <img src="/assets/images/AMCPLogo.png" alt="AMCP Logo" class="brand-logo">
+          <span class="brand-text">AMCP</span>
+        </a>
+      </div>
+
+      <button class="navbar-toggle" aria-label="Toggle navigation">
+        <span class="hamburger-line"></span>
+        <span class="hamburger-line"></span>
+        <span class="hamburger-line"></span>
+      </button>
+
+      <div class="navbar-menu">
+        <ul class="navbar-nav">
+          
+          <li class="nav-item">
+            <a href="/" class="nav-link ">
+              Home
+            </a>
+          </li>
+          
+          <li class="nav-item">
+            <a href="/whitepaper/" class="nav-link ">
+              Whitepaper
+            </a>
+          </li>
+          
+          <li class="nav-item">
+            <a href="/docs/" class="nav-link ">
+              Documentation
+            </a>
+          </li>
+          
+          <li class="nav-item">
+            <a href="/examples/" class="nav-link ">
+              Examples
+            </a>
+          </li>
+          
+          <li class="nav-item">
+            <a href="/download/" class="nav-link ">
+              Download
+            </a>
+          </li>
+          
+          <li class="nav-item">
+            <a href="/community/" class="nav-link ">
+              Community
+            </a>
+          </li>
+          
+          <li class="nav-item">
+            <a href="/blog/" class="nav-link ">
+              Blog
+            </a>
+          </li>
+          
+        </ul>
+
+        <div class="navbar-actions">
+          <a href="https://github.com/agentmeshcommunicationprotocol/amcpcore.github.io" class="btn btn-outline btn-sm" target="_blank" rel="noopener">
+            <svg class="icon" viewBox="0 0 24 24" width="16" height="16">
+              <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+            </svg>
+            GitHub
+          </a>
+          <a href="/download/" class="btn btn-primary btn-sm">
+            Download
+          </a>
+        </div>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<style>
+.site-header {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 0;
+}
+
+.navbar-brand {
+  display: flex;
+  align-items: center;
+}
+
+.brand-link {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: #333;
+}
+
+.brand-logo {
+  width: 32px;
+  height: 32px;
+  margin-right: 12px;
+}
+
+.brand-text {
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+.version {
+  font-size: 0.75rem;
+  color: #666;
+  margin-left: 8px;
+  background: #e3f2fd;
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+
+.navbar-toggle {
+  display: none;
+  flex-direction: column;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+}
+
+.hamburger-line {
+  width: 24px;
+  height: 2px;
+  background: #333;
+  margin: 3px 0;
+  transition: 0.3s;
+}
+
+.navbar-menu {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+
+.navbar-nav {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  gap: 2rem;
+}
+
+.nav-link {
+  text-decoration: none;
+  color: #666;
+  font-weight: 500;
+  transition: color 0.3s ease;
+  position: relative;
+}
+
+.nav-link:hover,
+.nav-link.active {
+  color: #2196F3;
+}
+
+.nav-link.active::after {
+  content: '';
+  position: absolute;
+  bottom: -8px;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: #2196F3;
+}
+
+.navbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  text-decoration: none;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  border: none;
+  cursor: pointer;
+}
+
+.btn-sm {
+  padding: 0.375rem 0.75rem;
+  font-size: 0.875rem;
+}
+
+.btn-primary {
+  background: #2196F3;
+  color: white;
+}
+
+.btn-primary:hover {
+  background: #1976D2;
+  transform: translateY(-1px);
+}
+
+.btn-outline {
+  background: transparent;
+  color: #666;
+  border: 1px solid #ddd;
+}
+
+.btn-outline:hover {
+  background: #f5f5f5;
+  border-color: #bbb;
+}
+
+.icon {
+  fill: currentColor;
+}
+
+/* Mobile Navigation */
+@media (max-width: 768px) {
+  .navbar-toggle {
+    display: flex;
+  }
+
+  .navbar-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: white;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    flex-direction: column;
+    padding: 1rem;
+    transform: translateY(-100%);
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+  }
+
+  .navbar-menu.active {
+    transform: translateY(0);
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .navbar-nav {
+    flex-direction: column;
+    gap: 1rem;
+    width: 100%;
+    margin-bottom: 1rem;
+  }
+
+  .navbar-actions {
+    justify-content: center;
+    width: 100%;
+  }
+
+  .nav-link.active::after {
+    display: none;
+  }
+}
+</style>
+
+
+  <main class="page-content" aria-label="Content">
+    <article class="post">
+
+  <header class="post-header">
+    <h1 class="post-title">🚀 Maven Central Deployment Guide for AMCP Core v1.5.0</h1>
+  </header>
+
+  <div class="post-content">
+    <h1 id="-maven-central-deployment-guide-for-amcp-core-v150">🚀 Maven Central Deployment Guide for AMCP Core v1.5.0</h1>
+
+<h2 id="-complete-guide-to-publishing-on-maven-central">📋 <strong>Complete Guide to Publishing on Maven Central</strong></h2>
+
+<p>This guide will walk you through the entire process of publishing AMCP Core v1.5.0 to Maven Central Repository, making it available worldwide via standard Maven coordinates.</p>
+
+<hr />
+
+<h2 id="-final-goal">🎯 <strong>Final Goal</strong></h2>
+
+<p>After completion, developers worldwide will be able to use AMCP with:</p>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;dependency&gt;</span>
+    <span class="nt">&lt;groupId&gt;</span>org.amcp<span class="nt">&lt;/groupId&gt;</span>
+    <span class="nt">&lt;artifactId&gt;</span>amcp-core<span class="nt">&lt;/artifactId&gt;</span>
+    <span class="nt">&lt;version&gt;</span>1.5.0<span class="nt">&lt;/version&gt;</span>
+<span class="nt">&lt;/dependency&gt;</span>
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="-prerequisites--setup-process">📋 <strong>Prerequisites &amp; Setup Process</strong></h2>
+
+<h3 id="step-1-sonatype-ossrh-account-setup"><strong>Step 1: Sonatype OSSRH Account Setup</strong></h3>
+
+<h4 id="11-create-sonatype-account"><strong>1.1 Create Sonatype Account</strong></h4>
+<ol>
+  <li>Go to: https://issues.sonatype.org/secure/Signup!default.jspa</li>
+  <li>Create an account with your email</li>
+  <li>Verify your email address</li>
+</ol>
+
+<h4 id="12-request-group-id-orgamcp"><strong>1.2 Request Group ID (org.amcp)</strong></h4>
+<ol>
+  <li>Create a new JIRA ticket: https://issues.sonatype.org/secure/CreateIssue.jspa?issuetype=21&amp;pid=10134</li>
+  <li>Fill out the form:
+    <ul>
+      <li><strong>Project</strong>: Community Support - Open Source Project Repository Hosting (OSSRH)</li>
+      <li><strong>Issue Type</strong>: New Project</li>
+      <li><strong>Summary</strong>: Request for org.amcp group ID</li>
+      <li><strong>Group Id</strong>: org.amcp</li>
+      <li><strong>Project URL</strong>: https://agentmeshcommunicationprotocol.github.io</li>
+      <li><strong>SCM URL</strong>: https://github.com/agentmeshcommunicationprotocol/amcpcore.github.io</li>
+      <li><strong>Description</strong>:
+        <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Request to publish AMCP (Agent Mesh Communication Protocol) Core library to Maven Central.
+     
+AMCP is an open-source framework for building distributed agent systems with event-driven 
+communication. The project provides enterprise-grade tools for multi-agent coordination 
+and is licensed under Apache 2.0.
+     
+Project website: https://agentmeshcommunicationprotocol.github.io
+GitHub repository: https://github.com/agentmeshcommunicationprotocol/amcpcore.github.io
+     
+We request the org.amcp group ID to publish our core library and future modules.
+</code></pre></div>        </div>
+      </li>
+    </ul>
+  </li>
+</ol>
+
+<h4 id="13-domain-verification"><strong>1.3 Domain Verification</strong></h4>
+<ul>
+  <li>Sonatype will ask you to verify domain ownership</li>
+  <li>Since you’re using GitHub, they may ask you to create a repository like: <code class="language-plaintext highlighter-rouge">amcp-ossrh-verification</code></li>
+  <li>Follow their specific instructions in the JIRA ticket</li>
+</ul>
+
+<h4 id="14-wait-for-approval"><strong>1.4 Wait for Approval</strong></h4>
+<ul>
+  <li>Approval typically takes 1-2 business days</li>
+  <li>You’ll receive updates via JIRA ticket comments</li>
+  <li>Once approved, you can proceed to the next steps</li>
+</ul>
+
+<hr />
+
+<h3 id="step-2-gpg-key-setup"><strong>Step 2: GPG Key Setup</strong></h3>
+
+<h4 id="21-generate-gpg-key"><strong>2.1 Generate GPG Key</strong></h4>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">cd</span> /home/kalxav/CascadeProjects
+./setup-maven-central.sh  <span class="c"># This creates the setup files</span>
+./generate-gpg-key.sh     <span class="c"># Follow the instructions</span>
+</code></pre></div></div>
+
+<h4 id="22-edit-gpg-configuration"><strong>2.2 Edit GPG Configuration</strong></h4>
+<ol>
+  <li>Edit the <code class="language-plaintext highlighter-rouge">gpg-key-config</code> file:
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>nano gpg-key-config
+</code></pre></div>    </div>
+  </li>
+  <li>Change the passphrase to something secure</li>
+  <li>Update the email if needed</li>
+</ol>
+
+<h4 id="23-generate-the-key"><strong>2.3 Generate the Key</strong></h4>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>gpg <span class="nt">--batch</span> <span class="nt">--generate-key</span> gpg-key-config
+</code></pre></div></div>
+
+<h4 id="24-list-and-export-key"><strong>2.4 List and Export Key</strong></h4>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># List your keys</span>
+gpg <span class="nt">--list-secret-keys</span> <span class="nt">--keyid-format</span> LONG
+
+<span class="c"># Export to key server (replace YOUR_KEY_ID with actual ID)</span>
+gpg <span class="nt">--keyserver</span> keyserver.ubuntu.com <span class="nt">--send-keys</span> YOUR_KEY_ID
+
+<span class="c"># Also export to other key servers</span>
+gpg <span class="nt">--keyserver</span> keys.openpgp.org <span class="nt">--send-keys</span> YOUR_KEY_ID
+gpg <span class="nt">--keyserver</span> pgp.mit.edu <span class="nt">--send-keys</span> YOUR_KEY_ID
+</code></pre></div></div>
+
+<hr />
+
+<h3 id="step-3-maven-configuration"><strong>Step 3: Maven Configuration</strong></h3>
+
+<h4 id="31-configure-maven-settings"><strong>3.1 Configure Maven Settings</strong></h4>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># Copy template to settings.xml</span>
+<span class="nb">cp</span> ~/.m2/settings-central-template.xml ~/.m2/settings.xml
+
+<span class="c"># Edit with your credentials</span>
+nano ~/.m2/settings.xml
+</code></pre></div></div>
+
+<h4 id="32-update-settings-with-your-information"><strong>3.2 Update Settings with Your Information</strong></h4>
+<p>Replace the placeholders in <code class="language-plaintext highlighter-rouge">~/.m2/settings.xml</code>:</p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">YOUR_SONATYPE_USERNAME</code>: Your Sonatype JIRA username</li>
+  <li><code class="language-plaintext highlighter-rouge">YOUR_SONATYPE_PASSWORD</code>: Your Sonatype JIRA password</li>
+  <li><code class="language-plaintext highlighter-rouge">YOUR_GPG_KEY_ID</code>: Your GPG key ID (from step 2.4)</li>
+  <li><code class="language-plaintext highlighter-rouge">YOUR_GPG_PASSPHRASE</code>: Your GPG key passphrase</li>
+</ul>
+
+<p>Example:</p>
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;servers&gt;</span>
+    <span class="nt">&lt;server&gt;</span>
+        <span class="nt">&lt;id&gt;</span>ossrh<span class="nt">&lt;/id&gt;</span>
+        <span class="nt">&lt;username&gt;</span>john.doe<span class="nt">&lt;/username&gt;</span>
+        <span class="nt">&lt;password&gt;</span>your-jira-password<span class="nt">&lt;/password&gt;</span>
+    <span class="nt">&lt;/server&gt;</span>
+<span class="nt">&lt;/servers&gt;</span>
+
+<span class="nt">&lt;profiles&gt;</span>
+    <span class="nt">&lt;profile&gt;</span>
+        <span class="nt">&lt;id&gt;</span>ossrh<span class="nt">&lt;/id&gt;</span>
+        <span class="nt">&lt;properties&gt;</span>
+            <span class="nt">&lt;gpg.executable&gt;</span>gpg<span class="nt">&lt;/gpg.executable&gt;</span>
+            <span class="nt">&lt;gpg.keyname&gt;</span>ABCD1234EFGH5678<span class="nt">&lt;/gpg.keyname&gt;</span>
+            <span class="nt">&lt;gpg.passphrase&gt;</span>your-gpg-passphrase<span class="nt">&lt;/gpg.passphrase&gt;</span>
+        <span class="nt">&lt;/properties&gt;</span>
+    <span class="nt">&lt;/profile&gt;</span>
+<span class="nt">&lt;/profiles&gt;</span>
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="-deployment-process">🚀 <strong>Deployment Process</strong></h2>
+
+<h3 id="step-4-deploy-to-staging"><strong>Step 4: Deploy to Staging</strong></h3>
+
+<h4 id="41-run-deployment-script"><strong>4.1 Run Deployment Script</strong></h4>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">cd</span> /home/kalxav/CascadeProjects
+./deploy-to-central.sh
+</code></pre></div></div>
+
+<p>This script will:</p>
+<ul>
+  <li>Build the project with Maven Central POM</li>
+  <li>Run tests</li>
+  <li>Generate sources and javadoc JARs</li>
+  <li>Sign all artifacts with GPG</li>
+  <li>Deploy to Sonatype staging repository</li>
+</ul>
+
+<h4 id="42-expected-output"><strong>4.2 Expected Output</strong></h4>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>✅ Prerequisites check passed
+✅ Build successful
+ℹ️  Deploying to Maven Central staging repository...
+[INFO] Uploading to ossrh: https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/org/amcp/amcp-core/1.5.0/amcp-core-1.5.0.pom
+[INFO] Uploaded to ossrh: https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/org/amcp/amcp-core/1.5.0/amcp-core-1.5.0.pom (4.2 kB at 2.1 kB/s)
+...
+✅ 🎉 Deployment to staging successful!
+</code></pre></div></div>
+
+<hr />
+
+<h3 id="step-5-release-from-staging"><strong>Step 5: Release from Staging</strong></h3>
+
+<h4 id="51-access-sonatype-nexus"><strong>5.1 Access Sonatype Nexus</strong></h4>
+<ol>
+  <li>Go to: https://s01.oss.sonatype.org/</li>
+  <li>Login with your Sonatype credentials</li>
+  <li>Click “Staging Repositories” in the left menu</li>
+</ol>
+
+<h4 id="52-find-your-repository"><strong>5.2 Find Your Repository</strong></h4>
+<ol>
+  <li>Look for a repository named like: <code class="language-plaintext highlighter-rouge">orgamcp-XXXX</code> (where XXXX is a number)</li>
+  <li>It should contain your <code class="language-plaintext highlighter-rouge">org.amcp:amcp-core:1.5.0</code> artifacts</li>
+  <li>Select the repository</li>
+</ol>
+
+<h4 id="53-close-the-repository"><strong>5.3 Close the Repository</strong></h4>
+<ol>
+  <li>Click “Close” button</li>
+  <li>Provide a description: “AMCP Core v1.5.0 release”</li>
+  <li>Click “Confirm”</li>
+  <li>Wait for validation to complete (usually 2-10 minutes)</li>
+</ol>
+
+<h4 id="54-release-to-central"><strong>5.4 Release to Central</strong></h4>
+<ol>
+  <li>Once validation passes, select the repository again</li>
+  <li>Click “Release” button</li>
+  <li>Provide a description: “Release AMCP Core v1.5.0 to Maven Central”</li>
+  <li>Check “Automatically Drop” (recommended)</li>
+  <li>Click “Confirm”</li>
+</ol>
+
+<hr />
+
+<h2 id="️-timeline--availability">⏱️ <strong>Timeline &amp; Availability</strong></h2>
+
+<h3 id="immediate-0-30-minutes"><strong>Immediate (0-30 minutes)</strong></h3>
+<ul>
+  <li>Artifacts available in Sonatype repository</li>
+  <li>Can be used with Sonatype repository URL</li>
+</ul>
+
+<h3 id="2-4-hours"><strong>2-4 Hours</strong></h3>
+<ul>
+  <li>Artifacts sync to Maven Central</li>
+  <li>Available at: https://repo1.maven.org/maven2/org/amcp/amcp-core/1.5.0/</li>
+</ul>
+
+<h3 id="24-hours"><strong>24 Hours</strong></h3>
+<ul>
+  <li>Fully propagated to all Maven mirrors worldwide</li>
+  <li>Available via standard Maven/Gradle without special repository configuration</li>
+</ul>
+
+<hr />
+
+<h2 id="-verification">🔍 <strong>Verification</strong></h2>
+
+<h3 id="check-deployment-status"><strong>Check Deployment Status</strong></h3>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># Check if available on Maven Central</span>
+curl <span class="nt">-I</span> https://repo1.maven.org/maven2/org/amcp/amcp-core/1.5.0/amcp-core-1.5.0.jar
+
+<span class="c"># Search Maven Central</span>
+curl <span class="s2">"https://search.maven.org/solrsearch/select?q=g:org.amcp+AND+a:amcp-core&amp;rows=20&amp;wt=json"</span>
+</code></pre></div></div>
+
+<h3 id="test-integration"><strong>Test Integration</strong></h3>
+<p>Create a test project with:</p>
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;dependency&gt;</span>
+    <span class="nt">&lt;groupId&gt;</span>org.amcp<span class="nt">&lt;/groupId&gt;</span>
+    <span class="nt">&lt;artifactId&gt;</span>amcp-core<span class="nt">&lt;/artifactId&gt;</span>
+    <span class="nt">&lt;version&gt;</span>1.5.0<span class="nt">&lt;/version&gt;</span>
+<span class="nt">&lt;/dependency&gt;</span>
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="-expected-results">📊 <strong>Expected Results</strong></h2>
+
+<h3 id="-successful-deployment-indicators"><strong>✅ Successful Deployment Indicators</strong></h3>
+<ul>
+  <li>Repository appears in Sonatype Nexus</li>
+  <li>All artifacts (JAR, sources, javadoc, POM) are present</li>
+  <li>All artifacts are properly signed (<code class="language-plaintext highlighter-rouge">.asc</code> files)</li>
+  <li>Validation passes without errors</li>
+  <li>Release completes successfully</li>
+</ul>
+
+<h3 id="-global-availability"><strong>🌐 Global Availability</strong></h3>
+<p>Once released, AMCP Core will be available:</p>
+<ul>
+  <li><strong>Maven Central</strong>: https://repo1.maven.org/maven2/org/amcp/amcp-core/1.5.0/</li>
+  <li><strong>Maven Search</strong>: https://search.maven.org/artifact/org.amcp/amcp-core/1.5.0/jar</li>
+  <li><strong>MVN Repository</strong>: https://mvnrepository.com/artifact/org.amcp/amcp-core/1.5.0</li>
+</ul>
+
+<h3 id="-developer-impact"><strong>📈 Developer Impact</strong></h3>
+<ul>
+  <li><strong>Global Access</strong>: Available to millions of Java developers</li>
+  <li><strong>Easy Integration</strong>: Standard Maven/Gradle dependency</li>
+  <li><strong>Professional Distribution</strong>: Trusted Maven Central infrastructure</li>
+  <li><strong>Version Management</strong>: Proper semantic versioning</li>
+  <li><strong>Dependency Resolution</strong>: Automatic transitive dependency handling</li>
+</ul>
+
+<hr />
+
+<h2 id="-troubleshooting">🚨 <strong>Troubleshooting</strong></h2>
+
+<h3 id="common-issues"><strong>Common Issues</strong></h3>
+
+<h4 id="gpg-signing-errors"><strong>GPG Signing Errors</strong></h4>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># Test GPG signing</span>
+<span class="nb">echo</span> <span class="s2">"test"</span> | gpg <span class="nt">--clearsign</span>
+
+<span class="c"># If errors, check:</span>
+gpg <span class="nt">--list-secret-keys</span>
+<span class="nb">export </span><span class="nv">GPG_TTY</span><span class="o">=</span><span class="si">$(</span><span class="nb">tty</span><span class="si">)</span>
+</code></pre></div></div>
+
+<h4 id="authentication-errors"><strong>Authentication Errors</strong></h4>
+<ul>
+  <li>Verify Sonatype credentials in <code class="language-plaintext highlighter-rouge">~/.m2/settings.xml</code></li>
+  <li>Ensure JIRA account is active</li>
+  <li>Check if group ID is approved</li>
+</ul>
+
+<h4 id="validation-failures"><strong>Validation Failures</strong></h4>
+<ul>
+  <li>Ensure all required artifacts are present (JAR, sources, javadoc, POM)</li>
+  <li>Verify all artifacts are signed</li>
+  <li>Check POM completeness (all required fields)</li>
+</ul>
+
+<h4 id="network-issues"><strong>Network Issues</strong></h4>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># Test connectivity</span>
+curl <span class="nt">-I</span> https://s01.oss.sonatype.org/
+
+<span class="c"># Check proxy settings if behind corporate firewall</span>
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="-checklist-for-success">📋 <strong>Checklist for Success</strong></h2>
+
+<h3 id="pre-deployment"><strong>Pre-Deployment</strong></h3>
+<ul class="task-list">
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Sonatype account created and verified</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Group ID (org.amcp) approved via JIRA ticket</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />GPG key generated and uploaded to key servers</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Maven settings.xml configured with credentials</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />All tests pass locally</li>
+</ul>
+
+<h3 id="deployment"><strong>Deployment</strong></h3>
+<ul class="task-list">
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Staging deployment successful</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />All artifacts present in staging repository</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />All artifacts properly signed</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Repository validation passes</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Repository successfully closed</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Repository successfully released</li>
+</ul>
+
+<h3 id="post-deployment"><strong>Post-Deployment</strong></h3>
+<ul class="task-list">
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Artifacts available on Maven Central (2-4 hours)</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Maven search shows the artifact</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Test project can resolve dependency</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Documentation updated with Maven coordinates</li>
+</ul>
+
+<hr />
+
+<h2 id="-success-metrics">🎉 <strong>Success Metrics</strong></h2>
+
+<h3 id="technical-success"><strong>Technical Success</strong></h3>
+<ul>
+  <li>✅ Artifacts deployed to Maven Central</li>
+  <li>✅ All required files present and signed</li>
+  <li>✅ Dependency resolution works globally</li>
+  <li>✅ Professional metadata and documentation</li>
+</ul>
+
+<h3 id="business-impact"><strong>Business Impact</strong></h3>
+<ul>
+  <li>🌍 <strong>Global Reach</strong>: Available to millions of Java developers</li>
+  <li>🚀 <strong>Easy Adoption</strong>: Standard dependency management</li>
+  <li>📈 <strong>Professional Image</strong>: Trusted distribution channel</li>
+  <li>🔄 <strong>Ecosystem Growth</strong>: Foundation for community contributions</li>
+</ul>
+
+<hr />
+
+<h2 id="-final-result">🌟 <strong>Final Result</strong></h2>
+
+<p>Once successfully deployed, AMCP Core v1.5.0 will be:</p>
+
+<p><strong>🌐 Globally Available</strong></p>
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;dependency&gt;</span>
+    <span class="nt">&lt;groupId&gt;</span>org.amcp<span class="nt">&lt;/groupId&gt;</span>
+    <span class="nt">&lt;artifactId&gt;</span>amcp-core<span class="nt">&lt;/artifactId&gt;</span>
+    <span class="nt">&lt;version&gt;</span>1.5.0<span class="nt">&lt;/version&gt;</span>
+<span class="nt">&lt;/dependency&gt;</span>
+</code></pre></div></div>
+
+<p><strong>📊 Professionally Distributed</strong></p>
+<ul>
+  <li>Maven Central: Trusted by enterprise developers</li>
+  <li>Automatic mirrors: Fast downloads worldwide</li>
+  <li>Dependency resolution: Seamless integration</li>
+  <li>Version management: Clear upgrade paths</li>
+</ul>
+
+<p><strong>🚀 Ready for Enterprise</strong></p>
+<ul>
+  <li>Production-ready distribution</li>
+  <li>Professional metadata and documentation</li>
+  <li>Signed artifacts for security</li>
+  <li>Standard Java ecosystem integration</li>
+</ul>
+
+<hr />
+
+<p><strong>🎯 Execute the setup and deployment process to make AMCP Core v1.5.0 available to the global Java developer community via Maven Central!</strong></p>
+
+  </div>
+
+</article>
+
+  </main>
+
+  <footer class="site-footer">
+  <div class="container">
+    <div class="footer-content">
+      <div class="footer-section">
+        <div class="footer-brand">
+          <img src="/assets/images/AMCPLogo.png" alt="AMCP Logo" class="footer-logo">
+          <h3>AMCP v1.5</h3>
+          <p>Enterprise-grade multi-agent communication framework for modern distributed systems.</p>
+        </div>
+        <div class="footer-social">
+          <a href="https://github.com/agentmeshcommunicationprotocol/amcpcore.github.io" class="social-link" target="_blank" rel="noopener" aria-label="GitHub">
+            <svg viewBox="0 0 24 24" width="24" height="24">
+              <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+            </svg>
+          </a>
+          
+          <a href="https://twitter.com/amcp_framework" class="social-link" target="_blank" rel="noopener" aria-label="Twitter">
+            <svg viewBox="0 0 24 24" width="24" height="24">
+              <path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/>
+            </svg>
+          </a>
+          
+        </div>
+      </div>
+
+      <div class="footer-section">
+        <h4>Documentation</h4>
+        <ul class="footer-links">
+          <li><a href="/docs/getting-started/">Getting Started</a></li>
+          <li><a href="/docs/installation/">Installation</a></li>
+          <li><a href="/docs/api-reference/">API Reference</a></li>
+          <li><a href="/docs/architecture/">Architecture</a></li>
+          <li><a href="/docs/best-practices/">Best Practices</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-section">
+        <h4>Examples</h4>
+        <ul class="footer-links">
+          <li><a href="/examples/weather-agent/">Weather Agent</a></li>
+          <li><a href="/examples/meshchat/">MeshChat AI</a></li>
+          <li><a href="/examples/orchestration/">LLM Orchestration</a></li>
+          <li><a href="/examples/stock-agent/">Stock Agent</a></li>
+          <li><a href="/examples/travel-agent/">Travel Agent</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-section">
+        <h4>Community</h4>
+        <ul class="footer-links">
+          <li><a href="https://github.com/agentmeshcommunicationprotocol/amcpcore.github.io" target="_blank" rel="noopener">GitHub Repository</a></li>
+          <li><a href="/community/contributing/">Contributing</a></li>
+          <li><a href="/community/discussions/">Discussions</a></li>
+          <li><a href="/community/roadmap/">Roadmap</a></li>
+          <li><a href="/blog/">Blog</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-section">
+        <h4>Resources</h4>
+        <ul class="footer-links">
+          <li><a href="/download/">Download</a></li>
+          <li><a href="/docs/changelog/">Changelog</a></li>
+          <li><a href="/docs/migration/">Migration Guide</a></li>
+          <li><a href="/support/">Support</a></li>
+          <li><a href="/contact/">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <div class="footer-bottom-content">
+        <div class="footer-copyright">
+          <p>&copy; 2025 AMCP Development Team. Released under the MIT License.</p>
+        </div>
+        <div class="footer-meta">
+          <span class="footer-version">Version 1.5.0</span>
+          <span class="footer-separator">•</span>
+          <a href="/privacy/">Privacy Policy</a>
+          <span class="footer-separator">•</span>
+          <a href="/terms/">Terms of Service</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<style>
+.site-footer {
+  background: #1a1a1a;
+  color: #ccc;
+  padding: 60px 0 20px;
+  margin-top: 80px;
+}
+
+.footer-content {
+  display: grid;
+  grid-template-columns: 2fr repeat(4, 1fr);
+  gap: 40px;
+  margin-bottom: 40px;
+}
+
+.footer-section h3,
+.footer-section h4 {
+  color: white;
+  margin-bottom: 20px;
+  font-weight: 600;
+}
+
+.footer-brand {
+  margin-bottom: 20px;
+}
+
+.footer-logo {
+  width: 40px;
+  height: 40px;
+  margin-bottom: 15px;
+}
+
+.footer-brand p {
+  color: #999;
+  line-height: 1.6;
+  margin-bottom: 20px;
+}
+
+.footer-social {
+  display: flex;
+  gap: 15px;
+}
+
+.social-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  color: #ccc;
+  transition: all 0.3s ease;
+}
+
+.social-link:hover {
+  background: #2196F3;
+  color: white;
+  transform: translateY(-2px);
+}
+
+.social-link svg {
+  fill: currentColor;
+}
+
+.footer-links {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.footer-links li {
+  margin-bottom: 12px;
+}
+
+.footer-links a {
+  color: #999;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.footer-links a:hover {
+  color: #2196F3;
+}
+
+.footer-bottom {
+  border-top: 1px solid #333;
+  padding-top: 20px;
+}
+
+.footer-bottom-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.footer-copyright p {
+  margin: 0;
+  color: #666;
+  font-size: 0.9rem;
+}
+
+.footer-meta {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  font-size: 0.9rem;
+  color: #666;
+}
+
+.footer-meta a {
+  color: #666;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.footer-meta a:hover {
+  color: #2196F3;
+}
+
+.footer-separator {
+  color: #444;
+}
+
+.footer-version {
+  background: rgba(33, 150, 243, 0.1);
+  color: #2196F3;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .footer-content {
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+  }
+}
+
+@media (max-width: 768px) {
+  .footer-content {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+
+  .footer-bottom-content {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .footer-meta {
+    justify-content: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .site-footer {
+    padding: 40px 0 20px;
+  }
+
+  .footer-meta {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .footer-separator {
+    display: none;
+  }
+}
+</style>
+
+
+  <!-- JavaScript -->
+  <script src="/assets/js/main.js"></script>
+</body>
+
+</html>

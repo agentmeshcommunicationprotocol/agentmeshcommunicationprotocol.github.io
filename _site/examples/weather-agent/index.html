@@ -1,0 +1,1253 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Weather Agent Example | AMCP: Java Agent Mesh Framework for Mobile &amp; Distributed Systems</title>
+  <meta name="description" content="Complete weather monitoring agent implementation using AMCP">
+
+  <!-- Google Search Console Verification -->
+  
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://agentmeshcommunicationprotocol.github.io/examples/weather-agent/">
+  <meta property="og:title" content="Weather Agent Example | AMCP: Java Agent Mesh Framework for Mobile &amp; Distributed Systems">
+  <meta property="og:description" content="Complete weather monitoring agent implementation using AMCP">
+  <meta property="og:image" content="https://agentmeshcommunicationprotocol.github.io/assets/images/amcp-social.png">
+
+  <!-- Twitter -->
+  <meta property="twitter:card" content="summary_large_image">
+  <meta property="twitter:url" content="https://agentmeshcommunicationprotocol.github.io/examples/weather-agent/">
+  <meta property="twitter:title" content="Weather Agent Example | AMCP: Java Agent Mesh Framework for Mobile &amp; Distributed Systems">
+  <meta property="twitter:description" content="Complete weather monitoring agent implementation using AMCP">
+  <meta property="twitter:image" content="https://agentmeshcommunicationprotocol.github.io/assets/images/amcp-social.png">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/x-icon" href="/assets/images/favicon.ico">
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/images/apple-touch-icon.png">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="/assets/css/main.css">
+
+  <!-- RSS -->
+  <link type="application/atom+xml" rel="alternate" href="/feed.xml" title="AMCP: Java Agent Mesh Framework for Mobile &amp; Distributed Systems">
+
+  <!-- Analytics -->
+  
+
+  <!-- JSON-LD Schema -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "AMCP - Agent Mesh Communication Protocol",
+    "description": "A Java-based open-source agentic framework implementing Agent Mesh concept with agent mobility and secure communication, inspired by IBM Aglets. Enterprise-grade multi-agent communication protocol for distributed systems.",
+    "url": "https://agentmeshcommunicationprotocol.github.io",
+    "applicationCategory": "DeveloperApplication",
+    "operatingSystem": "Cross-platform",
+    "programmingLanguage": "Java",
+    "author": {
+      "@type": "Organization",
+      "name": "AMCP Development Team"
+    },
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    }
+  }
+  </script>
+</head>
+
+<body>
+  <header class="site-header">
+  <div class="container">
+    <nav class="navbar">
+      <div class="navbar-brand">
+        <a href="/" class="navbar-brand">
+          <img src="/assets/images/AMCPLogo.png" alt="AMCP Logo" class="brand-logo">
+          <span class="brand-text">AMCP</span>
+        </a>
+      </div>
+
+      <button class="navbar-toggle" aria-label="Toggle navigation">
+        <span class="hamburger-line"></span>
+        <span class="hamburger-line"></span>
+        <span class="hamburger-line"></span>
+      </button>
+
+      <div class="navbar-menu">
+        <ul class="navbar-nav">
+          
+          <li class="nav-item">
+            <a href="/" class="nav-link ">
+              Home
+            </a>
+          </li>
+          
+          <li class="nav-item">
+            <a href="/whitepaper/" class="nav-link ">
+              Whitepaper
+            </a>
+          </li>
+          
+          <li class="nav-item">
+            <a href="/docs/" class="nav-link ">
+              Documentation
+            </a>
+          </li>
+          
+          <li class="nav-item">
+            <a href="/examples/" class="nav-link ">
+              Examples
+            </a>
+          </li>
+          
+          <li class="nav-item">
+            <a href="/download/" class="nav-link ">
+              Download
+            </a>
+          </li>
+          
+          <li class="nav-item">
+            <a href="/community/" class="nav-link ">
+              Community
+            </a>
+          </li>
+          
+          <li class="nav-item">
+            <a href="/blog/" class="nav-link ">
+              Blog
+            </a>
+          </li>
+          
+        </ul>
+
+        <div class="navbar-actions">
+          <a href="https://github.com/agentmeshcommunicationprotocol/amcpcore.github.io" class="btn btn-outline btn-sm" target="_blank" rel="noopener">
+            <svg class="icon" viewBox="0 0 24 24" width="16" height="16">
+              <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+            </svg>
+            GitHub
+          </a>
+          <a href="/download/" class="btn btn-primary btn-sm">
+            Download
+          </a>
+        </div>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<style>
+.site-header {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 0;
+}
+
+.navbar-brand {
+  display: flex;
+  align-items: center;
+}
+
+.brand-link {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: #333;
+}
+
+.brand-logo {
+  width: 32px;
+  height: 32px;
+  margin-right: 12px;
+}
+
+.brand-text {
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+.version {
+  font-size: 0.75rem;
+  color: #666;
+  margin-left: 8px;
+  background: #e3f2fd;
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+
+.navbar-toggle {
+  display: none;
+  flex-direction: column;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+}
+
+.hamburger-line {
+  width: 24px;
+  height: 2px;
+  background: #333;
+  margin: 3px 0;
+  transition: 0.3s;
+}
+
+.navbar-menu {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+
+.navbar-nav {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  gap: 2rem;
+}
+
+.nav-link {
+  text-decoration: none;
+  color: #666;
+  font-weight: 500;
+  transition: color 0.3s ease;
+  position: relative;
+}
+
+.nav-link:hover,
+.nav-link.active {
+  color: #2196F3;
+}
+
+.nav-link.active::after {
+  content: '';
+  position: absolute;
+  bottom: -8px;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: #2196F3;
+}
+
+.navbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  text-decoration: none;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  border: none;
+  cursor: pointer;
+}
+
+.btn-sm {
+  padding: 0.375rem 0.75rem;
+  font-size: 0.875rem;
+}
+
+.btn-primary {
+  background: #2196F3;
+  color: white;
+}
+
+.btn-primary:hover {
+  background: #1976D2;
+  transform: translateY(-1px);
+}
+
+.btn-outline {
+  background: transparent;
+  color: #666;
+  border: 1px solid #ddd;
+}
+
+.btn-outline:hover {
+  background: #f5f5f5;
+  border-color: #bbb;
+}
+
+.icon {
+  fill: currentColor;
+}
+
+/* Mobile Navigation */
+@media (max-width: 768px) {
+  .navbar-toggle {
+    display: flex;
+  }
+
+  .navbar-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: white;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    flex-direction: column;
+    padding: 1rem;
+    transform: translateY(-100%);
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+  }
+
+  .navbar-menu.active {
+    transform: translateY(0);
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .navbar-nav {
+    flex-direction: column;
+    gap: 1rem;
+    width: 100%;
+    margin-bottom: 1rem;
+  }
+
+  .navbar-actions {
+    justify-content: center;
+    width: 100%;
+  }
+
+  .nav-link.active::after {
+    display: none;
+  }
+}
+</style>
+
+
+  <main class="page-content" aria-label="Content">
+    <div class="example-container">
+  <div class="container">
+    <header class="example-header">
+      <h1>🌤️ Weather Agent Example</h1>
+      <p class="example-subtitle">Real-time weather monitoring with distributed agent coordination</p>
+      <div class="example-meta">
+        <span class="complexity">Intermediate</span>
+        <span class="tech-stack">Java + Kafka</span>
+        <span class="use-case">IoT Monitoring</span>
+      </div>
+    </header>
+
+    <div class="example-content">
+      <div class="example-overview">
+        <h2>📋 Overview</h2>
+        <p>This example demonstrates a distributed weather monitoring system using AMCP agents. Multiple weather stations collect data, process it through specialized agents, and coordinate responses to weather events.</p>
+        
+        <div class="architecture-preview">
+          <h3>System Architecture</h3>
+          <div class="arch-diagram">
+            <div class="agent-node">Weather Collector</div>
+            <div class="flow-arrow">→</div>
+            <div class="agent-node">Data Processor</div>
+            <div class="flow-arrow">→</div>
+            <div class="agent-node">Alert Manager</div>
+            <div class="flow-arrow">→</div>
+            <div class="agent-node">Notification Service</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="example-features">
+        <h2>✨ Key Features</h2>
+        <div class="features-grid">
+          <div class="feature-card">
+            <div class="feature-icon">📡</div>
+            <h3>Real-time Data Collection</h3>
+            <p>Agents collect weather data from multiple sources and sensors</p>
+          </div>
+          <div class="feature-card">
+            <div class="feature-icon">🔄</div>
+            <h3>Event-Driven Processing</h3>
+            <p>Asynchronous processing of weather updates and alerts</p>
+          </div>
+          <div class="feature-card">
+            <div class="feature-icon">🚨</div>
+            <h3>Smart Alerting</h3>
+            <p>Intelligent threshold-based weather alert system</p>
+          </div>
+          <div class="feature-card">
+            <div class="feature-icon">📊</div>
+            <h3>Data Aggregation</h3>
+            <p>Statistical analysis and trend detection</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="code-example">
+        <h2>💻 Implementation</h2>
+        
+        <div class="code-section">
+          <h3>Weather Collector Agent</h3>
+          <pre><code>@Agent("weather-collector")
+public class WeatherCollectorAgent extends BaseAgent {
+    
+    private final WeatherAPI weatherAPI;
+    private final ScheduledExecutorService scheduler;
+    
+    @Override
+    public void onActivation() {
+        // Subscribe to collection requests
+        subscribe("weather.collect.*");
+        
+        // Start periodic collection
+        scheduler.scheduleAtFixedRate(
+            this::collectWeatherData, 0, 5, TimeUnit.MINUTES);
+    }
+    
+    @EventHandler
+    @Subscribe("weather.collect.request")
+    public void handleCollectionRequest(Event event) {
+        String location = event.getPayload(String.class);
+        collectWeatherForLocation(location);
+    }
+    
+    private void collectWeatherData() {
+        List&lt;String&gt; locations = getMonitoredLocations();
+        
+        locations.parallelStream().forEach(location -> {
+            try {
+                WeatherData data = weatherAPI.getCurrentWeather(location);
+                
+                Event weatherEvent = Event.builder()
+                    .topic("weather.data.raw." + location)
+                    .payload(data)
+                    .timestamp(Instant.now())
+                    .build();
+                    
+                publish(weatherEvent);
+                
+            } catch (Exception e) {
+                publishError("weather.error.collection", location, e);
+            }
+        });
+    }
+}</code></pre>
+        </div>
+
+        <div class="code-section">
+          <h3>Weather Processor Agent</h3>
+          <pre><code>@Agent("weather-processor")
+public class WeatherProcessorAgent extends BaseAgent {
+    
+    private final Map&lt;String, WeatherHistory&gt; locationHistory = new ConcurrentHashMap&lt;&gt;();
+    
+    @Override
+    public void onActivation() {
+        subscribe("weather.data.raw.*");
+        subscribe("weather.analysis.request.*");
+    }
+    
+    @EventHandler
+    @Subscribe("weather.data.raw.*")
+    public void processWeatherData(Event event) {
+        String location = extractLocationFromTopic(event.getTopic());
+        WeatherData rawData = event.getPayload(WeatherData.class);
+        
+        // Process and enrich data
+        ProcessedWeatherData processed = enrichWeatherData(rawData);
+        
+        // Update history
+        updateLocationHistory(location, processed);
+        
+        // Check for alerts
+        List&lt;WeatherAlert&gt; alerts = checkAlertConditions(location, processed);
+        
+        // Publish processed data
+        publish(Event.builder()
+            .topic("weather.data.processed." + location)
+            .payload(processed)
+            .build());
+            
+        // Publish alerts if any
+        alerts.forEach(alert -> 
+            publish(Event.builder()
+                .topic("weather.alert." + alert.getSeverity())
+                .payload(alert)
+                .build())
+        );
+    }
+    
+    private ProcessedWeatherData enrichWeatherData(WeatherData raw) {
+        return ProcessedWeatherData.builder()
+            .from(raw)
+            .heatIndex(calculateHeatIndex(raw))
+            .windChill(calculateWindChill(raw))
+            .dewPoint(calculateDewPoint(raw))
+            .trend(calculateTrend(raw))
+            .build();
+    }
+    
+    private List&lt;WeatherAlert&gt; checkAlertConditions(String location, ProcessedWeatherData data) {
+        List&lt;WeatherAlert&gt; alerts = new ArrayList&lt;&gt;();
+        
+        // Temperature alerts
+        if (data.getTemperature() > 35.0) {
+            alerts.add(WeatherAlert.heatWarning(location, data.getTemperature()));
+        }
+        
+        // Wind alerts
+        if (data.getWindSpeed() > 50.0) {
+            alerts.add(WeatherAlert.windWarning(location, data.getWindSpeed()));
+        }
+        
+        // Precipitation alerts
+        if (data.getPrecipitation() > 25.0) {
+            alerts.add(WeatherAlert.rainWarning(location, data.getPrecipitation()));
+        }
+        
+        return alerts;
+    }
+}</code></pre>
+        </div>
+
+        <div class="code-section">
+          <h3>Alert Manager Agent</h3>
+          <pre><code>@Agent("alert-manager")
+public class AlertManagerAgent extends BaseAgent {
+    
+    private final AlertRepository alertRepository;
+    private final NotificationService notificationService;
+    
+    @Override
+    public void onActivation() {
+        subscribe("weather.alert.*");
+        subscribe("alert.acknowledge.*");
+    }
+    
+    @EventHandler
+    @Subscribe("weather.alert.*")
+    public void handleWeatherAlert(Event event) {
+        WeatherAlert alert = event.getPayload(WeatherAlert.class);
+        String severity = extractSeverityFromTopic(event.getTopic());
+        
+        // Store alert
+        alertRepository.save(alert);
+        
+        // Determine notification strategy based on severity
+        NotificationStrategy strategy = getNotificationStrategy(severity);
+        
+        // Send notifications
+        strategy.notify(alert);
+        
+        // Publish alert event for other systems
+        publish(Event.builder()
+            .topic("system.alert.weather")
+            .payload(AlertNotification.from(alert))
+            .priority(getPriority(severity))
+            .build());
+    }
+    
+    @EventHandler
+    @Subscribe("alert.acknowledge.*")
+    public void handleAlertAcknowledgment(Event event) {
+        String alertId = event.getPayload(String.class);
+        
+        alertRepository.acknowledge(alertId, event.getSender());
+        
+        publish(Event.builder()
+            .topic("alert.status.acknowledged")
+            .payload(Map.of("alertId", alertId, "acknowledgedBy", event.getSender()))
+            .build());
+    }
+    
+    private NotificationStrategy getNotificationStrategy(String severity) {
+        switch (severity.toLowerCase()) {
+            case "critical":
+                return new ImmediateNotificationStrategy(
+                    List.of(EmailNotifier.class, SMSNotifier.class, PushNotifier.class));
+            case "high":
+                return new UrgentNotificationStrategy(
+                    List.of(EmailNotifier.class, PushNotifier.class));
+            case "medium":
+                return new StandardNotificationStrategy(
+                    List.of(EmailNotifier.class));
+            default:
+                return new LogOnlyNotificationStrategy();
+        }
+    }
+}</code></pre>
+        </div>
+      </div>
+
+      <div class="running-example">
+        <h2>🚀 Running the Example</h2>
+        
+        <div class="setup-steps">
+          <div class="step">
+            <h3>1. Prerequisites</h3>
+            <ul>
+              <li>Java 11+ installed</li>
+              <li>Apache Kafka running</li>
+              <li>Weather API key (OpenWeatherMap)</li>
+            </ul>
+          </div>
+          
+          <div class="step">
+            <h3>2. Configuration</h3>
+            <pre><code># application.properties
+amcp.broker.url=kafka://localhost:9092
+weather.api.key=your_api_key_here
+weather.locations=london,paris,tokyo,newyork
+weather.collection.interval=300000</code></pre>
+          </div>
+          
+          <div class="step">
+            <h3>3. Start the System</h3>
+            <pre><code>mvn spring-boot:run -Dspring-boot.run.main-class=com.example.WeatherSystemApp</code></pre>
+          </div>
+          
+          <div class="step">
+            <h3>4. Monitor Events</h3>
+            <pre><code># Watch weather data
+kafka-console-consumer --topic weather.data.processed.london
+
+# Watch alerts
+kafka-console-consumer --topic weather.alert.high</code></pre>
+          </div>
+        </div>
+      </div>
+
+      <div class="example-results">
+        <h2>📊 Expected Results</h2>
+        <div class="results-grid">
+          <div class="result-card">
+            <h3>Data Collection</h3>
+            <p>Weather data collected every 5 minutes from configured locations</p>
+            <div class="metric">~288 data points/day per location</div>
+          </div>
+          <div class="result-card">
+            <h3>Processing Speed</h3>
+            <p>Sub-second processing of weather data and alert generation</p>
+            <div class="metric">&lt;500ms average latency</div>
+          </div>
+          <div class="result-card">
+            <h3>Alert Accuracy</h3>
+            <p>Intelligent threshold-based alerting with minimal false positives</p>
+            <div class="metric">95%+ accuracy rate</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="example-footer">
+        <div class="download-section">
+          <h3>📥 Get the Code</h3>
+          <p>Download the complete weather agent example with all source code and documentation.</p>
+          <div class="download-actions">
+            <a href="https://github.com/agentmeshcommunicationprotocol/examples/tree/main/weather-agent" class="btn btn-primary">
+              <svg class="icon" viewBox="0 0 24 24" width="16" height="16">
+                <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+              </svg>
+              View on GitHub
+            </a>
+            <a href="/examples/live-demo/" class="btn btn-outline">Try Live Demo</a>
+          </div>
+        </div>
+
+        <div class="related-examples">
+          <h3>🔗 Related Examples</h3>
+          <div class="related-links">
+            <a href="/examples/stock-agent/">Stock Trading Agent</a>
+            <a href="/examples/travel-agent/">Travel Planning Agent</a>
+            <a href="/examples/orchestration/">Agent Orchestration</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+.example-container {
+  font-family: var(--font-family-sans);
+  background: #f8f9fa;
+  min-height: 100vh;
+  padding: 40px 0;
+}
+
+.example-header {
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+.example-header h1 {
+  font-size: 2.5rem;
+  color: #333;
+  margin-bottom: 15px;
+}
+
+.example-subtitle {
+  font-size: 1.2rem;
+  color: #666;
+  margin-bottom: 20px;
+}
+
+.example-meta {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.example-meta span {
+  padding: 6px 15px;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: white;
+}
+
+.complexity {
+  background: #FF9800;
+}
+
+.tech-stack {
+  background: #1a73e8;
+}
+
+.use-case {
+  background: #4CAF50;
+}
+
+.example-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+  padding: 40px;
+}
+
+.example-overview {
+  margin-bottom: 50px;
+}
+
+.example-overview h2 {
+  font-size: 1.8rem;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.architecture-preview {
+  background: #f8f9fa;
+  padding: 25px;
+  border-radius: 8px;
+  margin-top: 25px;
+}
+
+.arch-diagram {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+  flex-wrap: wrap;
+  margin-top: 20px;
+}
+
+.agent-node {
+  background: #1a73e8;
+  color: white;
+  padding: 12px 20px;
+  border-radius: 8px;
+  font-weight: 500;
+  min-width: 120px;
+  text-align: center;
+}
+
+.flow-arrow {
+  font-size: 1.5rem;
+  color: #666;
+  font-weight: bold;
+}
+
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 25px;
+  margin-top: 25px;
+}
+
+.feature-card {
+  background: #f8f9fa;
+  padding: 25px;
+  border-radius: 12px;
+  text-align: center;
+  transition: transform 0.3s ease;
+}
+
+.feature-card:hover {
+  transform: translateY(-5px);
+}
+
+.feature-icon {
+  font-size: 2.5rem;
+  margin-bottom: 15px;
+}
+
+.feature-card h3 {
+  margin-bottom: 15px;
+  color: #333;
+}
+
+.code-example {
+  margin: 50px 0;
+}
+
+.code-example h2 {
+  font-size: 1.8rem;
+  color: #333;
+  margin-bottom: 30px;
+}
+
+.code-section {
+  margin-bottom: 30px;
+}
+
+.code-section h3 {
+  margin-bottom: 15px;
+  color: #333;
+  font-size: 1.2rem;
+}
+
+pre {
+  background: #1e1e1e;
+  color: #e6e6e6;
+  padding: 20px;
+  border-radius: 8px;
+  overflow-x: auto;
+  font-family: var(--font-family-mono);
+  font-size: 0.9rem;
+  line-height: 1.4;
+}
+
+.setup-steps {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 25px;
+  margin-top: 25px;
+}
+
+.step {
+  background: #f8f9fa;
+  padding: 25px;
+  border-radius: 8px;
+  border-left: 4px solid #1a73e8;
+}
+
+.step h3 {
+  margin-bottom: 15px;
+  color: #333;
+}
+
+.results-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 25px;
+  margin-top: 25px;
+}
+
+.result-card {
+  background: #f8f9fa;
+  padding: 25px;
+  border-radius: 8px;
+  text-align: center;
+  border-top: 4px solid #4CAF50;
+}
+
+.result-card h3 {
+  margin-bottom: 15px;
+  color: #333;
+}
+
+.metric {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #4CAF50;
+  margin-top: 10px;
+}
+
+.example-footer {
+  margin-top: 50px;
+  padding-top: 30px;
+  border-top: 2px solid #e9ecef;
+}
+
+.download-section {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.download-section h3 {
+  margin-bottom: 15px;
+  color: #333;
+}
+
+.download-actions {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  flex-wrap: wrap;
+  margin-top: 20px;
+}
+
+.related-examples {
+  text-align: center;
+}
+
+.related-examples h3 {
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.related-links {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.related-links a {
+  color: #1a73e8;
+  text-decoration: none;
+  padding: 8px 16px;
+  border: 1px solid #1a73e8;
+  border-radius: 6px;
+  transition: all 0.3s ease;
+}
+
+.related-links a:hover {
+  background: #1a73e8;
+  color: white;
+}
+
+.icon {
+  fill: currentColor;
+  margin-right: 8px;
+}
+
+@media (max-width: 768px) {
+  .example-content {
+    padding: 20px;
+  }
+  
+  .example-meta {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .arch-diagram {
+    flex-direction: column;
+  }
+  
+  .flow-arrow {
+    transform: rotate(90deg);
+  }
+  
+  .download-actions,
+  .related-links {
+    flex-direction: column;
+    align-items: center;
+  }
+}
+</style>
+
+  </main>
+
+  <footer class="site-footer">
+  <div class="container">
+    <div class="footer-content">
+      <div class="footer-section">
+        <div class="footer-brand">
+          <img src="/assets/images/AMCPLogo.png" alt="AMCP Logo" class="footer-logo">
+          <h3>AMCP v1.5</h3>
+          <p>Enterprise-grade multi-agent communication framework for modern distributed systems.</p>
+        </div>
+        <div class="footer-social">
+          <a href="https://github.com/agentmeshcommunicationprotocol/amcpcore.github.io" class="social-link" target="_blank" rel="noopener" aria-label="GitHub">
+            <svg viewBox="0 0 24 24" width="24" height="24">
+              <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+            </svg>
+          </a>
+          
+          <a href="https://twitter.com/amcp_framework" class="social-link" target="_blank" rel="noopener" aria-label="Twitter">
+            <svg viewBox="0 0 24 24" width="24" height="24">
+              <path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/>
+            </svg>
+          </a>
+          
+        </div>
+      </div>
+
+      <div class="footer-section">
+        <h4>Documentation</h4>
+        <ul class="footer-links">
+          <li><a href="/docs/getting-started/">Getting Started</a></li>
+          <li><a href="/docs/installation/">Installation</a></li>
+          <li><a href="/docs/api-reference/">API Reference</a></li>
+          <li><a href="/docs/architecture/">Architecture</a></li>
+          <li><a href="/docs/best-practices/">Best Practices</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-section">
+        <h4>Examples</h4>
+        <ul class="footer-links">
+          <li><a href="/examples/weather-agent/">Weather Agent</a></li>
+          <li><a href="/examples/meshchat/">MeshChat AI</a></li>
+          <li><a href="/examples/orchestration/">LLM Orchestration</a></li>
+          <li><a href="/examples/stock-agent/">Stock Agent</a></li>
+          <li><a href="/examples/travel-agent/">Travel Agent</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-section">
+        <h4>Community</h4>
+        <ul class="footer-links">
+          <li><a href="https://github.com/agentmeshcommunicationprotocol/amcpcore.github.io" target="_blank" rel="noopener">GitHub Repository</a></li>
+          <li><a href="/community/contributing/">Contributing</a></li>
+          <li><a href="/community/discussions/">Discussions</a></li>
+          <li><a href="/community/roadmap/">Roadmap</a></li>
+          <li><a href="/blog/">Blog</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-section">
+        <h4>Resources</h4>
+        <ul class="footer-links">
+          <li><a href="/download/">Download</a></li>
+          <li><a href="/docs/changelog/">Changelog</a></li>
+          <li><a href="/docs/migration/">Migration Guide</a></li>
+          <li><a href="/support/">Support</a></li>
+          <li><a href="/contact/">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <div class="footer-bottom-content">
+        <div class="footer-copyright">
+          <p>&copy; 2025 AMCP Development Team. Released under the MIT License.</p>
+        </div>
+        <div class="footer-meta">
+          <span class="footer-version">Version 1.5.0</span>
+          <span class="footer-separator">•</span>
+          <a href="/privacy/">Privacy Policy</a>
+          <span class="footer-separator">•</span>
+          <a href="/terms/">Terms of Service</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<style>
+.site-footer {
+  background: #1a1a1a;
+  color: #ccc;
+  padding: 60px 0 20px;
+  margin-top: 80px;
+}
+
+.footer-content {
+  display: grid;
+  grid-template-columns: 2fr repeat(4, 1fr);
+  gap: 40px;
+  margin-bottom: 40px;
+}
+
+.footer-section h3,
+.footer-section h4 {
+  color: white;
+  margin-bottom: 20px;
+  font-weight: 600;
+}
+
+.footer-brand {
+  margin-bottom: 20px;
+}
+
+.footer-logo {
+  width: 40px;
+  height: 40px;
+  margin-bottom: 15px;
+}
+
+.footer-brand p {
+  color: #999;
+  line-height: 1.6;
+  margin-bottom: 20px;
+}
+
+.footer-social {
+  display: flex;
+  gap: 15px;
+}
+
+.social-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  color: #ccc;
+  transition: all 0.3s ease;
+}
+
+.social-link:hover {
+  background: #2196F3;
+  color: white;
+  transform: translateY(-2px);
+}
+
+.social-link svg {
+  fill: currentColor;
+}
+
+.footer-links {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.footer-links li {
+  margin-bottom: 12px;
+}
+
+.footer-links a {
+  color: #999;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.footer-links a:hover {
+  color: #2196F3;
+}
+
+.footer-bottom {
+  border-top: 1px solid #333;
+  padding-top: 20px;
+}
+
+.footer-bottom-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.footer-copyright p {
+  margin: 0;
+  color: #666;
+  font-size: 0.9rem;
+}
+
+.footer-meta {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  font-size: 0.9rem;
+  color: #666;
+}
+
+.footer-meta a {
+  color: #666;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.footer-meta a:hover {
+  color: #2196F3;
+}
+
+.footer-separator {
+  color: #444;
+}
+
+.footer-version {
+  background: rgba(33, 150, 243, 0.1);
+  color: #2196F3;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .footer-content {
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+  }
+}
+
+@media (max-width: 768px) {
+  .footer-content {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+
+  .footer-bottom-content {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .footer-meta {
+    justify-content: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .site-footer {
+    padding: 40px 0 20px;
+  }
+
+  .footer-meta {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .footer-separator {
+    display: none;
+  }
+}
+</style>
+
+
+  <!-- JavaScript -->
+  <script src="/assets/js/main.js"></script>
+</body>
+
+</html>

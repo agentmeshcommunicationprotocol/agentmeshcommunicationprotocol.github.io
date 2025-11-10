@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AMCP v1.5 Technical Specification</title>
+    <script src="https://acdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #1e40af; /* Tailwind blue-700 */
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f9fafb; /* gray-50 */
+            color: #1f2937; /* gray-800 */
+            scroll-behavior: smooth;
+        }
+        .section-header {
+            border-left: 5px solid var(--primary-color);
+            padding-left: 1rem;
+        }
+        .code-block {
+            background-color: #1f2937; /* dark gray */
+            color: #e5e7eb; /* light gray */
+            padding: 1rem;
+            border-radius: 0.5rem;
+            overflow-x: auto;
+            font-family: monospace;
+        }
+        /* Custom scrollbar for subtle TOC */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #9ca3af; /* gray-400 */
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f3f4f6; /* gray-100 */
+        }
+        /* Style for anchor links/headers to create a nice offset when clicked */
+        h2:target, h3:target {
+            padding-top: 50px; /* Offset for fixed header if needed */
+            margin-top: -50px;
+        }
+
+        /* Responsive TOC visibility */
+        @media (max-width: 1024px) {
+            .toc-container {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- Header -->
+    <header class="bg-white shadow-md sticky top-0 z-10">
+        <div class="max-w-7xl mx-auto py-4 px-4 sm:px-6 lg:px-8">
+            <h1 class="text-3xl font-bold text-gray-900">
+                AMCP v1.5 Technical Specification
+            </h1>
+            <p class="text-sm text-gray-500">
+                Agent Mesh Communication Protocol - Reference for Implementers
+            </p>
+        </div>
+    </header>
+
+    <div class="max-w-7xl mx-auto pt-8 pb-12 px-4 sm:px-6 lg:px-8 flex flex-col lg:flex-row gap-8">
+
+        <!-- Table of Contents (Sticky on Desktop) -->
+        <aside class="w-full lg:w-1/4 sticky top-20 h-fit toc-container">
+            <div class="bg-white p-6 rounded-xl shadow-lg border border-gray-200">
+                <h3 class="text-lg font-semibold mb-4 text-gray-700">Table of Contents</h3>
+                <nav class="space-y-2 text-sm">
+                    <a href="#core-principles" class="block text-blue-700 hover:text-blue-900 font-medium">1. Core Principles</a>
+                    <a href="#architecture-components" class="block text-blue-700 hover:text-blue-900">2. Architecture Components</a>
+                    <ul class="ml-4 space-y-1">
+                        <li><a href="#agent-concept" class="block text-gray-600 hover:text-gray-900">2.1. Agent & Context</a></li>
+                        <li><a href="#event-broker" class="block text-gray-600 hover:text-gray-900">2.2. EventBroker</a></li>
+                    </ul>
+                    <a href="#protocol-data-model" class="block text-blue-700 hover:text-blue-900 font-medium">3. Protocol & Data Model</a>
+                    <ul class="ml-4 space-y-1">
+                        <li><a href="#event-structure" class="block text-gray-600 hover:text-gray-900">3.1. AMCP Event (CloudEvents)</a></li>
+                        <li><a href="#message-exchange" class="block text-gray-600 hover:text-gray-900">3.2. Message Exchange Types</a></li>
+                    </ul>
+                    <a href="#agent-mobility" class="block text-blue-700 hover:text-blue-900 font-medium">4. Agent Mobility Mechanism</a>
+                    <ul class="ml-4 space-y-1">
+                        <li><a href="#dispatch-process" class="block text-gray-600 hover:text-gray-900">4.1. The Dispatch Process</a></li>
+                    </ul>
+                    <a href="#security-model" class="block text-blue-700 hover:text-blue-900 font-medium">5. Security Model</a>
+                    <a href="#deployment-considerations" class="block text-blue-700 hover:text-blue-900 font-medium">6. Deployment & Integration</a>
+                </nav>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="w-full lg:w-3/4">
+
+            <div class="bg-white p-8 rounded-xl shadow-lg space-y-8">
+
+                <!-- Abstract -->
+                <section class="mb-10">
+                    <h2 class="text-2xl font-bold mb-3 text-gray-800 section-header">Abstract</h2>
+                    <p class="text-gray-600 leading-relaxed">
+                        The Agent Mesh Communication Protocol (**AMCP**) is an **event-driven, asynchronous publish/subscribe protocol** designed to enable flexible, loosely coupled interactions among a dynamic set of software agents. It combines the principles of IBM Aglet-style **Agent Mobility** with modern **CloudEvents v1.0** standards, ensuring robust, scalable, and secure communication for enterprise-grade multi-agent systems and LLM orchestration.
+                    </p>
+                </section>
+
+                <!-- 1. Core Principles -->
+                <section id="core-principles" class="pt-8">
+                    <h2 class="text-2xl font-bold mb-4 text-gray-800 section-header">1. Core Principles</h2>
+                    <ul class="list-disc list-inside space-y-3 pl-4 text-gray-700">
+                        <li><strong>Event-Driven Asynchrony:</strong> Communication is primarily through asynchronous event publication, minimizing blocking and maximizing throughput, enabling **10K+ messages/sec** per context.</li>
+                        <li><strong>Agent Mobility (Strong Mobility):</strong> Agents are not bound to a single process; they can be serialized and moved between remote **AgentContexts** (`dispatch()`) or cloned (`clone()`) for workload distribution and resilience.</li>
+                        <li><strong>Loosely Coupled Mesh:</strong> Agents communicate via the **EventBroker** without needing prior knowledge of recipient location or state, enabling dynamic topology.</li>
+                        <li><strong>Contextual Isolation:</strong> Each agent operates within a secure **AgentContext**, ensuring isolation of state, credentials, and resources.</li>
+                        <li><strong>Protocol Bridge:</strong> Native support for bridging to other protocols like Google **A2A (Agent-to-Agent)** and **MCP (Model Context Protocol)**.</li>
+                    </ul>
+                </section>
+
+                <!-- 2. Architecture Components -->
+                <section id="architecture-components" class="pt-8">
+                    <h2 class="text-2xl font-bold mb-4 text-gray-800 section-header">2. Architecture Components</h2>
+
+                    <h3 id="agent-concept" class="text-xl font-semibold mt-6 mb-3 text-gray-800 border-b border-gray-200 pb-1">2.1. Agent & AgentContext</h3>
+                    <p class="text-gray-700 mb-4">
+                        The **Agent** is the fundamental unit of computation, embodying logic, state, and a unique identifier. The **AgentContext** serves as the agent's runtime environment, providing resources and enforcing boundaries.
+                    </p>
+                    <div class="code-block">
+                        <pre>
+// Java Interface Example
+public interface Agent {
+    UUID getId();
+    String getType();
+    void setContext(AgentContext context);
+    void handleEvent(Event event);
+    // Lifecycle methods required for mobility
+    byte[] serializeState();
+    void deserializeState(byte[] state);
+}
+
+// Pseudocode for Agent Context
+AgentContext {
+    AgentRegistry registry;
+    EventBroker broker;
+    SecurityManager security;
+    
+    // Public endpoint for communication/mobility
+    Endpoint getEndpoint(); 
+    
+    // Method to inject and start a new agent
+    void injectAgent(Agent agent, UUID callerId, SecurityToken token); 
+}</pre>
+                    </div>
+
+                    <h3 id="event-broker" class="text-xl font-semibold mt-6 mb-3 text-gray-800 border-b border-gray-200 pb-1">2.2. EventBroker</h3>
+                    <p class="text-gray-700">
+                        The **EventBroker** is the central communication bus, abstracting the underlying messaging technology (Kafka, NATS, Solace). It handles topic-based routing, QoS, and guaranteed delivery.
+                    </p>
+                    <ul class="list-disc list-inside space-y-1 pl-4 text-gray-700 text-sm">
+                        <li>**Topic Structure:** Events are routed based on well-defined topics, e.g., <code>amcp.agent.{agentId}</code> for direct messaging, or <code>amcp.domain.{type}</code> for pub/sub.</li>
+                        <li>**Topic Naming:** Must be hierarchical and adhere to security policies for access control.</li>
+                    </ul>
+                </section>
+
+                <!-- 3. Protocol & Data Model -->
+                <section id="protocol-data-model" class="pt-8">
+                    <h2 class="text-2xl font-bold mb-4 text-gray-800 section-header">3. Protocol & Data Model</h2>
+
+                    <h3 id="event-structure" class="text-xl font-semibold mt-6 mb-3 text-gray-800 border-b border-gray-200 pb-1">3.1. AMCP Event (CloudEvents)</h3>
+                    <p class="text-gray-700 mb-4">
+                        All communication is encapsulated in the **AMCP Event**, which adheres strictly to the <a href="https://cloudevents.io/" target="_blank" class="text-blue-600 hover:underline">CloudEvents v1.0 specification</a> for interoperability.
+                    </p>
+                    <table class="min-w-full divide-y divide-gray-300 rounded-lg overflow-hidden shadow-sm">
+                        <thead class="bg-gray-100">
+                            <tr>
+                                <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Attribute</th>
+                                <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Description</th>
+                                <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">AMCP Usage</th>
+                            </tr>
+                        </thead>
+                        <tbody class="bg-white divide-y divide-gray-200">
+                            <tr>
+                                <td class="px-4 py-3 whitespace-nowrap text-sm font-medium text-gray-900"><code>specversion</code></td>
+                                <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-600">Protocol version</td>
+                                <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-600">Always <code>1.0</code></td>
+                            </tr>
+                            <tr>
+                                <td class="px-4 py-3 whitespace-nowrap text-sm font-medium text-gray-900"><code>id</code></td>
+                                <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-600">Unique event ID</td>
+                                <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-600">UUID, for deduplication & logging</td>
+                            </tr>
+                            <tr>
+                                <td class="px-4 py-3 whitespace-nowrap text-sm font-medium text-gray-900"><code>source</code></td>
+                                <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-600">Originator of the event</td>
+                                <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-600"><code>amcp://{contextId}/{agentId}</code></td>
+                            </tr>
+                            <tr>
+                                <td class="px-4 py-3 whitespace-nowrap text-sm font-medium text-gray-900"><code>type</code></td>
+                                <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-600">Type of event (e.g., Command, Status, Mobility)</td>
+                                <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-600">Defined in AMCP registry (e.g., <code>amcp.command.dispatch</code>)</td>
+                            </tr>
+                            <tr>
+                                <td class="px-4 py-3 whitespace-nowrap text-sm font-medium text-gray-900"><code>subject</code></td>
+                                <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-600">Subject of event</td>
+                                <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-600">Target Agent ID or Topic</td>
+                            </tr>
+                            <tr>
+                                <td class="px-4 py-3 whitespace-nowrap text-sm font-medium text-gray-900"><code>data</code></td>
+                                <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-600">Payload</td>
+                                <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-600">Serialized object (JSON or binary)</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <h3 id="message-exchange" class="text-xl font-semibold mt-6 mb-3 text-gray-800 border-b border-gray-200 pb-1">3.2. Message Exchange Types</h3>
+                    <ul class="list-disc list-inside space-y-2 pl-4 text-gray-700">
+                        <li>**Publish/Subscribe:** Agent publishes event to a **topic** (e.g., <code>amcp.domain.weather</code>). All subscribed agents receive it.</li>
+                        <li>**Point-to-Point (P2P):** Agent publishes event to a **direct agent topic** (e.g., <code>amcp.agent.b03a4...</code>). Only the target agent receives it.</li>
+                        <li>**Request/Reply (via Correlation):** The initiator publishes an event with a **Correlation ID** and a **Reply-To Topic**. The responder replies to the unique Reply-To topic, enabling asynchronous R/R over the event mesh.</li>
+                    </ul>
+                </section>
+
+                <!-- 4. Agent Mobility Mechanism -->
+                <section id="agent-mobility" class="pt-8">
+                    <h2 class="text-2xl font-bold mb-4 text-gray-800 section-header">4. Agent Mobility Mechanism (Strong Mobility)</h2>
+                    <p class="text-gray-700">
+                        Agent Mobility is a core feature, allowing agents to move their execution state (Strong Mobility) between different **AgentContexts**. This is critical for load balancing, fault tolerance, and moving computation closer to data.
+                    </p>
+
+                    <h3 id="dispatch-process" class="text-xl font-semibold mt-6 mb-3 text-gray-800 border-b border-gray-200 pb-1">4.1. The <code>dispatch()</code> Process</h3>
+                    <p class="text-gray-700">
+                        The <code>dispatch(AgentID, TargetContextURL)</code> operation is performed as a transaction over the EventBroker and HTTP/HTTPS.
+                    </p>
+                    <div class="code-block">
+                        <pre>
+// Pseudocode for Agent Mobility Dispatch
+function dispatch(agentId, targetUrl, token):
+    // Step 1: Suspend Agent & Capture State (Serialization)
+    agent = AgentRegistry.lookup(agentId);
+    agent.suspend(); 
+    serializedState = agent.serializeState(); // Capture execution state and object graph
+    
+    // Step 2: Prepare Mobility Payload
+    payload = {
+        "agentId": agentId,
+        "agentType": agent.getType(),
+        "serializedState": serializedState,
+        "sourceContext": AgentContext.getEndpoint()
+    };
+    
+    // Step 3: Secure Transfer (HTTPS)
+    response = HTTP.post(targetUrl + "/inject", payload, Headers: {"Authorization": "Bearer " + token});
+    
+    if response.status == 200:
+        // Step 4: Finalize Source Context Cleanup
+        AgentRegistry.remove(agentId);
+        EventBroker.publish(
+            Event(type="amcp.mobility.dispatched", source=agentId, data={...})
+        );
+        return Success;
+    else:
+        // Step 5: Rollback
+        agent.resume(); 
+        return Failure(response.error);</pre>
+                    </div>
+                    <ul class="list-disc list-inside space-y-1 pl-4 text-gray-700 text-sm mt-3">
+                        <li>**Clone:** A <code>clone()</code> operation follows the same transfer steps but skips Step 4 (Cleanup), allowing the original agent to continue execution.</li>
+                        <li>**Retract:** A <code>retract()</code> operation is essentially a <code>dispatch()</code> where the target is the agent's originating context, often triggered by a timeout or failure signal.</li>
+                    </ul>
+                </section>
+                
+                <!-- 5. Security Model -->
+                <section id="security-model" class="pt-8">
+                    <h2 class="text-2xl font-bold mb-4 text-gray-800 section-header">5. Security Model</h2>
+                    <p class="text-gray-700">
+                        The AMCP security model is layered, leveraging established standards for identity and transport security.
+                    </p>
+                    <ul class="list-disc list-inside space-y-2 pl-4 text-gray-700">
+                        <li>**Transport Security:** **Mutual TLS (mTLS)** is the mandatory baseline for communication between all **AgentContexts** (inter-context communication).</li>
+                        <li>**Agent Authentication:** Agents are authenticated using **JSON Web Tokens (JWT)**. These tokens are issued by the **SecurityManager** of the AgentContext upon creation or injection and are attached to every outgoing event or mobility request.</li>
+                        <li>**Authorization (Topic-Level):** Access to EventBroker topics (e.g., publish, subscribe) is governed by **ACLs (Access Control Lists)** bound to the JWT claims (AgentID, ContextID, Roles).</li>
+                        <li>**Agent State Verification:** Mobility operations include a digital signature of the serialized state to prevent unauthorized state tampering during transfer.</li>
+                    </ul>
+                </section>
+
+                <!-- 6. Deployment & Integration -->
+                <section id="deployment-considerations" class="pt-8">
+                    <h2 class="text-2xl font-bold mb-4 text-gray-800 section-header">6. Deployment & Integration</h2>
+
+                    <h3 class="text-xl font-semibold mt-6 mb-3 text-gray-800 border-b border-gray-200 pb-1">6.1. Event Broker Integration</h3>
+                    <p class="text-gray-700 mb-4">
+                        AMCP is agnostic to the underlying broker, requiring only a compliant <code>EventBroker</code> implementation. Enterprise solutions are provided for:
+                    </p>
+                    <table class="min-w-full divide-y divide-gray-300 rounded-lg overflow-hidden shadow-sm">
+                        <thead class="bg-gray-100">
+                            <tr>
+                                <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Broker</th>
+                                <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">AMCP Benefit</th>
+                            </tr>
+                        </thead>
+                        <tbody class="bg-white divide-y divide-gray-200">
+                            <tr>
+                                <td class="px-4 py-3 whitespace-nowrap text-sm font-medium text-gray-900"><strong>Apache Kafka</strong></td>
+                                <td class="px-4 py-3 text-sm text-gray-600">High-throughput, persistent storage, Dead Letter Queue (DLQ) support, distributed resilience.</td>
+                            </tr>
+                            <tr>
+                                <td class="px-4 py-3 whitespace-nowrap text-sm font-medium text-gray-900"><strong>NATS</strong></td>
+                                <td class="px-4 py-3 text-sm text-gray-600">Extremely low-latency, lightweight, excellent choice for edge computing and high-speed communication.</td>
+                            </tr>
+                            <tr>
+                                <td class="px-4 py-3 whitespace-nowrap text-sm font-medium text-gray-900"><strong>Solace PubSub+</strong></td>
+                                <td class="px-4 py-3 text-sm text-gray-600">Advanced routing (topic wildcards), guaranteed message delivery, built-in cloud-native mesh networking.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <h3 class="text-xl font-semibold mt-6 mb-3 text-gray-800 border-b border-gray-200 pb-1">6.2. Kubernetes Deployment</h3>
+                    <p class="text-gray-700">
+                        AgentContexts are designed to be deployed as stateless (or near-stateless) microservices within a **Kubernetes** cluster.
+                    </p>
+                    <ul class="list-disc list-inside space-y-2 pl-4 text-gray-700">
+                        <li>**Containerization:** Each AgentContext instance is a container (Docker, JVM-based) exposing a minimal set of ports (e.g., 8080/HTTP for mobility injection, 9090/Metrics).</li>
+                        <li>**Liveness/Readiness Probes:** Standard Kubernetes probes are implemented at <code>/health</code> and <code>/ready</code> endpoints to ensure proper lifecycle management.</li>
+                        <li>**Horizontal Scaling:** Scaling the number of AgentContext pods allows for elastic scaling of the agent mesh. The EventBroker ensures load balancing of topic subscriptions across all replicas.</li>
+                    </ul>
+                    
+                    <h3 class="text-xl font-semibold mt-6 mb-3 text-gray-800 border-b border-gray-200 pb-1">6.3. Performance Tuning (JVM Reference)</h3>
+                    <p class="text-gray-700">
+                        For Java implementations, the following JVM flags are recommended for enterprise-grade performance, focusing on minimizing garbage collection latency.
+                    </p>
+                    <div class="code-block">
+                        <pre>
+JAVA_OPTS="
+  -Xms4g -Xmx8g               // Initial/Maximum Heap Size
+  -XX:+UseG1GC                // Use the Garbage First Collector
+  -XX:MaxGCPauseMillis=200    // Target max pause time
+  -XX:ParallelGCThreads=8     // Parallel threads for GC
+  -XX:ConcGCThreads=2         // Concurrent threads for GC
+  -XX:InitiatingHeapOccupancyPercent=45 // Start GC earlier
+  -XX:+UseStringDeduplication // Save memory by deduplicating strings
+"</pre>
+                    </div>
+
+                </section>
+
+                <div class="pt-8 border-t border-gray-200 mt-10">
+                    <p class="text-sm text-gray-500 text-center">
+                        &copy; 2025 AMCP Contributors. This is a technical specification based on AMCP v1.5.
+                    </p>
+                </div>
+
+            </div>
+        </main>
+    </div>
+
+</body>
+</html>

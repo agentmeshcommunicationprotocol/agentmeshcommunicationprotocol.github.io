@@ -1,0 +1,1340 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>AMCP Best Practices | AMCP: Java Agent Mesh Framework for Mobile &amp; Distributed Systems</title>
+  <meta name="description" content="Best practices for building production-ready AMCP applications">
+
+  <!-- Google Search Console Verification -->
+  
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://agentmeshcommunicationprotocol.github.io/docs/best-practices/">
+  <meta property="og:title" content="AMCP Best Practices | AMCP: Java Agent Mesh Framework for Mobile &amp; Distributed Systems">
+  <meta property="og:description" content="Best practices for building production-ready AMCP applications">
+  <meta property="og:image" content="https://agentmeshcommunicationprotocol.github.io/assets/images/amcp-social.png">
+
+  <!-- Twitter -->
+  <meta property="twitter:card" content="summary_large_image">
+  <meta property="twitter:url" content="https://agentmeshcommunicationprotocol.github.io/docs/best-practices/">
+  <meta property="twitter:title" content="AMCP Best Practices | AMCP: Java Agent Mesh Framework for Mobile &amp; Distributed Systems">
+  <meta property="twitter:description" content="Best practices for building production-ready AMCP applications">
+  <meta property="twitter:image" content="https://agentmeshcommunicationprotocol.github.io/assets/images/amcp-social.png">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/x-icon" href="/assets/images/favicon.ico">
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/images/apple-touch-icon.png">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="/assets/css/main.css">
+
+  <!-- RSS -->
+  <link type="application/atom+xml" rel="alternate" href="/feed.xml" title="AMCP: Java Agent Mesh Framework for Mobile &amp; Distributed Systems">
+
+  <!-- Analytics -->
+  
+
+  <!-- JSON-LD Schema -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "AMCP - Agent Mesh Communication Protocol",
+    "description": "A Java-based open-source agentic framework implementing Agent Mesh concept with agent mobility and secure communication, inspired by IBM Aglets. Enterprise-grade multi-agent communication protocol for distributed systems.",
+    "url": "https://agentmeshcommunicationprotocol.github.io",
+    "applicationCategory": "DeveloperApplication",
+    "operatingSystem": "Cross-platform",
+    "programmingLanguage": "Java",
+    "author": {
+      "@type": "Organization",
+      "name": "AMCP Development Team"
+    },
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    }
+  }
+  </script>
+</head>
+
+<body>
+  <header class="site-header">
+  <div class="container">
+    <nav class="navbar">
+      <div class="navbar-brand">
+        <a href="/" class="navbar-brand">
+          <img src="/assets/images/AMCPLogo.png" alt="AMCP Logo" class="brand-logo">
+          <span class="brand-text">AMCP</span>
+        </a>
+      </div>
+
+      <button class="navbar-toggle" aria-label="Toggle navigation">
+        <span class="hamburger-line"></span>
+        <span class="hamburger-line"></span>
+        <span class="hamburger-line"></span>
+      </button>
+
+      <div class="navbar-menu">
+        <ul class="navbar-nav">
+          
+          <li class="nav-item">
+            <a href="/" class="nav-link ">
+              Home
+            </a>
+          </li>
+          
+          <li class="nav-item">
+            <a href="/whitepaper/" class="nav-link ">
+              Whitepaper
+            </a>
+          </li>
+          
+          <li class="nav-item">
+            <a href="/docs/" class="nav-link ">
+              Documentation
+            </a>
+          </li>
+          
+          <li class="nav-item">
+            <a href="/examples/" class="nav-link ">
+              Examples
+            </a>
+          </li>
+          
+          <li class="nav-item">
+            <a href="/download/" class="nav-link ">
+              Download
+            </a>
+          </li>
+          
+          <li class="nav-item">
+            <a href="/community/" class="nav-link ">
+              Community
+            </a>
+          </li>
+          
+          <li class="nav-item">
+            <a href="/blog/" class="nav-link ">
+              Blog
+            </a>
+          </li>
+          
+        </ul>
+
+        <div class="navbar-actions">
+          <a href="https://github.com/agentmeshcommunicationprotocol/amcpcore.github.io" class="btn btn-outline btn-sm" target="_blank" rel="noopener">
+            <svg class="icon" viewBox="0 0 24 24" width="16" height="16">
+              <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+            </svg>
+            GitHub
+          </a>
+          <a href="/download/" class="btn btn-primary btn-sm">
+            Download
+          </a>
+        </div>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<style>
+.site-header {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 0;
+}
+
+.navbar-brand {
+  display: flex;
+  align-items: center;
+}
+
+.brand-link {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: #333;
+}
+
+.brand-logo {
+  width: 32px;
+  height: 32px;
+  margin-right: 12px;
+}
+
+.brand-text {
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+.version {
+  font-size: 0.75rem;
+  color: #666;
+  margin-left: 8px;
+  background: #e3f2fd;
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+
+.navbar-toggle {
+  display: none;
+  flex-direction: column;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+}
+
+.hamburger-line {
+  width: 24px;
+  height: 2px;
+  background: #333;
+  margin: 3px 0;
+  transition: 0.3s;
+}
+
+.navbar-menu {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+
+.navbar-nav {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  gap: 2rem;
+}
+
+.nav-link {
+  text-decoration: none;
+  color: #666;
+  font-weight: 500;
+  transition: color 0.3s ease;
+  position: relative;
+}
+
+.nav-link:hover,
+.nav-link.active {
+  color: #2196F3;
+}
+
+.nav-link.active::after {
+  content: '';
+  position: absolute;
+  bottom: -8px;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: #2196F3;
+}
+
+.navbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  text-decoration: none;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  border: none;
+  cursor: pointer;
+}
+
+.btn-sm {
+  padding: 0.375rem 0.75rem;
+  font-size: 0.875rem;
+}
+
+.btn-primary {
+  background: #2196F3;
+  color: white;
+}
+
+.btn-primary:hover {
+  background: #1976D2;
+  transform: translateY(-1px);
+}
+
+.btn-outline {
+  background: transparent;
+  color: #666;
+  border: 1px solid #ddd;
+}
+
+.btn-outline:hover {
+  background: #f5f5f5;
+  border-color: #bbb;
+}
+
+.icon {
+  fill: currentColor;
+}
+
+/* Mobile Navigation */
+@media (max-width: 768px) {
+  .navbar-toggle {
+    display: flex;
+  }
+
+  .navbar-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: white;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    flex-direction: column;
+    padding: 1rem;
+    transform: translateY(-100%);
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+  }
+
+  .navbar-menu.active {
+    transform: translateY(0);
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .navbar-nav {
+    flex-direction: column;
+    gap: 1rem;
+    width: 100%;
+    margin-bottom: 1rem;
+  }
+
+  .navbar-actions {
+    justify-content: center;
+    width: 100%;
+  }
+
+  .nav-link.active::after {
+    display: none;
+  }
+}
+</style>
+
+
+  <main class="page-content" aria-label="Content">
+    <div class="docs-container">
+  <div class="container">
+    <header class="docs-header">
+      <h1>⭐ AMCP Best Practices</h1>
+      <p class="docs-subtitle">Production-ready patterns and recommendations</p>
+    </header>
+
+    <div class="docs-content">
+      <nav class="docs-nav">
+        <h3>Best Practices Guide</h3>
+        <ul>
+          <li><a href="#agent-design">Agent Design</a></li>
+          <li><a href="#event-patterns">Event Patterns</a></li>
+          <li><a href="#performance">Performance</a></li>
+          <li><a href="#security">Security</a></li>
+          <li><a href="#monitoring">Monitoring</a></li>
+          <li><a href="#deployment">Deployment</a></li>
+        </ul>
+      </nav>
+
+      <section id="agent-design" class="docs-section">
+        <h2>🤖 Agent Design Principles</h2>
+        
+        <div class="practice-item">
+          <h3>✅ Single Responsibility</h3>
+          <p>Each agent should have a single, well-defined responsibility.</p>
+          <div class="code-example">
+            <div class="good-example">
+              <h4>✅ Good</h4>
+              <pre><code>// Focused on weather data processing only
+public class WeatherProcessorAgent extends Agent {
+    public void processWeatherData(WeatherData data) {
+        // Process weather data
+    }
+}</code></pre>
+            </div>
+            <div class="bad-example">
+              <h4>❌ Avoid</h4>
+              <pre><code>// Too many responsibilities
+public class WeatherAgent extends Agent {
+    public void processWeatherData() { }
+    public void sendNotifications() { }
+    public void manageUsers() { }
+    public void generateReports() { }
+}</code></pre>
+            </div>
+          </div>
+        </div>
+
+        <div class="practice-item">
+          <h3>✅ Stateless Design</h3>
+          <p>Design agents to be stateless when possible for better scalability.</p>
+          <pre><code>@Agent("order-processor")
+public class OrderProcessorAgent extends Agent {
+    
+    // Avoid instance variables for state
+    // Use event payload or external storage instead
+    
+    @EventHandler
+    public void processOrder(Event event) {
+        OrderData order = event.getPayload(OrderData.class);
+        
+        // Process order without storing state
+        ProcessedOrder result = processOrderData(order);
+        
+        // Publish result
+        publish(Event.builder()
+            .topic("order.processed")
+            .payload(result)
+            .build());
+    }
+}</code></pre>
+        </div>
+      </section>
+
+      <section id="event-patterns" class="docs-section">
+        <h2>📡 Event Design Patterns</h2>
+        
+        <div class="pattern-grid">
+          <div class="pattern-card">
+            <h3>Topic Naming Convention</h3>
+            <p>Use hierarchical, descriptive topic names</p>
+            <pre><code>// Good topic naming
+weather.data.raw.london
+order.created.ecommerce
+user.profile.updated
+
+// Avoid generic names
+data
+event
+message</code></pre>
+          </div>
+
+          <div class="pattern-card">
+            <h3>Event Versioning</h3>
+            <p>Include version information for backward compatibility</p>
+            <pre><code>Event event = Event.builder()
+    .topic("order.created.v2")
+    .payload(orderData)
+    .metadata("version", "2.0")
+    .build();</code></pre>
+          </div>
+
+          <div class="pattern-card">
+            <h3>Correlation IDs</h3>
+            <p>Use correlation IDs to track related events</p>
+            <pre><code>Event response = Event.builder()
+    .topic("order.processed")
+    .payload(result)
+    .correlationId(originalEvent.getCorrelationId())
+    .build();</code></pre>
+          </div>
+        </div>
+      </section>
+
+      <section id="performance" class="docs-section">
+        <h2>⚡ Performance Optimization</h2>
+        
+        <div class="perf-recommendations">
+          <div class="perf-item">
+            <h3>🔄 Batch Processing</h3>
+            <p>Process events in batches when possible to improve throughput.</p>
+            <pre><code>@EventHandler
+@BatchSize(100)
+@BatchTimeout(5000) // 5 seconds
+public void processBatchedEvents(List&lt;Event&gt; events) {
+    // Process events in batch
+    List&lt;ProcessedData&gt; results = events.stream()
+        .map(this::processEvent)
+        .collect(Collectors.toList());
+    
+    // Publish batch results
+    publishBatch(results);
+}</code></pre>
+          </div>
+
+          <div class="perf-item">
+            <h3>🧵 Async Processing</h3>
+            <p>Use asynchronous processing for non-blocking operations.</p>
+            <pre><code>@EventHandler
+public void handleEvent(Event event) {
+    // Quick validation
+    if (!isValidEvent(event)) {
+        return;
+    }
+    
+    // Async processing
+    CompletableFuture.supplyAsync(() -> {
+        return heavyProcessing(event);
+    }).thenAccept(result -> {
+        publishResult(result);
+    });
+}</code></pre>
+          </div>
+
+          <div class="perf-item">
+            <h3>💾 Caching Strategy</h3>
+            <p>Implement intelligent caching for frequently accessed data.</p>
+            <pre><code>@Agent("data-service")
+public class DataServiceAgent extends Agent {
+    
+    private final Cache&lt;String, Data&gt; cache = CacheBuilder.newBuilder()
+        .maximumSize(10000)
+        .expireAfterWrite(10, TimeUnit.MINUTES)
+        .build();
+    
+    @EventHandler
+    public void handleDataRequest(Event event) {
+        String key = event.getPayload(String.class);
+        
+        Data data = cache.get(key, () -> {
+            return expensiveDataLookup(key);
+        });
+        
+        publishData(data);
+    }
+}</code></pre>
+          </div>
+        </div>
+      </section>
+
+      <section id="security" class="docs-section">
+        <h2>🔒 Security Best Practices</h2>
+        
+        <div class="security-practices">
+          <div class="security-item">
+            <h3>🔐 Authentication</h3>
+            <p>Always authenticate agents before allowing mesh participation.</p>
+            <pre><code>@Agent("secure-agent")
+@RequireAuthentication
+public class SecureAgent extends Agent {
+    
+    @Override
+    public void onActivation() {
+        // Agent automatically authenticated before activation
+        subscribe("secure.data.*");
+    }
+}</code></pre>
+          </div>
+
+          <div class="security-item">
+            <h3>🛡️ Input Validation</h3>
+            <p>Validate all incoming event data to prevent injection attacks.</p>
+            <pre><code>@EventHandler
+public void handleUserInput(Event event) {
+    UserInput input = event.getPayload(UserInput.class);
+    
+    // Validate input
+    if (!inputValidator.isValid(input)) {
+        publishError("Invalid input received");
+        return;
+    }
+    
+    // Sanitize input
+    UserInput sanitized = inputSanitizer.sanitize(input);
+    
+    processInput(sanitized);
+}</code></pre>
+          </div>
+
+          <div class="security-item">
+            <h3>🔑 Topic Permissions</h3>
+            <p>Implement topic-level access control.</p>
+            <pre><code>@Agent("financial-agent")
+@TopicPermissions({
+    @Permission(topic = "financial.data.*", access = READ_WRITE),
+    @Permission(topic = "public.data.*", access = READ_ONLY)
+})
+public class FinancialAgent extends Agent {
+    // Agent can only access permitted topics
+}</code></pre>
+          </div>
+        </div>
+      </section>
+
+      <section id="monitoring" class="docs-section">
+        <h2>📊 Monitoring & Observability</h2>
+        
+        <div class="monitoring-grid">
+          <div class="monitoring-card">
+            <h3>📈 Metrics Collection</h3>
+            <p>Collect key performance metrics for monitoring.</p>
+            <pre><code>@Agent("monitored-agent")
+public class MonitoredAgent extends Agent {
+    
+    private final MeterRegistry meterRegistry;
+    private final Counter eventCounter;
+    private final Timer processingTimer;
+    
+    @EventHandler
+    public void handleEvent(Event event) {
+        Timer.Sample sample = Timer.start(meterRegistry);
+        
+        try {
+            processEvent(event);
+            eventCounter.increment("success");
+        } catch (Exception e) {
+            eventCounter.increment("error");
+            throw e;
+        } finally {
+            sample.stop(processingTimer);
+        }
+    }
+}</code></pre>
+          </div>
+
+          <div class="monitoring-card">
+            <h3>📝 Structured Logging</h3>
+            <p>Use structured logging for better observability.</p>
+            <pre><code>@EventHandler
+public void processOrder(Event event) {
+    String orderId = event.getMetadata("orderId");
+    
+    log.info("Processing order", 
+        kv("orderId", orderId),
+        kv("agentId", getAgentId()),
+        kv("timestamp", Instant.now()));
+    
+    try {
+        // Process order
+        log.info("Order processed successfully", 
+            kv("orderId", orderId));
+    } catch (Exception e) {
+        log.error("Order processing failed", 
+            kv("orderId", orderId),
+            kv("error", e.getMessage()));
+    }
+}</code></pre>
+          </div>
+
+          <div class="monitoring-card">
+            <h3>🚨 Health Checks</h3>
+            <p>Implement comprehensive health checks.</p>
+            <pre><code>@Agent("health-monitored-agent")
+public class HealthMonitoredAgent extends Agent implements HealthIndicator {
+    
+    @Override
+    public Health health() {
+        return Health.up()
+            .withDetail("activeConnections", getActiveConnections())
+            .withDetail("lastEventTime", getLastEventTime())
+            .withDetail("errorRate", getErrorRate())
+            .build();
+    }
+    
+    @Scheduled(fixedRate = 30000) // Every 30 seconds
+    public void publishHealthStatus() {
+        Health health = health();
+        
+        publish(Event.builder()
+            .topic("agent.health." + getAgentId())
+            .payload(health)
+            .build());
+    }
+}</code></pre>
+          </div>
+        </div>
+      </section>
+
+      <section id="deployment" class="docs-section">
+        <h2>🚀 Deployment Best Practices</h2>
+        
+        <div class="deployment-practices">
+          <div class="deployment-item">
+            <h3>🐳 Containerization</h3>
+            <p>Use Docker for consistent deployments across environments.</p>
+            <pre><code># Dockerfile
+FROM openjdk:17-jre-slim
+
+COPY target/my-agent-1.0.jar /app/agent.jar
+
+EXPOSE 8080
+
+HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
+  CMD curl -f http://localhost:8080/health || exit 1
+
+ENTRYPOINT ["java", "-jar", "/app/agent.jar"]</code></pre>
+          </div>
+
+          <div class="deployment-item">
+            <h3>☸️ Kubernetes Deployment</h3>
+            <p>Use Kubernetes for orchestration and scaling.</p>
+            <pre><code>apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: weather-agent
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: weather-agent
+  template:
+    metadata:
+      labels:
+        app: weather-agent
+    spec:
+      containers:
+      - name: weather-agent
+        image: amcp/weather-agent:1.5.0
+        ports:
+        - containerPort: 8080
+        env:
+        - name: AMCP_BROKER_URL
+          value: "kafka:9092"
+        resources:
+          requests:
+            memory: "512Mi"
+            cpu: "250m"
+          limits:
+            memory: "1Gi"
+            cpu: "500m"
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 8080
+          initialDelaySeconds: 30
+          periodSeconds: 10</code></pre>
+          </div>
+
+          <div class="deployment-item">
+            <h3>🔄 Blue-Green Deployment</h3>
+            <p>Implement zero-downtime deployments.</p>
+            <pre><code># Blue-Green deployment strategy
+apiVersion: argoproj.io/v1alpha1
+kind: Rollout
+metadata:
+  name: weather-agent-rollout
+spec:
+  replicas: 5
+  strategy:
+    blueGreen:
+      activeService: weather-agent-active
+      previewService: weather-agent-preview
+      autoPromotionEnabled: false
+      scaleDownDelaySeconds: 30
+      prePromotionAnalysis:
+        templates:
+        - templateName: success-rate
+        args:
+        - name: service-name
+          value: weather-agent-preview
+  selector:
+    matchLabels:
+      app: weather-agent
+  template:
+    metadata:
+      labels:
+        app: weather-agent
+    spec:
+      containers:
+      - name: weather-agent
+        image: amcp/weather-agent:1.5.0</code></pre>
+          </div>
+        </div>
+      </section>
+
+      <div class="docs-footer">
+        <div class="best-practices-summary">
+          <h3>📋 Quick Reference Checklist</h3>
+          <div class="checklist-grid">
+            <div class="checklist-column">
+              <h4>Agent Design</h4>
+              <ul class="checklist">
+                <li>Single responsibility principle</li>
+                <li>Stateless when possible</li>
+                <li>Proper error handling</li>
+                <li>Resource cleanup</li>
+              </ul>
+            </div>
+            <div class="checklist-column">
+              <h4>Events</h4>
+              <ul class="checklist">
+                <li>Descriptive topic names</li>
+                <li>Event versioning</li>
+                <li>Correlation IDs</li>
+                <li>Input validation</li>
+              </ul>
+            </div>
+            <div class="checklist-column">
+              <h4>Production</h4>
+              <ul class="checklist">
+                <li>Comprehensive monitoring</li>
+                <li>Health checks</li>
+                <li>Security measures</li>
+                <li>Deployment automation</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="next-steps">
+          <h3>Next Steps</h3>
+          <div class="next-links">
+            <a href="/docs/architecture/" class="btn btn-primary">Architecture Guide</a>
+            <a href="/docs/monitoring/" class="btn btn-outline">Monitoring Setup</a>
+            <a href="/docs/tutorials/production-deployment/" class="btn btn-outline">Production Deployment</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+.docs-container {
+  font-family: var(--font-family-sans);
+  background: #f8f9fa;
+  min-height: 100vh;
+  padding: 40px 0;
+}
+
+.docs-header {
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+.docs-header h1 {
+  font-size: 2.5rem;
+  color: #333;
+  margin-bottom: 15px;
+}
+
+.docs-subtitle {
+  font-size: 1.2rem;
+  color: #666;
+}
+
+.docs-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+  padding: 40px;
+}
+
+.docs-nav {
+  background: #f8f9fa;
+  padding: 20px;
+  border-radius: 8px;
+  margin-bottom: 40px;
+}
+
+.docs-nav ul {
+  list-style: none;
+  padding: 0;
+  margin: 10px 0 0 0;
+}
+
+.docs-nav li {
+  margin-bottom: 8px;
+}
+
+.docs-nav a {
+  color: #1a73e8;
+  text-decoration: none;
+}
+
+.docs-section {
+  margin-bottom: 50px;
+}
+
+.docs-section h2 {
+  font-size: 1.8rem;
+  color: #333;
+  margin-bottom: 25px;
+  padding-bottom: 10px;
+  border-bottom: 2px solid #e9ecef;
+}
+
+.practice-item {
+  margin-bottom: 40px;
+  padding: 25px;
+  background: #f8f9fa;
+  border-radius: 8px;
+}
+
+.practice-item h3 {
+  margin-bottom: 15px;
+  color: #333;
+}
+
+.code-example {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.good-example {
+  border-left: 4px solid #4CAF50;
+  padding-left: 15px;
+}
+
+.bad-example {
+  border-left: 4px solid #f44336;
+  padding-left: 15px;
+}
+
+.good-example h4 {
+  color: #4CAF50;
+  margin-bottom: 10px;
+}
+
+.bad-example h4 {
+  color: #f44336;
+  margin-bottom: 10px;
+}
+
+.pattern-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 25px;
+  margin-top: 25px;
+}
+
+.pattern-card {
+  background: #f8f9fa;
+  padding: 25px;
+  border-radius: 8px;
+  border-left: 4px solid #1a73e8;
+}
+
+.pattern-card h3 {
+  margin-bottom: 15px;
+  color: #333;
+}
+
+.perf-recommendations,
+.security-practices,
+.deployment-practices {
+  margin-top: 25px;
+}
+
+.perf-item,
+.security-item,
+.deployment-item {
+  margin-bottom: 30px;
+  padding: 25px;
+  background: #f8f9fa;
+  border-radius: 8px;
+}
+
+.perf-item h3,
+.security-item h3,
+.deployment-item h3 {
+  margin-bottom: 15px;
+  color: #333;
+}
+
+.monitoring-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 25px;
+  margin-top: 25px;
+}
+
+.monitoring-card {
+  background: #f8f9fa;
+  padding: 25px;
+  border-radius: 8px;
+  border-left: 4px solid #FF9800;
+}
+
+.monitoring-card h3 {
+  margin-bottom: 15px;
+  color: #333;
+}
+
+pre {
+  background: #1e1e1e;
+  color: #e6e6e6;
+  padding: 15px;
+  border-radius: 6px;
+  overflow-x: auto;
+  font-family: var(--font-family-mono);
+  font-size: 0.9rem;
+  margin-top: 15px;
+}
+
+.best-practices-summary {
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  padding: 30px;
+  border-radius: 12px;
+  margin-bottom: 30px;
+}
+
+.best-practices-summary h3 {
+  text-align: center;
+  margin-bottom: 25px;
+  color: #333;
+}
+
+.checklist-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 25px;
+}
+
+.checklist-column h4 {
+  margin-bottom: 15px;
+  color: #333;
+}
+
+.checklist {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.checklist li {
+  margin-bottom: 8px;
+  padding-left: 20px;
+  position: relative;
+}
+
+.checklist li::before {
+  content: "✅";
+  position: absolute;
+  left: 0;
+}
+
+.docs-footer {
+  margin-top: 50px;
+  padding-top: 30px;
+  border-top: 2px solid #e9ecef;
+}
+
+.next-steps h3 {
+  margin-bottom: 20px;
+  color: #333;
+  text-align: center;
+}
+
+.next-links {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  flex-wrap: wrap;
+}
+
+@media (max-width: 768px) {
+  .docs-content {
+    padding: 20px;
+  }
+  
+  .code-example {
+    grid-template-columns: 1fr;
+  }
+  
+  .pattern-grid,
+  .monitoring-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .checklist-grid {
+    grid-template-columns: 1fr;
+  }
+}
+</style>
+
+  </main>
+
+  <footer class="site-footer">
+  <div class="container">
+    <div class="footer-content">
+      <div class="footer-section">
+        <div class="footer-brand">
+          <img src="/assets/images/AMCPLogo.png" alt="AMCP Logo" class="footer-logo">
+          <h3>AMCP v1.5</h3>
+          <p>Enterprise-grade multi-agent communication framework for modern distributed systems.</p>
+        </div>
+        <div class="footer-social">
+          <a href="https://github.com/agentmeshcommunicationprotocol/amcpcore.github.io" class="social-link" target="_blank" rel="noopener" aria-label="GitHub">
+            <svg viewBox="0 0 24 24" width="24" height="24">
+              <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+            </svg>
+          </a>
+          
+          <a href="https://twitter.com/amcp_framework" class="social-link" target="_blank" rel="noopener" aria-label="Twitter">
+            <svg viewBox="0 0 24 24" width="24" height="24">
+              <path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/>
+            </svg>
+          </a>
+          
+        </div>
+      </div>
+
+      <div class="footer-section">
+        <h4>Documentation</h4>
+        <ul class="footer-links">
+          <li><a href="/docs/getting-started/">Getting Started</a></li>
+          <li><a href="/docs/installation/">Installation</a></li>
+          <li><a href="/docs/api-reference/">API Reference</a></li>
+          <li><a href="/docs/architecture/">Architecture</a></li>
+          <li><a href="/docs/best-practices/">Best Practices</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-section">
+        <h4>Examples</h4>
+        <ul class="footer-links">
+          <li><a href="/examples/weather-agent/">Weather Agent</a></li>
+          <li><a href="/examples/meshchat/">MeshChat AI</a></li>
+          <li><a href="/examples/orchestration/">LLM Orchestration</a></li>
+          <li><a href="/examples/stock-agent/">Stock Agent</a></li>
+          <li><a href="/examples/travel-agent/">Travel Agent</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-section">
+        <h4>Community</h4>
+        <ul class="footer-links">
+          <li><a href="https://github.com/agentmeshcommunicationprotocol/amcpcore.github.io" target="_blank" rel="noopener">GitHub Repository</a></li>
+          <li><a href="/community/contributing/">Contributing</a></li>
+          <li><a href="/community/discussions/">Discussions</a></li>
+          <li><a href="/community/roadmap/">Roadmap</a></li>
+          <li><a href="/blog/">Blog</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-section">
+        <h4>Resources</h4>
+        <ul class="footer-links">
+          <li><a href="/download/">Download</a></li>
+          <li><a href="/docs/changelog/">Changelog</a></li>
+          <li><a href="/docs/migration/">Migration Guide</a></li>
+          <li><a href="/support/">Support</a></li>
+          <li><a href="/contact/">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <div class="footer-bottom-content">
+        <div class="footer-copyright">
+          <p>&copy; 2025 AMCP Development Team. Released under the MIT License.</p>
+        </div>
+        <div class="footer-meta">
+          <span class="footer-version">Version 1.5.0</span>
+          <span class="footer-separator">•</span>
+          <a href="/privacy/">Privacy Policy</a>
+          <span class="footer-separator">•</span>
+          <a href="/terms/">Terms of Service</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<style>
+.site-footer {
+  background: #1a1a1a;
+  color: #ccc;
+  padding: 60px 0 20px;
+  margin-top: 80px;
+}
+
+.footer-content {
+  display: grid;
+  grid-template-columns: 2fr repeat(4, 1fr);
+  gap: 40px;
+  margin-bottom: 40px;
+}
+
+.footer-section h3,
+.footer-section h4 {
+  color: white;
+  margin-bottom: 20px;
+  font-weight: 600;
+}
+
+.footer-brand {
+  margin-bottom: 20px;
+}
+
+.footer-logo {
+  width: 40px;
+  height: 40px;
+  margin-bottom: 15px;
+}
+
+.footer-brand p {
+  color: #999;
+  line-height: 1.6;
+  margin-bottom: 20px;
+}
+
+.footer-social {
+  display: flex;
+  gap: 15px;
+}
+
+.social-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  color: #ccc;
+  transition: all 0.3s ease;
+}
+
+.social-link:hover {
+  background: #2196F3;
+  color: white;
+  transform: translateY(-2px);
+}
+
+.social-link svg {
+  fill: currentColor;
+}
+
+.footer-links {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.footer-links li {
+  margin-bottom: 12px;
+}
+
+.footer-links a {
+  color: #999;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.footer-links a:hover {
+  color: #2196F3;
+}
+
+.footer-bottom {
+  border-top: 1px solid #333;
+  padding-top: 20px;
+}
+
+.footer-bottom-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.footer-copyright p {
+  margin: 0;
+  color: #666;
+  font-size: 0.9rem;
+}
+
+.footer-meta {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  font-size: 0.9rem;
+  color: #666;
+}
+
+.footer-meta a {
+  color: #666;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.footer-meta a:hover {
+  color: #2196F3;
+}
+
+.footer-separator {
+  color: #444;
+}
+
+.footer-version {
+  background: rgba(33, 150, 243, 0.1);
+  color: #2196F3;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .footer-content {
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+  }
+}
+
+@media (max-width: 768px) {
+  .footer-content {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+
+  .footer-bottom-content {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .footer-meta {
+    justify-content: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .site-footer {
+    padding: 40px 0 20px;
+  }
+
+  .footer-meta {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .footer-separator {
+    display: none;
+  }
+}
+</style>
+
+
+  <!-- JavaScript -->
+  <script src="/assets/js/main.js"></script>
+</body>
+
+</html>

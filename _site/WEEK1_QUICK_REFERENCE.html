@@ -1,0 +1,1047 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Week 1 Setup - Quick Reference Card | AMCP: Java Agent Mesh Framework for Mobile &amp; Distributed Systems</title>
+  <meta name="description" content="A Java-based open-source agentic framework implementing Agent Mesh concept with agent mobility and secure communication, inspired by IBM Aglets. Enterprise-g...">
+
+  <!-- Google Search Console Verification -->
+  
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://agentmeshcommunicationprotocol.github.io/WEEK1_QUICK_REFERENCE.html">
+  <meta property="og:title" content="Week 1 Setup - Quick Reference Card | AMCP: Java Agent Mesh Framework for Mobile &amp; Distributed Systems">
+  <meta property="og:description" content="A Java-based open-source agentic framework implementing Agent Mesh concept with agent mobility and secure communication, inspired by IBM Aglets. Enterprise-g...">
+  <meta property="og:image" content="https://agentmeshcommunicationprotocol.github.io/assets/images/amcp-social.png">
+
+  <!-- Twitter -->
+  <meta property="twitter:card" content="summary_large_image">
+  <meta property="twitter:url" content="https://agentmeshcommunicationprotocol.github.io/WEEK1_QUICK_REFERENCE.html">
+  <meta property="twitter:title" content="Week 1 Setup - Quick Reference Card | AMCP: Java Agent Mesh Framework for Mobile &amp; Distributed Systems">
+  <meta property="twitter:description" content="A Java-based open-source agentic framework implementing Agent Mesh concept with agent mobility and secure communication, inspired by IBM Aglets. Enterprise-g...">
+  <meta property="twitter:image" content="https://agentmeshcommunicationprotocol.github.io/assets/images/amcp-social.png">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/x-icon" href="/assets/images/favicon.ico">
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/images/apple-touch-icon.png">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="/assets/css/main.css">
+
+  <!-- RSS -->
+  <link type="application/atom+xml" rel="alternate" href="/feed.xml" title="AMCP: Java Agent Mesh Framework for Mobile &amp; Distributed Systems">
+
+  <!-- Analytics -->
+  
+
+  <!-- JSON-LD Schema -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "AMCP - Agent Mesh Communication Protocol",
+    "description": "A Java-based open-source agentic framework implementing Agent Mesh concept with agent mobility and secure communication, inspired by IBM Aglets. Enterprise-grade multi-agent communication protocol for distributed systems.",
+    "url": "https://agentmeshcommunicationprotocol.github.io",
+    "applicationCategory": "DeveloperApplication",
+    "operatingSystem": "Cross-platform",
+    "programmingLanguage": "Java",
+    "author": {
+      "@type": "Organization",
+      "name": "AMCP Development Team"
+    },
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    }
+  }
+  </script>
+</head>
+
+<body>
+  <header class="site-header">
+  <div class="container">
+    <nav class="navbar">
+      <div class="navbar-brand">
+        <a href="/" class="navbar-brand">
+          <img src="/assets/images/AMCPLogo.png" alt="AMCP Logo" class="brand-logo">
+          <span class="brand-text">AMCP</span>
+        </a>
+      </div>
+
+      <button class="navbar-toggle" aria-label="Toggle navigation">
+        <span class="hamburger-line"></span>
+        <span class="hamburger-line"></span>
+        <span class="hamburger-line"></span>
+      </button>
+
+      <div class="navbar-menu">
+        <ul class="navbar-nav">
+          
+          <li class="nav-item">
+            <a href="/" class="nav-link ">
+              Home
+            </a>
+          </li>
+          
+          <li class="nav-item">
+            <a href="/whitepaper/" class="nav-link ">
+              Whitepaper
+            </a>
+          </li>
+          
+          <li class="nav-item">
+            <a href="/docs/" class="nav-link ">
+              Documentation
+            </a>
+          </li>
+          
+          <li class="nav-item">
+            <a href="/examples/" class="nav-link ">
+              Examples
+            </a>
+          </li>
+          
+          <li class="nav-item">
+            <a href="/download/" class="nav-link ">
+              Download
+            </a>
+          </li>
+          
+          <li class="nav-item">
+            <a href="/community/" class="nav-link ">
+              Community
+            </a>
+          </li>
+          
+          <li class="nav-item">
+            <a href="/blog/" class="nav-link ">
+              Blog
+            </a>
+          </li>
+          
+        </ul>
+
+        <div class="navbar-actions">
+          <a href="https://github.com/agentmeshcommunicationprotocol/amcpcore.github.io" class="btn btn-outline btn-sm" target="_blank" rel="noopener">
+            <svg class="icon" viewBox="0 0 24 24" width="16" height="16">
+              <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+            </svg>
+            GitHub
+          </a>
+          <a href="/download/" class="btn btn-primary btn-sm">
+            Download
+          </a>
+        </div>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<style>
+.site-header {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 0;
+}
+
+.navbar-brand {
+  display: flex;
+  align-items: center;
+}
+
+.brand-link {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: #333;
+}
+
+.brand-logo {
+  width: 32px;
+  height: 32px;
+  margin-right: 12px;
+}
+
+.brand-text {
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+.version {
+  font-size: 0.75rem;
+  color: #666;
+  margin-left: 8px;
+  background: #e3f2fd;
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+
+.navbar-toggle {
+  display: none;
+  flex-direction: column;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+}
+
+.hamburger-line {
+  width: 24px;
+  height: 2px;
+  background: #333;
+  margin: 3px 0;
+  transition: 0.3s;
+}
+
+.navbar-menu {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+
+.navbar-nav {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  gap: 2rem;
+}
+
+.nav-link {
+  text-decoration: none;
+  color: #666;
+  font-weight: 500;
+  transition: color 0.3s ease;
+  position: relative;
+}
+
+.nav-link:hover,
+.nav-link.active {
+  color: #2196F3;
+}
+
+.nav-link.active::after {
+  content: '';
+  position: absolute;
+  bottom: -8px;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: #2196F3;
+}
+
+.navbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  text-decoration: none;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  border: none;
+  cursor: pointer;
+}
+
+.btn-sm {
+  padding: 0.375rem 0.75rem;
+  font-size: 0.875rem;
+}
+
+.btn-primary {
+  background: #2196F3;
+  color: white;
+}
+
+.btn-primary:hover {
+  background: #1976D2;
+  transform: translateY(-1px);
+}
+
+.btn-outline {
+  background: transparent;
+  color: #666;
+  border: 1px solid #ddd;
+}
+
+.btn-outline:hover {
+  background: #f5f5f5;
+  border-color: #bbb;
+}
+
+.icon {
+  fill: currentColor;
+}
+
+/* Mobile Navigation */
+@media (max-width: 768px) {
+  .navbar-toggle {
+    display: flex;
+  }
+
+  .navbar-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: white;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    flex-direction: column;
+    padding: 1rem;
+    transform: translateY(-100%);
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+  }
+
+  .navbar-menu.active {
+    transform: translateY(0);
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .navbar-nav {
+    flex-direction: column;
+    gap: 1rem;
+    width: 100%;
+    margin-bottom: 1rem;
+  }
+
+  .navbar-actions {
+    justify-content: center;
+    width: 100%;
+  }
+
+  .nav-link.active::after {
+    display: none;
+  }
+}
+</style>
+
+
+  <main class="page-content" aria-label="Content">
+    <article class="post">
+
+  <header class="post-header">
+    <h1 class="post-title">Week 1 Setup - Quick Reference Card</h1>
+  </header>
+
+  <div class="post-content">
+    <h1 id="week-1-setup---quick-reference-card">Week 1 Setup - Quick Reference Card</h1>
+
+<p>Fast reference for all Week 1 tasks. Print or bookmark this page.</p>
+
+<hr />
+
+<h2 id="task-1-github-repository-15-minutes">Task 1: GitHub Repository (15 minutes)</h2>
+
+<h3 id="update-description">Update Description</h3>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>URL: https://github.com/agentmeshcommunicationprotocol/amcpcore.github.io/settings
+Description: AMCP Core: Java Mobile Agentic Framework for Distributed Systems
+Website: https://agentmeshcommunicationprotocol.github.io
+</code></pre></div></div>
+
+<h3 id="add-topics">Add Topics</h3>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>URL: https://github.com/agentmeshcommunicationprotocol/amcpcore.github.io/settings/general
+Topics (add all 8):
+- java
+- agent-framework
+- distributed-systems
+- agent-mesh
+- agent-mobility
+- aglet
+- middleware
+- open-source
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="task-2-google-search-console-30-minutes">Task 2: Google Search Console (30 minutes)</h2>
+
+<h3 id="step-1-create-property">Step 1: Create Property</h3>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>URL: https://search.google.com/search-console/
+Click: Add property
+Select: URL prefix
+Enter: https://agentmeshcommunicationprotocol.github.io/
+</code></pre></div></div>
+
+<h3 id="step-2-get-verification-code">Step 2: Get Verification Code</h3>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Choose: HTML tag verification method
+Copy: &lt;meta name="google-site-verification" content="XXXXX..." /&gt;
+Save the code (you'll need it next)
+</code></pre></div></div>
+
+<h3 id="step-3-add-to-website">Step 3: Add to Website</h3>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>File: _config.yml
+Find: google_search_console: # Add your verification code here
+Replace with: google_search_console: "XXXXX..."
+(Use the code from Step 2)
+</code></pre></div></div>
+
+<h3 id="step-4-deploy">Step 4: Deploy</h3>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git add _config.yml
+git commit <span class="nt">-m</span> <span class="s2">"Add Google Search Console verification"</span>
+git push origin main
+</code></pre></div></div>
+
+<h3 id="step-5-verify">Step 5: Verify</h3>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Wait 2-5 minutes for deployment
+Visit: https://agentmeshcommunicationprotocol.github.io/
+Right-click → View Page Source
+Search for: google-site-verification
+Confirm: Your code appears in &lt;head&gt;
+</code></pre></div></div>
+
+<h3 id="step-6-complete-in-gsc">Step 6: Complete in GSC</h3>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Return to Google Search Console
+Click: Verify button
+Expected: "Verification successful"
+</code></pre></div></div>
+
+<h3 id="step-7-submit-sitemap">Step 7: Submit Sitemap</h3>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>In GSC, click: Sitemaps (left sidebar)
+Enter: sitemap.xml
+Click: Submit
+Expected: "Sitemap successfully submitted"
+</code></pre></div></div>
+
+<h3 id="step-8-request-indexing">Step 8: Request Indexing</h3>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>In GSC, click: URL Inspection (top search bar)
+Enter: https://agentmeshcommunicationprotocol.github.io/
+Click: Request indexing
+Repeat for:
+- /docs/getting-started/
+- /examples/
+- /whitepaper/
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="task-3-google-analytics-20-minutes">Task 3: Google Analytics (20 minutes)</h2>
+
+<h3 id="step-1-create-property-1">Step 1: Create Property</h3>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>URL: https://analytics.google.com/
+Click: Admin (bottom left)
+Click: Create Property
+Property name: AMCP Website
+Timezone: Your timezone
+Currency: USD
+Click: Create
+</code></pre></div></div>
+
+<h3 id="step-2-create-data-stream">Step 2: Create Data Stream</h3>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Select: Web
+Website URL: https://agentmeshcommunicationprotocol.github.io
+Stream name: AMCP Main Site
+Click: Create stream
+</code></pre></div></div>
+
+<h3 id="step-3-get-measurement-id">Step 3: Get Measurement ID</h3>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>After stream creation, you'll see: Measurement ID
+Format: G-XXXXXXXXXX
+Copy this ID
+</code></pre></div></div>
+
+<h3 id="step-4-add-to-website">Step 4: Add to Website</h3>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>File: _config.yml
+Find: google_analytics: # UA-XXXXXXXX-X
+Replace with: google_analytics: "G-XXXXXXXXXX"
+(Use your Measurement ID from Step 3)
+</code></pre></div></div>
+
+<h3 id="step-5-deploy">Step 5: Deploy</h3>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git add _config.yml
+git commit <span class="nt">-m</span> <span class="s2">"Add Google Analytics tracking"</span>
+git push origin main
+</code></pre></div></div>
+
+<h3 id="step-6-verify">Step 6: Verify</h3>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Wait 2-5 minutes for deployment
+Visit: https://agentmeshcommunicationprotocol.github.io/
+Right-click → View Page Source
+Search for: gtag or googletagmanager
+Confirm: GA tracking code appears
+</code></pre></div></div>
+
+<h3 id="step-7-check-real-time">Step 7: Check Real-Time</h3>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Go to: Google Analytics
+Click: Realtime (left sidebar)
+You should see yourself as an active user
+If not, wait 1-2 minutes and refresh
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="task-4-sitemap-verification-10-minutes">Task 4: Sitemap Verification (10 minutes)</h2>
+
+<h3 id="verify-sitemap-exists">Verify Sitemap Exists</h3>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Visit: https://agentmeshcommunicationprotocol.github.io/sitemap.xml
+Expected: XML file with all pages listed
+</code></pre></div></div>
+
+<h3 id="verify-plugin-enabled">Verify Plugin Enabled</h3>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>File: _config.yml
+Look for: plugins:
+Confirm: jekyll-sitemap is listed
+If missing, add it and redeploy
+</code></pre></div></div>
+
+<h3 id="submit-to-gsc-already-done-in-task-2">Submit to GSC (Already done in Task 2)</h3>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Already submitted in Task 2, Step 7
+Check status: Should show "Success"
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="verification-checklist">Verification Checklist</h2>
+
+<h3 id="github-">GitHub ✓</h3>
+<ul class="task-list">
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Description updated</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Website URL added</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />All 8 topics added</li>
+</ul>
+
+<h3 id="google-search-console-">Google Search Console ✓</h3>
+<ul class="task-list">
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Property created</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Verification completed</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Sitemap submitted</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Main page indexing requested</li>
+</ul>
+
+<h3 id="google-analytics-">Google Analytics ✓</h3>
+<ul class="task-list">
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Property created</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Data stream created</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Measurement ID added to _config.yml</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Tracking code visible in page source</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Real-time users visible</li>
+</ul>
+
+<h3 id="website-">Website ✓</h3>
+<ul class="task-list">
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />_config.yml updated with GSC code</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />_config.yml updated with GA ID</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />robots.txt exists</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />All changes deployed</li>
+</ul>
+
+<hr />
+
+<h2 id="common-issues--fixes">Common Issues &amp; Fixes</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>Issue</th>
+      <th>Fix</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>GSC verification not working</td>
+      <td>Wait 5-10 min, check for typos, verify meta tag in <code class="language-plaintext highlighter-rouge">&lt;head&gt;</code></td>
+    </tr>
+    <tr>
+      <td>GA not showing data</td>
+      <td>Check Measurement ID is correct (G-), wait 24 hours</td>
+    </tr>
+    <tr>
+      <td>Sitemap not found</td>
+      <td>Verify jekyll-sitemap plugin enabled, rebuild site</td>
+    </tr>
+    <tr>
+      <td>Changes not live</td>
+      <td>Hard refresh (Ctrl+Shift+R), check GitHub Actions status</td>
+    </tr>
+  </tbody>
+</table>
+
+<hr />
+
+<h2 id="files-modified">Files Modified</h2>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>_config.yml
+  - Added: google_search_console: "XXXXX..."
+  - Added: google_analytics: "G-XXXXXXXXXX"
+
+_layouts/default.html
+  - Added: GSC verification meta tag (conditional)
+  - Already has: GA tracking code (conditional)
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="time-breakdown">Time Breakdown</h2>
+
+<ul>
+  <li>Task 1 (GitHub): 15 minutes</li>
+  <li>Task 2 (GSC): 30 minutes</li>
+  <li>Task 3 (GA): 20 minutes</li>
+  <li>Task 4 (Sitemap): 10 minutes</li>
+  <li><strong>Total: ~75 minutes (1.25 hours)</strong></li>
+</ul>
+
+<hr />
+
+<h2 id="deployment-command">Deployment Command</h2>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># One-line deployment of all changes</span>
+git add _config.yml _layouts/default.html <span class="o">&amp;&amp;</span> <span class="se">\</span>
+git commit <span class="nt">-m</span> <span class="s2">"Week 1 setup: GSC and GA configuration"</span> <span class="o">&amp;&amp;</span> <span class="se">\</span>
+git push origin main
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="verification-commands">Verification Commands</h2>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># Check if GSC meta tag is deployed</span>
+curl <span class="nt">-s</span> https://agentmeshcommunicationprotocol.github.io/ | <span class="nb">grep </span>google-site-verification
+
+<span class="c"># Check if GA tracking is deployed</span>
+curl <span class="nt">-s</span> https://agentmeshcommunicationprotocol.github.io/ | <span class="nb">grep </span>gtag
+
+<span class="c"># Build locally to test</span>
+bundle <span class="nb">exec </span>jekyll build
+
+<span class="c"># Check sitemap locally</span>
+<span class="nb">cat </span>_site/sitemap.xml
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="next-steps-after-week-1">Next Steps After Week 1</h2>
+
+<ol>
+  <li>✅ Monitor Google Search Console for crawl errors</li>
+  <li>✅ Check Google Analytics for initial traffic</li>
+  <li>✅ Start Week 2: Content Creation (BLOG_POST_TEMPLATES.md)</li>
+  <li>✅ Plan Week 3: Community Promotion (COMMUNITY_PROMOTION_STRATEGY.md)</li>
+</ol>
+
+<hr />
+
+<h2 id="important-urls">Important URLs</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>Service</th>
+      <th>URL</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>GitHub Repo</td>
+      <td>https://github.com/agentmeshcommunicationprotocol/amcpcore.github.io</td>
+    </tr>
+    <tr>
+      <td>GitHub Settings</td>
+      <td>https://github.com/agentmeshcommunicationprotocol/amcpcore.github.io/settings</td>
+    </tr>
+    <tr>
+      <td>GitHub Topics</td>
+      <td>https://github.com/agentmeshcommunicationprotocol/amcpcore.github.io/settings/general</td>
+    </tr>
+    <tr>
+      <td>Website</td>
+      <td>https://agentmeshcommunicationprotocol.github.io/</td>
+    </tr>
+    <tr>
+      <td>Sitemap</td>
+      <td>https://agentmeshcommunicationprotocol.github.io/sitemap.xml</td>
+    </tr>
+    <tr>
+      <td>GSC</td>
+      <td>https://search.google.com/search-console/</td>
+    </tr>
+    <tr>
+      <td>GA</td>
+      <td>https://analytics.google.com/</td>
+    </tr>
+  </tbody>
+</table>
+
+<hr />
+
+<h2 id="status-tracking">Status Tracking</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>Task</th>
+      <th>Status</th>
+      <th>Completed</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>GitHub Description</td>
+      <td>⏳ Pending</td>
+      <td>[ ]</td>
+    </tr>
+    <tr>
+      <td>GitHub Topics</td>
+      <td>⏳ Pending</td>
+      <td>[ ]</td>
+    </tr>
+    <tr>
+      <td>GSC Property</td>
+      <td>⏳ Pending</td>
+      <td>[ ]</td>
+    </tr>
+    <tr>
+      <td>GSC Verification</td>
+      <td>⏳ Pending</td>
+      <td>[ ]</td>
+    </tr>
+    <tr>
+      <td>GSC Sitemap</td>
+      <td>⏳ Pending</td>
+      <td>[ ]</td>
+    </tr>
+    <tr>
+      <td>GSC Indexing</td>
+      <td>⏳ Pending</td>
+      <td>[ ]</td>
+    </tr>
+    <tr>
+      <td>GA Property</td>
+      <td>⏳ Pending</td>
+      <td>[ ]</td>
+    </tr>
+    <tr>
+      <td>GA Data Stream</td>
+      <td>⏳ Pending</td>
+      <td>[ ]</td>
+    </tr>
+    <tr>
+      <td>GA Tracking</td>
+      <td>⏳ Pending</td>
+      <td>[ ]</td>
+    </tr>
+    <tr>
+      <td>Sitemap Verified</td>
+      <td>⏳ Pending</td>
+      <td>[ ]</td>
+    </tr>
+  </tbody>
+</table>
+
+<hr />
+
+<p><strong>Print this page or bookmark it for easy reference during Week 1 setup!</strong></p>
+
+<table>
+  <tbody>
+    <tr>
+      <td>**Estimated Time: 1.5 hours</td>
+      <td>Difficulty: Low-Medium</td>
+      <td>Impact: High**</td>
+    </tr>
+  </tbody>
+</table>
+
+  </div>
+
+</article>
+
+  </main>
+
+  <footer class="site-footer">
+  <div class="container">
+    <div class="footer-content">
+      <div class="footer-section">
+        <div class="footer-brand">
+          <img src="/assets/images/AMCPLogo.png" alt="AMCP Logo" class="footer-logo">
+          <h3>AMCP v1.5</h3>
+          <p>Enterprise-grade multi-agent communication framework for modern distributed systems.</p>
+        </div>
+        <div class="footer-social">
+          <a href="https://github.com/agentmeshcommunicationprotocol/amcpcore.github.io" class="social-link" target="_blank" rel="noopener" aria-label="GitHub">
+            <svg viewBox="0 0 24 24" width="24" height="24">
+              <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+            </svg>
+          </a>
+          
+          <a href="https://twitter.com/amcp_framework" class="social-link" target="_blank" rel="noopener" aria-label="Twitter">
+            <svg viewBox="0 0 24 24" width="24" height="24">
+              <path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/>
+            </svg>
+          </a>
+          
+        </div>
+      </div>
+
+      <div class="footer-section">
+        <h4>Documentation</h4>
+        <ul class="footer-links">
+          <li><a href="/docs/getting-started/">Getting Started</a></li>
+          <li><a href="/docs/installation/">Installation</a></li>
+          <li><a href="/docs/api-reference/">API Reference</a></li>
+          <li><a href="/docs/architecture/">Architecture</a></li>
+          <li><a href="/docs/best-practices/">Best Practices</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-section">
+        <h4>Examples</h4>
+        <ul class="footer-links">
+          <li><a href="/examples/weather-agent/">Weather Agent</a></li>
+          <li><a href="/examples/meshchat/">MeshChat AI</a></li>
+          <li><a href="/examples/orchestration/">LLM Orchestration</a></li>
+          <li><a href="/examples/stock-agent/">Stock Agent</a></li>
+          <li><a href="/examples/travel-agent/">Travel Agent</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-section">
+        <h4>Community</h4>
+        <ul class="footer-links">
+          <li><a href="https://github.com/agentmeshcommunicationprotocol/amcpcore.github.io" target="_blank" rel="noopener">GitHub Repository</a></li>
+          <li><a href="/community/contributing/">Contributing</a></li>
+          <li><a href="/community/discussions/">Discussions</a></li>
+          <li><a href="/community/roadmap/">Roadmap</a></li>
+          <li><a href="/blog/">Blog</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-section">
+        <h4>Resources</h4>
+        <ul class="footer-links">
+          <li><a href="/download/">Download</a></li>
+          <li><a href="/docs/changelog/">Changelog</a></li>
+          <li><a href="/docs/migration/">Migration Guide</a></li>
+          <li><a href="/support/">Support</a></li>
+          <li><a href="/contact/">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <div class="footer-bottom-content">
+        <div class="footer-copyright">
+          <p>&copy; 2025 AMCP Development Team. Released under the MIT License.</p>
+        </div>
+        <div class="footer-meta">
+          <span class="footer-version">Version 1.5.0</span>
+          <span class="footer-separator">•</span>
+          <a href="/privacy/">Privacy Policy</a>
+          <span class="footer-separator">•</span>
+          <a href="/terms/">Terms of Service</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<style>
+.site-footer {
+  background: #1a1a1a;
+  color: #ccc;
+  padding: 60px 0 20px;
+  margin-top: 80px;
+}
+
+.footer-content {
+  display: grid;
+  grid-template-columns: 2fr repeat(4, 1fr);
+  gap: 40px;
+  margin-bottom: 40px;
+}
+
+.footer-section h3,
+.footer-section h4 {
+  color: white;
+  margin-bottom: 20px;
+  font-weight: 600;
+}
+
+.footer-brand {
+  margin-bottom: 20px;
+}
+
+.footer-logo {
+  width: 40px;
+  height: 40px;
+  margin-bottom: 15px;
+}
+
+.footer-brand p {
+  color: #999;
+  line-height: 1.6;
+  margin-bottom: 20px;
+}
+
+.footer-social {
+  display: flex;
+  gap: 15px;
+}
+
+.social-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  color: #ccc;
+  transition: all 0.3s ease;
+}
+
+.social-link:hover {
+  background: #2196F3;
+  color: white;
+  transform: translateY(-2px);
+}
+
+.social-link svg {
+  fill: currentColor;
+}
+
+.footer-links {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.footer-links li {
+  margin-bottom: 12px;
+}
+
+.footer-links a {
+  color: #999;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.footer-links a:hover {
+  color: #2196F3;
+}
+
+.footer-bottom {
+  border-top: 1px solid #333;
+  padding-top: 20px;
+}
+
+.footer-bottom-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.footer-copyright p {
+  margin: 0;
+  color: #666;
+  font-size: 0.9rem;
+}
+
+.footer-meta {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  font-size: 0.9rem;
+  color: #666;
+}
+
+.footer-meta a {
+  color: #666;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.footer-meta a:hover {
+  color: #2196F3;
+}
+
+.footer-separator {
+  color: #444;
+}
+
+.footer-version {
+  background: rgba(33, 150, 243, 0.1);
+  color: #2196F3;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .footer-content {
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+  }
+}
+
+@media (max-width: 768px) {
+  .footer-content {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+
+  .footer-bottom-content {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .footer-meta {
+    justify-content: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .site-footer {
+    padding: 40px 0 20px;
+  }
+
+  .footer-meta {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .footer-separator {
+    display: none;
+  }
+}
+</style>
+
+
+  <!-- JavaScript -->
+  <script src="/assets/js/main.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,1620 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>AMCP - Agent Mesh Communication Protocol | AMCP: Java Agent Mesh Framework for Mobile &amp; Distributed Systems</title>
+  <meta name="description" content="Enterprise grade multi-agent communication framework for modern distributed systems">
+
+  <!-- Google Search Console Verification -->
+  
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://agentmeshcommunicationprotocol.github.io/">
+  <meta property="og:title" content="AMCP - Agent Mesh Communication Protocol | AMCP: Java Agent Mesh Framework for Mobile &amp; Distributed Systems">
+  <meta property="og:description" content="Enterprise grade multi-agent communication framework for modern distributed systems">
+  <meta property="og:image" content="https://agentmeshcommunicationprotocol.github.io/assets/images/amcp-social.png">
+
+  <!-- Twitter -->
+  <meta property="twitter:card" content="summary_large_image">
+  <meta property="twitter:url" content="https://agentmeshcommunicationprotocol.github.io/">
+  <meta property="twitter:title" content="AMCP - Agent Mesh Communication Protocol | AMCP: Java Agent Mesh Framework for Mobile &amp; Distributed Systems">
+  <meta property="twitter:description" content="Enterprise grade multi-agent communication framework for modern distributed systems">
+  <meta property="twitter:image" content="https://agentmeshcommunicationprotocol.github.io/assets/images/amcp-social.png">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/x-icon" href="/assets/images/favicon.ico">
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/images/apple-touch-icon.png">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="/assets/css/main.css">
+
+  <!-- RSS -->
+  <link type="application/atom+xml" rel="alternate" href="/feed.xml" title="AMCP: Java Agent Mesh Framework for Mobile &amp; Distributed Systems">
+
+  <!-- Analytics -->
+  
+
+  <!-- JSON-LD Schema -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "AMCP - Agent Mesh Communication Protocol",
+    "description": "A Java-based open-source agentic framework implementing Agent Mesh concept with agent mobility and secure communication, inspired by IBM Aglets. Enterprise-grade multi-agent communication protocol for distributed systems.",
+    "url": "https://agentmeshcommunicationprotocol.github.io",
+    "applicationCategory": "DeveloperApplication",
+    "operatingSystem": "Cross-platform",
+    "programmingLanguage": "Java",
+    "author": {
+      "@type": "Organization",
+      "name": "AMCP Development Team"
+    },
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    }
+  }
+  </script>
+</head>
+
+<body>
+  <header class="site-header">
+  <div class="container">
+    <nav class="navbar">
+      <div class="navbar-brand">
+        <a href="/" class="navbar-brand">
+          <img src="/assets/images/AMCPLogo.png" alt="AMCP Logo" class="brand-logo">
+          <span class="brand-text">AMCP</span>
+        </a>
+      </div>
+
+      <button class="navbar-toggle" aria-label="Toggle navigation">
+        <span class="hamburger-line"></span>
+        <span class="hamburger-line"></span>
+        <span class="hamburger-line"></span>
+      </button>
+
+      <div class="navbar-menu">
+        <ul class="navbar-nav">
+          
+          <li class="nav-item">
+            <a href="/" class="nav-link active">
+              Home
+            </a>
+          </li>
+          
+          <li class="nav-item">
+            <a href="/whitepaper/" class="nav-link ">
+              Whitepaper
+            </a>
+          </li>
+          
+          <li class="nav-item">
+            <a href="/docs/" class="nav-link ">
+              Documentation
+            </a>
+          </li>
+          
+          <li class="nav-item">
+            <a href="/examples/" class="nav-link ">
+              Examples
+            </a>
+          </li>
+          
+          <li class="nav-item">
+            <a href="/download/" class="nav-link ">
+              Download
+            </a>
+          </li>
+          
+          <li class="nav-item">
+            <a href="/community/" class="nav-link ">
+              Community
+            </a>
+          </li>
+          
+          <li class="nav-item">
+            <a href="/blog/" class="nav-link ">
+              Blog
+            </a>
+          </li>
+          
+        </ul>
+
+        <div class="navbar-actions">
+          <a href="https://github.com/agentmeshcommunicationprotocol/amcpcore.github.io" class="btn btn-outline btn-sm" target="_blank" rel="noopener">
+            <svg class="icon" viewBox="0 0 24 24" width="16" height="16">
+              <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+            </svg>
+            GitHub
+          </a>
+          <a href="/download/" class="btn btn-primary btn-sm">
+            Download
+          </a>
+        </div>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<style>
+.site-header {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 0;
+}
+
+.navbar-brand {
+  display: flex;
+  align-items: center;
+}
+
+.brand-link {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: #333;
+}
+
+.brand-logo {
+  width: 32px;
+  height: 32px;
+  margin-right: 12px;
+}
+
+.brand-text {
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+.version {
+  font-size: 0.75rem;
+  color: #666;
+  margin-left: 8px;
+  background: #e3f2fd;
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+
+.navbar-toggle {
+  display: none;
+  flex-direction: column;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+}
+
+.hamburger-line {
+  width: 24px;
+  height: 2px;
+  background: #333;
+  margin: 3px 0;
+  transition: 0.3s;
+}
+
+.navbar-menu {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+
+.navbar-nav {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  gap: 2rem;
+}
+
+.nav-link {
+  text-decoration: none;
+  color: #666;
+  font-weight: 500;
+  transition: color 0.3s ease;
+  position: relative;
+}
+
+.nav-link:hover,
+.nav-link.active {
+  color: #2196F3;
+}
+
+.nav-link.active::after {
+  content: '';
+  position: absolute;
+  bottom: -8px;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: #2196F3;
+}
+
+.navbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  text-decoration: none;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  border: none;
+  cursor: pointer;
+}
+
+.btn-sm {
+  padding: 0.375rem 0.75rem;
+  font-size: 0.875rem;
+}
+
+.btn-primary {
+  background: #2196F3;
+  color: white;
+}
+
+.btn-primary:hover {
+  background: #1976D2;
+  transform: translateY(-1px);
+}
+
+.btn-outline {
+  background: transparent;
+  color: #666;
+  border: 1px solid #ddd;
+}
+
+.btn-outline:hover {
+  background: #f5f5f5;
+  border-color: #bbb;
+}
+
+.icon {
+  fill: currentColor;
+}
+
+/* Mobile Navigation */
+@media (max-width: 768px) {
+  .navbar-toggle {
+    display: flex;
+  }
+
+  .navbar-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: white;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    flex-direction: column;
+    padding: 1rem;
+    transform: translateY(-100%);
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+  }
+
+  .navbar-menu.active {
+    transform: translateY(0);
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .navbar-nav {
+    flex-direction: column;
+    gap: 1rem;
+    width: 100%;
+    margin-bottom: 1rem;
+  }
+
+  .navbar-actions {
+    justify-content: center;
+    width: 100%;
+  }
+
+  .nav-link.active::after {
+    display: none;
+  }
+}
+</style>
+
+
+  <main class="page-content" aria-label="Content">
+    <section class="hero-section">
+  <div class="container">
+    <div class="hero-content">
+      <h1>
+        Agent Mesh Communication Protocol
+      </h1>
+      <p class="hero-subtitle" style="color: var(--primary-dark)">
+        Enterprise grade multi-agent communication framework for modern distributed systems
+      </p>
+      <div class="hero-features">
+        <span class="feature-badge"> Multi-Agent</span>
+        <span class="feature-badge"> Event-Driven</span>
+        <span class="feature-badge"> LLM Integration</span>
+        <span class="feature-badge"> Scalable</span>
+      </div>
+      <div class="hero-actions">
+        <a href="#quick-start" class="btn btn-primary btn-lg">Get Started</a>
+        <a href="https://github.com/agentmeshcommunicationprotocol/amcpcore.github.io" class="btn btn-outline btn-lg">
+          <svg class="icon" viewBox="0 0 24 24">
+            <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.30.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+          </svg>
+          View on GitHub
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="video-section">
+  <div class="container">
+    <div class="video-content">
+      <div class="video-text">
+        <h2>AMCP: The Agent Superhighway</h2>
+        <p class="video-subtitle">
+          Discover how AMCP revolutionizes multi-agent communication and orchestration in modern distributed systems.
+        </p>
+        <div class="video-highlights">
+          <div class="highlight-item">
+            <span class="highlight-icon">🚀</span>
+            <span>High-performance agent coordination</span>
+          </div>
+          <div class="highlight-item">
+            <span class="highlight-icon">🧠</span>
+            <span>Intelligent LLM-powered orchestration</span>
+          </div>
+          <div class="highlight-item">
+            <span class="highlight-icon">🌐</span>
+            <span>Enterprise-scale distributed architecture</span>
+          </div>
+        </div>
+        <div class="video-actions">
+          <a href="/docs/getting-started/" class="btn btn-primary">Get Started</a>
+          <a href="/examples/" class="btn btn-outline">View Examples</a>
+        </div>
+      </div>
+      <div class="video-player">
+        <div class="video-wrapper">
+          <video 
+            controls 
+            preload="metadata" 
+            class="amcp-video">
+            <source src="/promo/AMCP__The_Agent_Superhighway.mp4" type="video/mp4">
+            <p>Your browser does not support the video tag. <a href="/promo/AMCP__The_Agent_Superhighway.mp4">Download the video</a> to watch it.</p>
+          </video>
+        </div>
+        <div class="video-caption">
+          <p>Watch how AMCP enables seamless multi-agent communication and intelligent orchestration</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="audio-section">
+  <div class="container">
+    <div class="audio-content">
+      <div class="audio-text">
+        <h2>🎙️ AMCP Explained: How Asynchronous AI Agents Scale</h2>
+        <p class="audio-subtitle">
+          Listen to an in-depth explanation of how AMCP's publish-subscribe architecture enables massive scalability for AI agent systems.
+        </p>
+        <div class="audio-highlights">
+          <div class="highlight-item">
+            <span class="highlight-icon">🎯</span>
+            <span>Expert technical explanation</span>
+          </div>
+          <div class="highlight-item">
+            <span class="highlight-icon">⚡</span>
+            <span>Asynchronous architecture benefits</span>
+          </div>
+          <div class="highlight-item">
+            <span class="highlight-icon">📈</span>
+            <span>Scalability and performance insights</span>
+          </div>
+        </div>
+        <div class="audio-actions">
+          <a href="/whitepaper/" class="btn btn-primary">Read Whitepaper</a>
+          <a href="/examples/live-demo/" class="btn btn-outline">Try Live Demo</a>
+        </div>
+      </div>
+      <div class="audio-player">
+        <div class="audio-wrapper">
+          <div class="audio-header">
+            <div class="audio-title">AMCP Technical Deep Dive</div>
+            <div class="audio-duration">~6 minutes</div>
+          </div>
+          <audio 
+            controls 
+            preload="metadata" 
+            class="amcp-audio">
+            <source src="/promo/AMCP_Explained__How_Asynchronous_AI_Agents_Scale_with_Publish-S.m4a" type="audio/mp4">
+            <p>Your browser does not support the audio element. <a href="/promo/AMCP_Explained__How_Asynchronous_AI_Agents_Scale_with_Publish-S.m4a">Download the audio</a> to listen.</p>
+          </audio>
+          <div class="audio-description">
+            <p>Technical overview covering event-driven architecture, agent mobility, and enterprise scalability patterns</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="features-section">
+  <div class="container">
+    <h2 class="section-title">Why Choose AMCP?</h2>
+    <div class="features-grid">
+      
+      <div class="feature-card">
+        <div class="feature-icon">🤖</div>
+        <h3>Multi-Agent Architecture</h3>
+        <p>Build sophisticated distributed systems with intelligent agents that communicate seamlessly across networks.</p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">⚡</div>
+        <h3>Event-Driven Communication</h3>
+        <p>Real-time message passing with CloudEvents specification support for reliable, scalable agent interactions.</p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">🧠</div>
+        <h3>LLM Integration</h3>
+        <p>Native support for Large Language Models including TinyLlama for intelligent agent behavior and decision making.</p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">🌐</div>
+        <h3>Enterprise Scalable</h3>
+        <p>Production-ready framework with clustering, monitoring, and security features for enterprise deployments.</p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">🔒</div>
+        <h3>Secure by Design</h3>
+        <p>End-to-end encryption, authentication, and authorization built into the core communication protocol.</p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">📊</div>
+        <h3>Observable & Monitored</h3>
+        <p>Comprehensive metrics, logging, and health checks with Prometheus integration for operational excellence.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section class="demo-section">
+  <div class="container">
+    <div class="demo-content">
+      <div class="demo-text">
+        <h2>See AMCP in Action</h2>
+        <p>Experience the power of multi-agent communication with our interactive examples and real-world use cases.</p>
+        <div class="demo-features">
+          <div class="demo-feature">
+            <span class="demo-icon">🌤️</span>
+            <span>Weather Agent with API integration</span>
+          </div>
+          <div class="demo-feature">
+            <span class="demo-icon">💬</span>
+            <span>AI-powered chat with LLM orchestration</span>
+          </div>
+          <div class="demo-feature">
+            <span class="demo-icon">📈</span>
+            <span>Financial data processing and analytics</span>
+          </div>
+        </div>
+        <div class="demo-actions">
+          <a href="/examples/" class="btn btn-primary">Explore Examples</a>
+          <a href="https://github.com/agentmeshcommunicationprotocol/amcpcore.github.io" class="btn btn-outline" target="_blank">View Source Code</a>
+        </div>
+      </div>
+      <div class="demo-visual">
+        <div class="terminal-window">
+          <div class="terminal-header">
+            <span class="terminal-button red"></span>
+            <span class="terminal-button yellow"></span>
+            <span class="terminal-button green"></span>
+            <span class="terminal-title">AMCP Live Demo</span>
+          </div>
+          <div class="terminal-body">
+          <div class="terminal-line">
+            <span class="prompt">amcp></span> activate weather
+          </div>
+          <div class="terminal-line output">
+            ✅ WeatherAgent activated successfully
+          </div>
+          <div class="terminal-line">
+            <span class="prompt">amcp></span> weather Paris
+          </div>
+          <div class="terminal-line output">
+            🌤️ Paris: 15°C, partly cloudy
+          </div>
+          <div class="terminal-line">
+            <span class="prompt">amcp></span> activate orchestrator
+          </div>
+          <div class="terminal-line output">
+            🧠 OrchestratorAgent with LLM ready
+          </div>
+          <div class="terminal-line">
+            <span class="prompt">amcp></span> <span class="cursor">|</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<section id="features" class="features-section">
+  <div class="container">
+    <h2 class="section-title">Why Choose AMCP?</h2>
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="feature-icon">🤖</div>
+        <h3>Multi-Agent Coordination</h3>
+        <p>Seamlessly coordinate multiple intelligent agents with built-in discovery, routing, and lifecycle management.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">⚡</div>
+        <h3>Event-Driven Architecture</h3>
+        <p>CloudEvents v1.0 compliant messaging with hierarchical topic routing and delivery guarantees.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🧠</div>
+        <h3>LLM Integration</h3>
+        <p>Native support for Large Language Models with TinyLlama, OpenAI, and custom AI providers.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🌐</div>
+        <h3>Enterprise Scalable</h3>
+        <p>Production-ready with monitoring, metrics, security, and support for distributed deployments.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🔧</div>
+        <h3>Developer Friendly</h3>
+        <p>Rich CLI, comprehensive documentation, examples, and testing frameworks for rapid development.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🚀</div>
+        <h3>High Performance</h3>
+        <p>Optimized for low latency and high throughput with async processing and efficient resource usage.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="quick-start" class="quick-start-section">
+  <div class="container">
+    <h2 class="section-title">Quick Start</h2>
+    <div class="quick-start-content">
+      <div class="quick-start-steps">
+        <div class="step">
+          <div class="step-number">1</div>
+          <div class="step-content">
+            <h3>Download AMCP</h3>
+            <p>Get the latest release or clone from GitHub</p>
+            <div class="code-block">
+              <code>git clone https://github.com/agentmeshcommunicationprotocol/amcpcore.github.io.git</code>
+            </div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-number">2</div>
+          <div class="step-content">
+            <h3>Build & Run</h3>
+            <p>Compile and start the interactive CLI</p>
+            <div class="code-block">
+              <code>mvn clean package<br>java -jar cli/target/amcp-cli-1.5.0.jar</code>
+            </div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-number">3</div>
+          <div class="step-content">
+            <h3>Activate Agents</h3>
+            <p>Start using multi-agent capabilities</p>
+            <div class="code-block">
+              <code>amcp> activate weather<br>amcp> weather London<br>amcp> activate orchestrator</code>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="quick-start-demo">
+        <h3>Live Demo</h3>
+        <p>Try AMCP in your browser with our interactive demo:</p>
+        <a href="/examples/live-demo/" class="btn btn-primary">Launch Demo</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="stats-section">
+  <div class="container">
+    <div class="stats-grid">
+      <div class="stat-item">
+        <div class="stat-number">23</div>
+        <div class="stat-label">Unit Tests</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number">100%</div>
+        <div class="stat-label">Test Pass Rate</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number">4</div>
+        <div class="stat-label">Built-in Agents</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number">v1.5</div>
+        <div class="stat-label">Latest Version</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="use-cases-section">
+  <div class="container">
+    <h2 class="section-title">Use Cases</h2>
+    <div class="use-cases-grid">
+      <div class="use-case-card">
+        <h3>🌤️ Weather Intelligence</h3>
+        <p>Real-time weather monitoring and forecasting with OpenWeatherMap integration and intelligent alerting.</p>
+        <a href="/examples/weather-agent/">Learn More →</a>
+      </div>
+      <div class="use-case-card">
+        <h3>💬 Conversational AI</h3>
+        <p>Build sophisticated chatbots and virtual assistants with LLM integration and context management.</p>
+        <a href="/examples/meshchat/">Learn More →</a>
+      </div>
+      <div class="use-case-card">
+        <h3>🧠 LLM Orchestration</h3>
+        <p>Coordinate multiple AI models for complex reasoning, planning, and decision-making workflows.</p>
+        <a href="/examples/orchestration/">Learn More →</a>
+      </div>
+      <div class="use-case-card">
+        <h3>📈 Financial Analytics</h3>
+        <p>Real-time stock monitoring, portfolio analysis, and automated trading with market data integration.</p>
+        <a href="/examples/stock-agent/">Learn More →</a>
+      </div>
+      <div class="use-case-card">
+        <h3>✈️ Travel Planning</h3>
+        <p>Intelligent trip planning with flight search, hotel booking, and itinerary optimization.</p>
+        <a href="/examples/travel-agent/">Learn More →</a>
+      </div>
+      <div class="use-case-card">
+        <h3>🏢 Enterprise Integration</h3>
+        <p>Connect existing systems with event-driven architecture and microservices orchestration.</p>
+        <a href="/docs/enterprise/">Learn More →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="community-section">
+  <div class="container">
+    <h2 class="section-title">Join the Community</h2>
+    <div class="community-content">
+      <div class="community-text">
+        <p>AMCP is open source and community-driven. Join developers worldwide building the future of multi-agent systems.</p>
+        <div class="community-actions">
+          <a href="https://github.com/agentmeshcommunicationprotocol/amcpcore.github.io" class="btn btn-outline">GitHub Repository</a>
+          <a href="/community/contributing/" class="btn btn-outline">Contributing Guide</a>
+          <a href="/community/discussions/" class="btn btn-outline">Discussions</a>
+        </div>
+      </div>
+      <div class="community-stats">
+        <div class="community-stat">
+          <div class="stat-icon">⭐</div>
+          <div class="stat-text">Star on GitHub</div>
+        </div>
+        <div class="community-stat">
+          <div class="stat-icon">🍴</div>
+          <div class="stat-text">Fork & Contribute</div>
+        </div>
+        <div class="community-stat">
+          <div class="stat-icon">🐛</div>
+          <div class="stat-text">Report Issues</div>
+        </div>
+        <div class="community-stat">
+          <div class="stat-icon">💬</div>
+          <div class="stat-text">Join Discussions</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+/* Hero Section */
+.hero-section {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: 80px 0;
+  min-height: 600px;
+  display: flex;
+  align-items: center;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.hero-content {
+  text-align: center;
+  margin-bottom: 60px;
+}
+
+.hero-title {
+  font-size: 3.5rem;
+  font-weight: 700;
+  margin-bottom: 20px;
+  line-height: 1.2;
+}
+
+.highlight {
+  color: #4CAF50;
+}
+
+.hero-subtitle {
+  font-size: 1.3rem;
+  margin-bottom: 30px;
+  opacity: 0.9;
+}
+
+.hero-features {
+  margin-bottom: 40px;
+}
+
+.feature-badge {
+  display: inline-block;
+  background: rgba(255, 255, 255, 0.2);
+  padding: 8px 16px;
+  border-radius: 20px;
+  margin: 5px;
+  font-size: 0.9rem;
+}
+
+.hero-actions {
+  margin-bottom: 40px;
+}
+
+.btn {
+  display: inline-block;
+  padding: 12px 30px;
+  margin: 0 10px;
+  border-radius: 6px;
+  text-decoration: none;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.btn-primary {
+  background: #4CAF50;
+  color: white;
+}
+
+.btn-primary:hover {
+  background: #45a049;
+  transform: translateY(-2px);
+}
+
+.btn-secondary {
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+}
+
+.btn-secondary:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+.btn-outline {
+  background: transparent;
+  color: #2196F3;
+  border: 2px solid #2196F3;
+}
+
+.btn-outline:hover {
+  background: #2196F3;
+  color: white;
+}
+
+/* Terminal Demo */
+.terminal-window {
+  background: #1e1e1e;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.terminal-header {
+  background: #333;
+  padding: 12px 20px;
+  display: flex;
+  align-items: center;
+}
+
+.terminal-button {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  margin-right: 8px;
+}
+
+.terminal-button.red { background: #ff5f56; }
+.terminal-button.yellow { background: #ffbd2e; }
+.terminal-button.green { background: #27ca3f; }
+
+.terminal-title {
+  color: #ccc;
+  margin-left: auto;
+  font-size: 0.9rem;
+}
+
+.terminal-body {
+  padding: 20px;
+  font-family: 'Monaco', 'Menlo', monospace;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.terminal-line {
+  margin-bottom: 8px;
+}
+
+.prompt {
+  color: #4CAF50;
+  font-weight: bold;
+}
+
+.output {
+  color: #ccc;
+  margin-left: 20px;
+}
+
+.cursor {
+  color: #4CAF50;
+  animation: blink 1s infinite;
+}
+
+@keyframes blink {
+  0%, 50% { opacity: 1; }
+  51%, 100% { opacity: 0; }
+}
+
+/* Video Section */
+.video-section {
+  padding: 80px 0;
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+}
+
+.video-content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  align-items: center;
+}
+
+.video-text h2 {
+  font-size: 2.5rem;
+  color: #333;
+  margin-bottom: 20px;
+  font-weight: 700;
+}
+
+.video-subtitle {
+  font-size: 1.2rem;
+  color: #666;
+  margin-bottom: 30px;
+  line-height: 1.6;
+}
+
+.video-highlights {
+  margin-bottom: 30px;
+}
+
+.highlight-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
+  font-size: 1.1rem;
+}
+
+.highlight-icon {
+  font-size: 1.5rem;
+  margin-right: 15px;
+  width: 30px;
+}
+
+.video-actions {
+  display: flex;
+  gap: 15px;
+  flex-wrap: wrap;
+}
+
+.video-player {
+  position: relative;
+}
+
+.video-wrapper {
+  position: relative;
+  background: #000;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+  transition: transform 0.3s ease;
+}
+
+.video-wrapper:hover {
+  transform: translateY(-5px);
+}
+
+.amcp-video {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 12px;
+}
+
+.video-caption {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.video-caption p {
+  color: #666;
+  font-style: italic;
+  margin: 0;
+}
+
+/* Audio Section */
+.audio-section {
+  padding: 80px 0;
+  background: linear-gradient(135deg, #e8f5e8 0%, #f0f8f0 100%);
+}
+
+.audio-content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  align-items: center;
+}
+
+.audio-text h2 {
+  font-size: 2.5rem;
+  color: #333;
+  margin-bottom: 20px;
+  font-weight: 700;
+}
+
+.audio-subtitle {
+  font-size: 1.2rem;
+  color: #666;
+  margin-bottom: 30px;
+  line-height: 1.6;
+}
+
+.audio-highlights {
+  margin-bottom: 30px;
+}
+
+.audio-actions {
+  display: flex;
+  gap: 15px;
+  flex-wrap: wrap;
+}
+
+.audio-player {
+  position: relative;
+}
+
+.audio-wrapper {
+  background: white;
+  border-radius: 16px;
+  padding: 25px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+}
+
+.audio-wrapper:hover {
+  transform: translateY(-5px);
+}
+
+.audio-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  padding-bottom: 15px;
+  border-bottom: 2px solid #f0f0f0;
+}
+
+.audio-title {
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: #333;
+}
+
+.audio-duration {
+  background: #4CAF50;
+  color: white;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+.amcp-audio {
+  width: 100%;
+  margin-bottom: 15px;
+  border-radius: 8px;
+}
+
+.amcp-audio::-webkit-media-controls-panel {
+  background-color: #f8f9fa;
+}
+
+.audio-description {
+  text-align: center;
+}
+
+.audio-description p {
+  color: #666;
+  font-style: italic;
+  margin: 0;
+  font-size: 0.95rem;
+}
+
+/* Features Section */
+.features-section {
+  padding: 80px 0;
+  background: #f8f9fa;
+}
+
+.section-title {
+  text-align: center;
+  font-size: 2.5rem;
+  margin-bottom: 60px;
+  color: #333;
+}
+
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 40px;
+}
+
+.feature-card {
+  background: white;
+  padding: 40px 30px;
+  border-radius: 12px;
+  text-align: center;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+}
+
+.feature-card:hover {
+  transform: translateY(-5px);
+}
+
+.feature-icon {
+  font-size: 3rem;
+  margin-bottom: 20px;
+}
+
+.feature-card h3 {
+  font-size: 1.3rem;
+  margin-bottom: 15px;
+  color: #333;
+}
+
+.feature-card p {
+  color: #666;
+  line-height: 1.6;
+}
+
+/* Quick Start Section */
+.quick-start-section {
+  padding: 80px 0;
+}
+
+.quick-start-content {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 60px;
+  align-items: start;
+}
+
+.step {
+  display: flex;
+  margin-bottom: 40px;
+}
+
+.step-number {
+  background: #2196F3;
+  color: white;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  margin-right: 20px;
+  flex-shrink: 0;
+}
+
+.step-content h3 {
+  margin-bottom: 10px;
+  color: #333;
+}
+
+.code-block {
+  background: #1e1e1e;
+  color: #4CAF50;
+  padding: 15px;
+  border-radius: 6px;
+  font-family: 'Monaco', 'Menlo', monospace;
+  font-size: 14px;
+  margin-top: 10px;
+}
+
+/* Stats Section */
+.stats-section {
+  background: #2196F3;
+  color: white;
+  padding: 60px 0;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 40px;
+  text-align: center;
+}
+
+.stat-number {
+  font-size: 3rem;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.stat-label {
+  font-size: 1.1rem;
+  opacity: 0.9;
+}
+
+/* Use Cases Section */
+.use-cases-section {
+  padding: 80px 0;
+  background: #f8f9fa;
+}
+
+.use-cases-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 30px;
+}
+
+.use-case-card {
+  background: white;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.use-case-card h3 {
+  margin-bottom: 15px;
+  color: #333;
+}
+
+.use-case-card p {
+  color: #666;
+  line-height: 1.6;
+  margin-bottom: 20px;
+}
+
+.use-case-card a {
+  color: #2196F3;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+/* Community Section */
+.community-section {
+  padding: 80px 0;
+}
+
+.community-content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  align-items: center;
+}
+
+.community-text p {
+  font-size: 1.2rem;
+  color: #666;
+  margin-bottom: 30px;
+}
+
+.community-actions {
+  display: flex;
+  gap: 15px;
+  flex-wrap: wrap;
+}
+
+.community-stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 30px;
+}
+
+.community-stat {
+  text-align: center;
+  padding: 20px;
+  border: 2px solid #e0e0e0;
+  border-radius: 12px;
+}
+
+.stat-icon {
+  font-size: 2rem;
+  margin-bottom: 10px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .hero-title {
+    font-size: 2.5rem;
+  }
+  
+  .quick-start-content,
+  .community-content {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+  
+  .features-grid,
+  .use-cases-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .community-actions {
+    justify-content: center;
+  }
+  
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .video-content {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+  
+  .video-text {
+    text-align: center;
+  }
+  
+  .video-text h2 {
+    font-size: 2rem;
+  }
+  
+  .audio-content {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+  
+  .audio-text {
+    text-align: center;
+  }
+  
+  .audio-text h2 {
+    font-size: 2rem;
+  }
+}
+</style>
+
+  </main>
+
+  <footer class="site-footer">
+  <div class="container">
+    <div class="footer-content">
+      <div class="footer-section">
+        <div class="footer-brand">
+          <img src="/assets/images/AMCPLogo.png" alt="AMCP Logo" class="footer-logo">
+          <h3>AMCP v1.5</h3>
+          <p>Enterprise-grade multi-agent communication framework for modern distributed systems.</p>
+        </div>
+        <div class="footer-social">
+          <a href="https://github.com/agentmeshcommunicationprotocol/amcpcore.github.io" class="social-link" target="_blank" rel="noopener" aria-label="GitHub">
+            <svg viewBox="0 0 24 24" width="24" height="24">
+              <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+            </svg>
+          </a>
+          
+          <a href="https://twitter.com/amcp_framework" class="social-link" target="_blank" rel="noopener" aria-label="Twitter">
+            <svg viewBox="0 0 24 24" width="24" height="24">
+              <path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/>
+            </svg>
+          </a>
+          
+        </div>
+      </div>
+
+      <div class="footer-section">
+        <h4>Documentation</h4>
+        <ul class="footer-links">
+          <li><a href="/docs/getting-started/">Getting Started</a></li>
+          <li><a href="/docs/installation/">Installation</a></li>
+          <li><a href="/docs/api-reference/">API Reference</a></li>
+          <li><a href="/docs/architecture/">Architecture</a></li>
+          <li><a href="/docs/best-practices/">Best Practices</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-section">
+        <h4>Examples</h4>
+        <ul class="footer-links">
+          <li><a href="/examples/weather-agent/">Weather Agent</a></li>
+          <li><a href="/examples/meshchat/">MeshChat AI</a></li>
+          <li><a href="/examples/orchestration/">LLM Orchestration</a></li>
+          <li><a href="/examples/stock-agent/">Stock Agent</a></li>
+          <li><a href="/examples/travel-agent/">Travel Agent</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-section">
+        <h4>Community</h4>
+        <ul class="footer-links">
+          <li><a href="https://github.com/agentmeshcommunicationprotocol/amcpcore.github.io" target="_blank" rel="noopener">GitHub Repository</a></li>
+          <li><a href="/community/contributing/">Contributing</a></li>
+          <li><a href="/community/discussions/">Discussions</a></li>
+          <li><a href="/community/roadmap/">Roadmap</a></li>
+          <li><a href="/blog/">Blog</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-section">
+        <h4>Resources</h4>
+        <ul class="footer-links">
+          <li><a href="/download/">Download</a></li>
+          <li><a href="/docs/changelog/">Changelog</a></li>
+          <li><a href="/docs/migration/">Migration Guide</a></li>
+          <li><a href="/support/">Support</a></li>
+          <li><a href="/contact/">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <div class="footer-bottom-content">
+        <div class="footer-copyright">
+          <p>&copy; 2025 AMCP Development Team. Released under the MIT License.</p>
+        </div>
+        <div class="footer-meta">
+          <span class="footer-version">Version 1.5.0</span>
+          <span class="footer-separator">•</span>
+          <a href="/privacy/">Privacy Policy</a>
+          <span class="footer-separator">•</span>
+          <a href="/terms/">Terms of Service</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<style>
+.site-footer {
+  background: #1a1a1a;
+  color: #ccc;
+  padding: 60px 0 20px;
+  margin-top: 80px;
+}
+
+.footer-content {
+  display: grid;
+  grid-template-columns: 2fr repeat(4, 1fr);
+  gap: 40px;
+  margin-bottom: 40px;
+}
+
+.footer-section h3,
+.footer-section h4 {
+  color: white;
+  margin-bottom: 20px;
+  font-weight: 600;
+}
+
+.footer-brand {
+  margin-bottom: 20px;
+}
+
+.footer-logo {
+  width: 40px;
+  height: 40px;
+  margin-bottom: 15px;
+}
+
+.footer-brand p {
+  color: #999;
+  line-height: 1.6;
+  margin-bottom: 20px;
+}
+
+.footer-social {
+  display: flex;
+  gap: 15px;
+}
+
+.social-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  color: #ccc;
+  transition: all 0.3s ease;
+}
+
+.social-link:hover {
+  background: #2196F3;
+  color: white;
+  transform: translateY(-2px);
+}
+
+.social-link svg {
+  fill: currentColor;
+}
+
+.footer-links {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.footer-links li {
+  margin-bottom: 12px;
+}
+
+.footer-links a {
+  color: #999;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.footer-links a:hover {
+  color: #2196F3;
+}
+
+.footer-bottom {
+  border-top: 1px solid #333;
+  padding-top: 20px;
+}
+
+.footer-bottom-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.footer-copyright p {
+  margin: 0;
+  color: #666;
+  font-size: 0.9rem;
+}
+
+.footer-meta {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  font-size: 0.9rem;
+  color: #666;
+}
+
+.footer-meta a {
+  color: #666;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.footer-meta a:hover {
+  color: #2196F3;
+}
+
+.footer-separator {
+  color: #444;
+}
+
+.footer-version {
+  background: rgba(33, 150, 243, 0.1);
+  color: #2196F3;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .footer-content {
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+  }
+}
+
+@media (max-width: 768px) {
+  .footer-content {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+
+  .footer-bottom-content {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .footer-meta {
+    justify-content: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .site-footer {
+    padding: 40px 0 20px;
+  }
+
+  .footer-meta {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .footer-separator {
+    display: none;
+  }
+}
+</style>
+
+
+  <!-- JavaScript -->
+  <script src="/assets/js/main.js"></script>
+</body>
+
+</html>

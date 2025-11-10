@@ -1,0 +1,1326 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>AMCP Live Demo - Interactive Agent Mesh Simulation | AMCP: Java Agent Mesh Framework for Mobile &amp; Distributed Systems</title>
+  <meta name="description" content="Interactive demonstration of AMCP key concepts including agent mobility, event-driven communication, and distributed orchestration">
+
+  <!-- Google Search Console Verification -->
+  
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://agentmeshcommunicationprotocol.github.io/examples/live-demo/">
+  <meta property="og:title" content="AMCP Live Demo - Interactive Agent Mesh Simulation | AMCP: Java Agent Mesh Framework for Mobile &amp; Distributed Systems">
+  <meta property="og:description" content="Interactive demonstration of AMCP key concepts including agent mobility, event-driven communication, and distributed orchestration">
+  <meta property="og:image" content="https://agentmeshcommunicationprotocol.github.io/assets/images/amcp-social.png">
+
+  <!-- Twitter -->
+  <meta property="twitter:card" content="summary_large_image">
+  <meta property="twitter:url" content="https://agentmeshcommunicationprotocol.github.io/examples/live-demo/">
+  <meta property="twitter:title" content="AMCP Live Demo - Interactive Agent Mesh Simulation | AMCP: Java Agent Mesh Framework for Mobile &amp; Distributed Systems">
+  <meta property="twitter:description" content="Interactive demonstration of AMCP key concepts including agent mobility, event-driven communication, and distributed orchestration">
+  <meta property="twitter:image" content="https://agentmeshcommunicationprotocol.github.io/assets/images/amcp-social.png">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/x-icon" href="/assets/images/favicon.ico">
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/images/apple-touch-icon.png">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="/assets/css/main.css">
+
+  <!-- RSS -->
+  <link type="application/atom+xml" rel="alternate" href="/feed.xml" title="AMCP: Java Agent Mesh Framework for Mobile &amp; Distributed Systems">
+
+  <!-- Analytics -->
+  
+
+  <!-- JSON-LD Schema -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "AMCP - Agent Mesh Communication Protocol",
+    "description": "A Java-based open-source agentic framework implementing Agent Mesh concept with agent mobility and secure communication, inspired by IBM Aglets. Enterprise-grade multi-agent communication protocol for distributed systems.",
+    "url": "https://agentmeshcommunicationprotocol.github.io",
+    "applicationCategory": "DeveloperApplication",
+    "operatingSystem": "Cross-platform",
+    "programmingLanguage": "Java",
+    "author": {
+      "@type": "Organization",
+      "name": "AMCP Development Team"
+    },
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    }
+  }
+  </script>
+</head>
+
+<body>
+  <header class="site-header">
+  <div class="container">
+    <nav class="navbar">
+      <div class="navbar-brand">
+        <a href="/" class="navbar-brand">
+          <img src="/assets/images/AMCPLogo.png" alt="AMCP Logo" class="brand-logo">
+          <span class="brand-text">AMCP</span>
+        </a>
+      </div>
+
+      <button class="navbar-toggle" aria-label="Toggle navigation">
+        <span class="hamburger-line"></span>
+        <span class="hamburger-line"></span>
+        <span class="hamburger-line"></span>
+      </button>
+
+      <div class="navbar-menu">
+        <ul class="navbar-nav">
+          
+          <li class="nav-item">
+            <a href="/" class="nav-link ">
+              Home
+            </a>
+          </li>
+          
+          <li class="nav-item">
+            <a href="/whitepaper/" class="nav-link ">
+              Whitepaper
+            </a>
+          </li>
+          
+          <li class="nav-item">
+            <a href="/docs/" class="nav-link ">
+              Documentation
+            </a>
+          </li>
+          
+          <li class="nav-item">
+            <a href="/examples/" class="nav-link ">
+              Examples
+            </a>
+          </li>
+          
+          <li class="nav-item">
+            <a href="/download/" class="nav-link ">
+              Download
+            </a>
+          </li>
+          
+          <li class="nav-item">
+            <a href="/community/" class="nav-link ">
+              Community
+            </a>
+          </li>
+          
+          <li class="nav-item">
+            <a href="/blog/" class="nav-link ">
+              Blog
+            </a>
+          </li>
+          
+        </ul>
+
+        <div class="navbar-actions">
+          <a href="https://github.com/agentmeshcommunicationprotocol/amcpcore.github.io" class="btn btn-outline btn-sm" target="_blank" rel="noopener">
+            <svg class="icon" viewBox="0 0 24 24" width="16" height="16">
+              <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+            </svg>
+            GitHub
+          </a>
+          <a href="/download/" class="btn btn-primary btn-sm">
+            Download
+          </a>
+        </div>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<style>
+.site-header {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 0;
+}
+
+.navbar-brand {
+  display: flex;
+  align-items: center;
+}
+
+.brand-link {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: #333;
+}
+
+.brand-logo {
+  width: 32px;
+  height: 32px;
+  margin-right: 12px;
+}
+
+.brand-text {
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+.version {
+  font-size: 0.75rem;
+  color: #666;
+  margin-left: 8px;
+  background: #e3f2fd;
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+
+.navbar-toggle {
+  display: none;
+  flex-direction: column;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+}
+
+.hamburger-line {
+  width: 24px;
+  height: 2px;
+  background: #333;
+  margin: 3px 0;
+  transition: 0.3s;
+}
+
+.navbar-menu {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+
+.navbar-nav {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  gap: 2rem;
+}
+
+.nav-link {
+  text-decoration: none;
+  color: #666;
+  font-weight: 500;
+  transition: color 0.3s ease;
+  position: relative;
+}
+
+.nav-link:hover,
+.nav-link.active {
+  color: #2196F3;
+}
+
+.nav-link.active::after {
+  content: '';
+  position: absolute;
+  bottom: -8px;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: #2196F3;
+}
+
+.navbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  text-decoration: none;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  border: none;
+  cursor: pointer;
+}
+
+.btn-sm {
+  padding: 0.375rem 0.75rem;
+  font-size: 0.875rem;
+}
+
+.btn-primary {
+  background: #2196F3;
+  color: white;
+}
+
+.btn-primary:hover {
+  background: #1976D2;
+  transform: translateY(-1px);
+}
+
+.btn-outline {
+  background: transparent;
+  color: #666;
+  border: 1px solid #ddd;
+}
+
+.btn-outline:hover {
+  background: #f5f5f5;
+  border-color: #bbb;
+}
+
+.icon {
+  fill: currentColor;
+}
+
+/* Mobile Navigation */
+@media (max-width: 768px) {
+  .navbar-toggle {
+    display: flex;
+  }
+
+  .navbar-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: white;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    flex-direction: column;
+    padding: 1rem;
+    transform: translateY(-100%);
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+  }
+
+  .navbar-menu.active {
+    transform: translateY(0);
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .navbar-nav {
+    flex-direction: column;
+    gap: 1rem;
+    width: 100%;
+    margin-bottom: 1rem;
+  }
+
+  .navbar-actions {
+    justify-content: center;
+    width: 100%;
+  }
+
+  .nav-link.active::after {
+    display: none;
+  }
+}
+</style>
+
+
+  <main class="page-content" aria-label="Content">
+    <div class="demo-container">
+  <header class="demo-header">
+    <div class="container">
+      <h1>🚀 AMCP Live Interactive Demo</h1>
+      <p class="demo-subtitle">Experience the power of Agent Mesh Communication Protocol in real-time</p>
+      <div class="demo-controls">
+        <button id="startDemo" class="btn btn-primary">Start Demo</button>
+        <button id="resetDemo" class="btn btn-outline">Reset</button>
+        <button id="pauseDemo" class="btn btn-outline">Pause</button>
+      </div>
+    </div>
+  </header>
+
+  <div class="demo-workspace">
+    <div class="container">
+      
+      <!-- Agent Mesh Visualization -->
+      <div class="mesh-section">
+        <h2>🌐 Agent Mesh Network</h2>
+        <div class="mesh-container" id="meshContainer">
+          <svg id="meshSvg" width="100%" height="400">
+            <!-- Agents will be dynamically created here -->
+          </svg>
+        </div>
+        <div class="mesh-stats">
+          <div class="stat-item">
+            <span class="stat-label">Active Agents:</span>
+            <span id="agentCount" class="stat-value">0</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-label">Events/sec:</span>
+            <span id="eventRate" class="stat-value">0</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-label">Messages:</span>
+            <span id="messageCount" class="stat-value">0</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Event Stream -->
+      <div class="events-section">
+        <h2>📡 Real-time Event Stream</h2>
+        <div class="event-console" id="eventConsole">
+          <div class="console-header">
+            <span>AMCP Event Mesh - Live Stream</span>
+            <button id="clearConsole" class="btn-small">Clear</button>
+          </div>
+          <div class="console-body" id="consoleBody">
+            <!-- Events will appear here -->
+          </div>
+        </div>
+      </div>
+
+      <!-- Interactive Controls -->
+      <div class="controls-section">
+        <h2>🎮 Interactive Controls</h2>
+        <div class="control-panels">
+          
+          <div class="control-panel">
+            <h3>Agent Management</h3>
+            <div class="control-group">
+              <button id="addWeatherAgent" class="btn btn-sm">Add Weather Agent</button>
+              <button id="addOrderAgent" class="btn btn-sm">Add Order Agent</button>
+              <button id="addChatAgent" class="btn btn-sm">Add Chat Agent</button>
+            </div>
+            <div class="control-group">
+              <button id="migrateAgent" class="btn btn-sm btn-outline">Migrate Agent</button>
+              <button id="cloneAgent" class="btn btn-sm btn-outline">Clone Agent</button>
+            </div>
+          </div>
+
+          <div class="control-panel">
+            <h3>Event Simulation</h3>
+            <div class="control-group">
+              <button id="sendWeatherEvent" class="btn btn-sm">Weather Update</button>
+              <button id="sendOrderEvent" class="btn btn-sm">Process Order</button>
+              <button id="sendChatEvent" class="btn btn-sm">Chat Message</button>
+            </div>
+            <div class="control-group">
+              <button id="broadcastEvent" class="btn btn-sm btn-outline">Broadcast Event</button>
+            </div>
+          </div>
+
+          <div class="control-panel">
+            <h3>Scenarios</h3>
+            <div class="control-group">
+              <button id="ecommerceScenario" class="btn btn-sm">E-commerce Flow</button>
+              <button id="iotScenario" class="btn btn-sm">IoT Factory</button>
+              <button id="chatScenario" class="btn btn-sm">Customer Service</button>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Architecture Explanation -->
+      <div class="explanation-section">
+        <h2>🏗️ What You're Seeing</h2>
+        <div class="explanation-grid">
+          
+          <div class="explanation-card">
+            <div class="card-icon">🤖</div>
+            <h3>Agent Mobility</h3>
+            <p>Watch agents move between contexts with their state intact. AMCP's strong mobility allows agents to migrate, clone, and replicate across the mesh.</p>
+          </div>
+
+          <div class="explanation-card">
+            <div class="card-icon">📡</div>
+            <h3>Event-Driven Communication</h3>
+            <p>Agents communicate through asynchronous events on topics. No direct coupling - agents publish and subscribe to topics of interest.</p>
+          </div>
+
+          <div class="explanation-card">
+            <div class="card-icon">🌐</div>
+            <h3>Distributed Orchestration</h3>
+            <p>Complex workflows emerge from simple agent interactions. Watch how order processing, IoT coordination, and chat flows work seamlessly.</p>
+          </div>
+
+          <div class="explanation-card">
+            <div class="card-icon">⚡</div>
+            <h3>Real-time Scalability</h3>
+            <p>Add and remove agents dynamically. The mesh adapts automatically without reconfiguration or downtime.</p>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script>
+class AMCPDemo {
+  constructor() {
+    this.agents = new Map();
+    this.events = [];
+    this.isRunning = false;
+    this.eventCounter = 0;
+    this.agentIdCounter = 0;
+    
+    this.svg = document.getElementById('meshSvg');
+    this.consoleBody = document.getElementById('consoleBody');
+    
+    this.initializeEventListeners();
+    this.initializeDefaultAgents();
+  }
+
+  initializeEventListeners() {
+    document.getElementById('startDemo').addEventListener('click', () => this.startDemo());
+    document.getElementById('resetDemo').addEventListener('click', () => this.resetDemo());
+    document.getElementById('pauseDemo').addEventListener('click', () => this.pauseDemo());
+    document.getElementById('clearConsole').addEventListener('click', () => this.clearConsole());
+    
+    // Agent management
+    document.getElementById('addWeatherAgent').addEventListener('click', () => this.addAgent('Weather'));
+    document.getElementById('addOrderAgent').addEventListener('click', () => this.addAgent('Order'));
+    document.getElementById('addChatAgent').addEventListener('click', () => this.addAgent('Chat'));
+    document.getElementById('migrateAgent').addEventListener('click', () => this.migrateRandomAgent());
+    document.getElementById('cloneAgent').addEventListener('click', () => this.cloneRandomAgent());
+    
+    // Event simulation
+    document.getElementById('sendWeatherEvent').addEventListener('click', () => this.sendEvent('weather.update', 'Weather data updated'));
+    document.getElementById('sendOrderEvent').addEventListener('click', () => this.sendEvent('order.created', 'New order received'));
+    document.getElementById('sendChatEvent').addEventListener('click', () => this.sendEvent('chat.message', 'User message received'));
+    document.getElementById('broadcastEvent').addEventListener('click', () => this.broadcastEvent());
+    
+    // Scenarios
+    document.getElementById('ecommerceScenario').addEventListener('click', () => this.runEcommerceScenario());
+    document.getElementById('iotScenario').addEventListener('click', () => this.runIoTScenario());
+    document.getElementById('chatScenario').addEventListener('click', () => this.runChatScenario());
+  }
+
+  initializeDefaultAgents() {
+    this.addAgent('Orchestrator', 400, 200);
+    this.addAgent('Weather', 200, 150);
+    this.addAgent('Order', 600, 150);
+    this.addAgent('Chat', 400, 300);
+  }
+
+  addAgent(type, x = null, y = null) {
+    const agentId = `${type}Agent_${++this.agentIdCounter}`;
+    const agent = {
+      id: agentId,
+      type: type,
+      x: x || Math.random() * 700 + 50,
+      y: y || Math.random() * 300 + 50,
+      status: 'active',
+      subscriptions: this.getDefaultSubscriptions(type)
+    };
+    
+    this.agents.set(agentId, agent);
+    this.renderAgent(agent);
+    this.logEvent(`Agent ${agentId} activated`, 'system');
+    this.updateStats();
+  }
+
+  getDefaultSubscriptions(type) {
+    const subscriptions = {
+      'Weather': ['weather.*', 'system.*'],
+      'Order': ['order.*', 'payment.*', 'system.*'],
+      'Chat': ['chat.*', 'user.*', 'system.*'],
+      'Orchestrator': ['*']
+    };
+    return subscriptions[type] || ['system.*'];
+  }
+
+  renderAgent(agent) {
+    const group = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+    group.setAttribute('id', agent.id);
+    group.setAttribute('transform', `translate(${agent.x}, ${agent.y})`);
+    
+    // Agent circle
+    const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+    circle.setAttribute('r', '25');
+    circle.setAttribute('fill', this.getAgentColor(agent.type));
+    circle.setAttribute('stroke', '#333');
+    circle.setAttribute('stroke-width', '2');
+    
+    // Agent label
+    const text = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+    text.setAttribute('text-anchor', 'middle');
+    text.setAttribute('dy', '5');
+    text.setAttribute('fill', 'white');
+    text.setAttribute('font-size', '10');
+    text.setAttribute('font-weight', 'bold');
+    text.textContent = agent.type;
+    
+    group.appendChild(circle);
+    group.appendChild(text);
+    this.svg.appendChild(group);
+  }
+
+  getAgentColor(type) {
+    const colors = {
+      'Weather': '#4CAF50',
+      'Order': '#2196F3',
+      'Chat': '#FF9800',
+      'Orchestrator': '#9C27B0'
+    };
+    return colors[type] || '#666';
+  }
+
+  sendEvent(topic, message, sender = 'System') {
+    const event = {
+      id: ++this.eventCounter,
+      topic: topic,
+      message: message,
+      sender: sender,
+      timestamp: new Date().toLocaleTimeString(),
+      subscribers: this.findSubscribers(topic)
+    };
+    
+    this.events.push(event);
+    this.logEvent(`📡 ${topic}: ${message}`, 'event');
+    this.animateEventFlow(event);
+    this.updateStats();
+  }
+
+  findSubscribers(topic) {
+    const subscribers = [];
+    for (const [agentId, agent] of this.agents) {
+      if (this.matchesSubscription(topic, agent.subscriptions)) {
+        subscribers.push(agentId);
+      }
+    }
+    return subscribers;
+  }
+
+  matchesSubscription(topic, subscriptions) {
+    return subscriptions.some(sub => {
+      if (sub === '*') return true;
+      if (sub.endsWith('*')) {
+        return topic.startsWith(sub.slice(0, -1));
+      }
+      return topic === sub;
+    });
+  }
+
+  animateEventFlow(event) {
+    event.subscribers.forEach(subscriberId => {
+      const agent = this.agents.get(subscriberId);
+      if (agent) {
+        this.createEventAnimation(400, 200, agent.x, agent.y);
+      }
+    });
+  }
+
+  createEventAnimation(fromX, fromY, toX, toY) {
+    const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+    line.setAttribute('x1', fromX);
+    line.setAttribute('y1', fromY);
+    line.setAttribute('x2', fromX);
+    line.setAttribute('y2', fromY);
+    line.setAttribute('stroke', '#FFD700');
+    line.setAttribute('stroke-width', '3');
+    line.setAttribute('opacity', '0.8');
+    
+    this.svg.appendChild(line);
+    
+    // Animate line
+    const animate = () => {
+      let progress = 0;
+      const duration = 1000;
+      const startTime = Date.now();
+      
+      const update = () => {
+        const elapsed = Date.now() - startTime;
+        progress = Math.min(elapsed / duration, 1);
+        
+        const currentX = fromX + (toX - fromX) * progress;
+        const currentY = fromY + (toY - fromY) * progress;
+        
+        line.setAttribute('x2', currentX);
+        line.setAttribute('y2', currentY);
+        
+        if (progress < 1) {
+          requestAnimationFrame(update);
+        } else {
+          setTimeout(() => {
+            if (line.parentNode) {
+              line.parentNode.removeChild(line);
+            }
+          }, 500);
+        }
+      };
+      
+      requestAnimationFrame(update);
+    };
+    
+    animate();
+  }
+
+  migrateRandomAgent() {
+    const agentIds = Array.from(this.agents.keys());
+    if (agentIds.length === 0) return;
+    
+    const agentId = agentIds[Math.floor(Math.random() * agentIds.length)];
+    const agent = this.agents.get(agentId);
+    
+    const newX = Math.random() * 700 + 50;
+    const newY = Math.random() * 300 + 50;
+    
+    this.logEvent(`🚀 Migrating ${agentId} to new location`, 'mobility');
+    
+    // Animate migration
+    const element = document.getElementById(agentId);
+    if (element) {
+      element.style.transition = 'transform 2s ease-in-out';
+      element.setAttribute('transform', `translate(${newX}, ${newY})`);
+    }
+    
+    agent.x = newX;
+    agent.y = newY;
+  }
+
+  cloneRandomAgent() {
+    const agentIds = Array.from(this.agents.keys());
+    if (agentIds.length === 0) return;
+    
+    const sourceId = agentIds[Math.floor(Math.random() * agentIds.length)];
+    const sourceAgent = this.agents.get(sourceId);
+    
+    this.logEvent(`👥 Cloning ${sourceId}`, 'mobility');
+    this.addAgent(sourceAgent.type);
+  }
+
+  runEcommerceScenario() {
+    this.logEvent('🛒 Starting E-commerce Order Processing Scenario', 'scenario');
+    
+    setTimeout(() => this.sendEvent('order.created', 'Order #12345 created'), 500);
+    setTimeout(() => this.sendEvent('inventory.check', 'Checking inventory for order #12345'), 1000);
+    setTimeout(() => this.sendEvent('payment.process', 'Processing payment for order #12345'), 1500);
+    setTimeout(() => this.sendEvent('order.confirmed', 'Order #12345 confirmed and ready for shipping'), 2000);
+  }
+
+  runIoTScenario() {
+    this.logEvent('🏭 Starting IoT Factory Coordination Scenario', 'scenario');
+    
+    setTimeout(() => this.sendEvent('sensor.temperature', 'Temperature: 85°C - Warning threshold exceeded'), 500);
+    setTimeout(() => this.sendEvent('agent.dispatch', 'Dispatching AnalyzerAgent to edge device'), 1000);
+    setTimeout(() => this.sendEvent('analysis.complete', 'Anomaly detected - Maintenance required'), 1500);
+    setTimeout(() => this.sendEvent('maintenance.scheduled', 'Maintenance scheduled for Machine #7'), 2000);
+  }
+
+  runChatScenario() {
+    this.logEvent('💬 Starting Customer Service Chat Scenario', 'scenario');
+    
+    setTimeout(() => this.sendEvent('chat.user.message', 'User: What is the status of my order?'), 500);
+    setTimeout(() => this.sendEvent('session.created', 'Creating dedicated SessionAgent for user'), 1000);
+    setTimeout(() => this.sendEvent('query.parallel', 'Querying OrderAgent and FAQAgent in parallel'), 1500);
+    setTimeout(() => this.sendEvent('chat.bot.response', 'Bot: Your order #12345 is confirmed and shipping today'), 2000);
+  }
+
+  broadcastEvent() {
+    this.sendEvent('system.broadcast', 'System-wide announcement to all agents');
+  }
+
+  logEvent(message, type = 'info') {
+    const eventElement = document.createElement('div');
+    eventElement.className = `console-line ${type}`;
+    
+    const timestamp = new Date().toLocaleTimeString();
+    eventElement.innerHTML = `<span class="timestamp">[${timestamp}]</span> ${message}`;
+    
+    this.consoleBody.appendChild(eventElement);
+    this.consoleBody.scrollTop = this.consoleBody.scrollHeight;
+  }
+
+  updateStats() {
+    document.getElementById('agentCount').textContent = this.agents.size;
+    document.getElementById('messageCount').textContent = this.events.length;
+    
+    // Calculate events per second (simplified)
+    const recentEvents = this.events.filter(e => 
+      Date.now() - new Date(e.timestamp).getTime() < 1000
+    );
+    document.getElementById('eventRate').textContent = recentEvents.length;
+  }
+
+  startDemo() {
+    this.isRunning = true;
+    this.logEvent('🚀 AMCP Demo Started - Agent Mesh is now active', 'system');
+    
+    // Start periodic activity
+    this.demoInterval = setInterval(() => {
+      if (this.isRunning && Math.random() > 0.7) {
+        const events = [
+          () => this.sendEvent('heartbeat', 'Agent heartbeat'),
+          () => this.sendEvent('metrics.update', 'Performance metrics updated'),
+          () => this.sendEvent('discovery.announce', 'Agent capabilities announced')
+        ];
+        events[Math.floor(Math.random() * events.length)]();
+      }
+    }, 2000);
+  }
+
+  pauseDemo() {
+    this.isRunning = !this.isRunning;
+    this.logEvent(this.isRunning ? '▶️ Demo Resumed' : '⏸️ Demo Paused', 'system');
+  }
+
+  resetDemo() {
+    this.isRunning = false;
+    clearInterval(this.demoInterval);
+    
+    // Clear agents
+    this.agents.clear();
+    this.svg.innerHTML = '';
+    
+    // Clear events
+    this.events = [];
+    this.eventCounter = 0;
+    this.agentIdCounter = 0;
+    
+    // Reset UI
+    this.clearConsole();
+    this.initializeDefaultAgents();
+    this.updateStats();
+    
+    this.logEvent('🔄 Demo Reset - Ready for new simulation', 'system');
+  }
+
+  clearConsole() {
+    this.consoleBody.innerHTML = '';
+  }
+}
+
+// Initialize demo when page loads
+document.addEventListener('DOMContentLoaded', () => {
+  new AMCPDemo();
+});
+</script>
+
+<style>
+.demo-container {
+  font-family: var(--font-family-sans);
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  min-height: 100vh;
+}
+
+.demo-header {
+  background: linear-gradient(135deg, #1a73e8 0%, #4285f4 100%);
+  color: white;
+  padding: 60px 0;
+  text-align: center;
+}
+
+.demo-header h1 {
+  font-size: 2.5rem;
+  margin-bottom: 15px;
+  font-weight: 700;
+}
+
+.demo-subtitle {
+  font-size: 1.2rem;
+  margin-bottom: 30px;
+  opacity: 0.9;
+}
+
+.demo-controls {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  flex-wrap: wrap;
+}
+
+.demo-workspace {
+  padding: 60px 0;
+}
+
+.mesh-section, .events-section, .controls-section, .explanation-section {
+  margin-bottom: 50px;
+}
+
+.mesh-section h2, .events-section h2, .controls-section h2, .explanation-section h2 {
+  font-size: 1.8rem;
+  color: #333;
+  margin-bottom: 25px;
+  font-weight: 600;
+}
+
+.mesh-container {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
+#meshSvg {
+  border: 2px solid #e9ecef;
+  border-radius: 8px;
+  background: #fafafa;
+}
+
+.mesh-stats {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  flex-wrap: wrap;
+}
+
+.stat-item {
+  text-align: center;
+}
+
+.stat-label {
+  display: block;
+  font-size: 0.9rem;
+  color: #666;
+  margin-bottom: 5px;
+}
+
+.stat-value {
+  display: block;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #1a73e8;
+}
+
+.event-console {
+  background: #1e1e1e;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+}
+
+.console-header {
+  background: #333;
+  padding: 15px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: #ccc;
+  font-family: var(--font-family-mono);
+}
+
+.console-body {
+  height: 300px;
+  overflow-y: auto;
+  padding: 15px;
+  font-family: var(--font-family-mono);
+  font-size: 0.9rem;
+  line-height: 1.4;
+}
+
+.console-line {
+  margin-bottom: 8px;
+  padding: 4px 0;
+}
+
+.console-line.system { color: #4CAF50; }
+.console-line.event { color: #2196F3; }
+.console-line.mobility { color: #FF9800; }
+.console-line.scenario { color: #9C27B0; }
+.console-line.info { color: #ccc; }
+
+.timestamp {
+  color: #888;
+  margin-right: 10px;
+}
+
+.control-panels {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 30px;
+}
+
+.control-panel {
+  background: white;
+  padding: 25px;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+}
+
+.control-panel h3 {
+  margin-bottom: 20px;
+  color: #333;
+  font-size: 1.2rem;
+}
+
+.control-group {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 15px;
+  flex-wrap: wrap;
+}
+
+.btn-small, .btn-sm {
+  padding: 8px 16px;
+  font-size: 0.85rem;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  background: #1a73e8;
+  color: white;
+}
+
+.btn-sm.btn-outline {
+  background: transparent;
+  color: #1a73e8;
+  border: 2px solid #1a73e8;
+}
+
+.btn-small:hover, .btn-sm:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(26, 115, 232, 0.3);
+}
+
+.explanation-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 25px;
+}
+
+.explanation-card {
+  background: white;
+  padding: 25px;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+  text-align: center;
+  transition: transform 0.3s ease;
+}
+
+.explanation-card:hover {
+  transform: translateY(-5px);
+}
+
+.card-icon {
+  font-size: 2.5rem;
+  margin-bottom: 15px;
+}
+
+.explanation-card h3 {
+  margin-bottom: 15px;
+  color: #333;
+  font-size: 1.1rem;
+}
+
+.explanation-card p {
+  color: #666;
+  line-height: 1.6;
+  font-size: 0.95rem;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .demo-header h1 {
+    font-size: 2rem;
+  }
+  
+  .mesh-stats {
+    gap: 20px;
+  }
+  
+  .control-panels {
+    grid-template-columns: 1fr;
+  }
+  
+  .explanation-grid {
+    grid-template-columns: 1fr;
+  }
+}
+</style>
+
+  </main>
+
+  <footer class="site-footer">
+  <div class="container">
+    <div class="footer-content">
+      <div class="footer-section">
+        <div class="footer-brand">
+          <img src="/assets/images/AMCPLogo.png" alt="AMCP Logo" class="footer-logo">
+          <h3>AMCP v1.5</h3>
+          <p>Enterprise-grade multi-agent communication framework for modern distributed systems.</p>
+        </div>
+        <div class="footer-social">
+          <a href="https://github.com/agentmeshcommunicationprotocol/amcpcore.github.io" class="social-link" target="_blank" rel="noopener" aria-label="GitHub">
+            <svg viewBox="0 0 24 24" width="24" height="24">
+              <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+            </svg>
+          </a>
+          
+          <a href="https://twitter.com/amcp_framework" class="social-link" target="_blank" rel="noopener" aria-label="Twitter">
+            <svg viewBox="0 0 24 24" width="24" height="24">
+              <path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/>
+            </svg>
+          </a>
+          
+        </div>
+      </div>
+
+      <div class="footer-section">
+        <h4>Documentation</h4>
+        <ul class="footer-links">
+          <li><a href="/docs/getting-started/">Getting Started</a></li>
+          <li><a href="/docs/installation/">Installation</a></li>
+          <li><a href="/docs/api-reference/">API Reference</a></li>
+          <li><a href="/docs/architecture/">Architecture</a></li>
+          <li><a href="/docs/best-practices/">Best Practices</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-section">
+        <h4>Examples</h4>
+        <ul class="footer-links">
+          <li><a href="/examples/weather-agent/">Weather Agent</a></li>
+          <li><a href="/examples/meshchat/">MeshChat AI</a></li>
+          <li><a href="/examples/orchestration/">LLM Orchestration</a></li>
+          <li><a href="/examples/stock-agent/">Stock Agent</a></li>
+          <li><a href="/examples/travel-agent/">Travel Agent</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-section">
+        <h4>Community</h4>
+        <ul class="footer-links">
+          <li><a href="https://github.com/agentmeshcommunicationprotocol/amcpcore.github.io" target="_blank" rel="noopener">GitHub Repository</a></li>
+          <li><a href="/community/contributing/">Contributing</a></li>
+          <li><a href="/community/discussions/">Discussions</a></li>
+          <li><a href="/community/roadmap/">Roadmap</a></li>
+          <li><a href="/blog/">Blog</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-section">
+        <h4>Resources</h4>
+        <ul class="footer-links">
+          <li><a href="/download/">Download</a></li>
+          <li><a href="/docs/changelog/">Changelog</a></li>
+          <li><a href="/docs/migration/">Migration Guide</a></li>
+          <li><a href="/support/">Support</a></li>
+          <li><a href="/contact/">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <div class="footer-bottom-content">
+        <div class="footer-copyright">
+          <p>&copy; 2025 AMCP Development Team. Released under the MIT License.</p>
+        </div>
+        <div class="footer-meta">
+          <span class="footer-version">Version 1.5.0</span>
+          <span class="footer-separator">•</span>
+          <a href="/privacy/">Privacy Policy</a>
+          <span class="footer-separator">•</span>
+          <a href="/terms/">Terms of Service</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<style>
+.site-footer {
+  background: #1a1a1a;
+  color: #ccc;
+  padding: 60px 0 20px;
+  margin-top: 80px;
+}
+
+.footer-content {
+  display: grid;
+  grid-template-columns: 2fr repeat(4, 1fr);
+  gap: 40px;
+  margin-bottom: 40px;
+}
+
+.footer-section h3,
+.footer-section h4 {
+  color: white;
+  margin-bottom: 20px;
+  font-weight: 600;
+}
+
+.footer-brand {
+  margin-bottom: 20px;
+}
+
+.footer-logo {
+  width: 40px;
+  height: 40px;
+  margin-bottom: 15px;
+}
+
+.footer-brand p {
+  color: #999;
+  line-height: 1.6;
+  margin-bottom: 20px;
+}
+
+.footer-social {
+  display: flex;
+  gap: 15px;
+}
+
+.social-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  color: #ccc;
+  transition: all 0.3s ease;
+}
+
+.social-link:hover {
+  background: #2196F3;
+  color: white;
+  transform: translateY(-2px);
+}
+
+.social-link svg {
+  fill: currentColor;
+}
+
+.footer-links {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.footer-links li {
+  margin-bottom: 12px;
+}
+
+.footer-links a {
+  color: #999;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.footer-links a:hover {
+  color: #2196F3;
+}
+
+.footer-bottom {
+  border-top: 1px solid #333;
+  padding-top: 20px;
+}
+
+.footer-bottom-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.footer-copyright p {
+  margin: 0;
+  color: #666;
+  font-size: 0.9rem;
+}
+
+.footer-meta {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  font-size: 0.9rem;
+  color: #666;
+}
+
+.footer-meta a {
+  color: #666;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.footer-meta a:hover {
+  color: #2196F3;
+}
+
+.footer-separator {
+  color: #444;
+}
+
+.footer-version {
+  background: rgba(33, 150, 243, 0.1);
+  color: #2196F3;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .footer-content {
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+  }
+}
+
+@media (max-width: 768px) {
+  .footer-content {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+
+  .footer-bottom-content {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .footer-meta {
+    justify-content: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .site-footer {
+    padding: 40px 0 20px;
+  }
+
+  .footer-meta {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .footer-separator {
+    display: none;
+  }
+}
+</style>
+
+
+  <!-- JavaScript -->
+  <script src="/assets/js/main.js"></script>
+</body>
+
+</html>
