@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-R-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Report: Enterprise Agentic Systems with AMCP</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.1/dist/chart.min.js"></script>
+    
+    <!-- Chosen Palette: "Warm Neutral" (Amber/Slate/Gray) -->
+    <!-- Application Structure Plan: The SPA transforms the 12-section linear article into a 5-theme interactive dashboard (Overview, Case Study, Performance, Architecture, Get Started), navigated by a persistent left rail. This structure is user-centric, grouping content by user-task (Why, How, What) rather than by the article's linear flow. This non-linear exploration enhances usability, allowing executives, architects, and developers to find relevant information instantly. Key interactions include toggling chart data (Case Study), tabbed content for dense info (Architecture), and code-copy buttons (Get Started). -->
+    <!-- Visualization & Content Choices: [Case Study Table -> Goal: Compare -> Viz: 4x Chart.js (Bar, Doughnut) -> Interaction: "Before/After" toggle button dynamically updates all 4 charts -> Justification: Far more impactful data comparison than a static table.]; [Performance Table -> Goal: Compare -> Viz: Grouped Bar Chart (Chart.js) -> Interaction: Hover tooltips -> Justification: Visualizes benchmark comparisons instantly.]; [Architecture/Get Started Text -> Goal: Organize -> Viz: HTML/Tailwind Tabbed Interface -> Interaction: Click tabs to show/hide content -> Justification: Manages high-density technical text, preventing user overwhelm.]; [Code Snippets -> Goal: Inform -> Viz: HTML <pre><code> -> Interaction: "Copy" button (JS) -> Justification: Improves developer utility.] -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+        
+        .nav-link {
+            @apply w-full flex items-center gap-3 px-4 py-3 text-gray-700 rounded-lg hover:bg-amber-100 hover:text-amber-800 transition-colors duration-150;
+        }
+        .nav-link.active {
+            @apply bg-amber-200 text-amber-900 font-semibold shadow-inner;
+        }
+        .nav-link-icon {
+            @apply w-5 h-5;
+        }
+        
+        .page-section {
+            @apply w-full h-full overflow-y-auto p-6 md:p-10;
+        }
+
+        h1 { @apply text-3xl md:text-4xl font-bold text-slate-800 mb-4; }
+        h2 { @apply text-2xl md:text-3xl font-semibold text-slate-700 mt-8 mb-4; }
+        h3 { @apply text-xl md:text-2xl font-semibold text-slate-700 mt-6 mb-3; }
+        h4 { @apply text-lg md:text-xl font-semibold text-slate-600 mt-4 mb-2; }
+        p, li { @apply text-base text-gray-700 leading-relaxed mb-4; }
+        ul { @apply list-disc list-inside pl-4 mb-4; }
+        
+        .kard {
+            @apply bg-white p-6 rounded-xl shadow-lg border border-gray-200;
+        }
+        .kard-title {
+            @apply text-sm font-medium text-gray-500 uppercase tracking-wider;
+        }
+        .kard-value {
+            @apply text-4xl font-bold text-amber-700 mt-2;
+        }
+        .kard-delta {
+            @apply text-sm font-medium text-green-600;
+        }
+
+        .tab-button {
+            @apply px-4 py-2 text-sm font-medium text-gray-600 rounded-md hover:bg-gray-100;
+        }
+        .tab-button.active {
+            @apply bg-white text-amber-700 shadow-md border border-gray-200 font-semibold;
+        }
+        .tab-panel {
+            @apply p-4 md:p-6 bg-white rounded-lg shadow-inner border border-gray-200 mt-4;
+        }
+        
+        pre {
+            @apply bg-slate-800 text-white p-4 rounded-lg overflow-x-auto relative;
+        }
+        code {
+            @apply font-mono text-sm;
+        }
+        .copy-btn {
+            @apply absolute top-2 right-2 bg-slate-600 text-white px-3 py-1 text-xs rounded hover:bg-slate-500 transition-colors;
+        }
+
+        .chart-container {
+            @apply relative w-full max-w-xl mx-auto h-72 md:h-80 bg-white p-4 rounded-lg shadow border border-gray-200;
+        }
+    </style>
+</head>
+<body class="bg-amber-50 h-screen w-full flex overflow-hidden">
+
+    <!-- Sidebar Navigation -->
+    <nav class="w-64 h-full bg-amber-100/60 border-r border-amber-200/80 p-4 flex-shrink-0 flex flex-col">
+        <div class="flex items-center gap-2 px-2 pb-4 border-b border-amber-200">
+            <span class="w-8 h-8 bg-amber-700 text-white font-bold text-lg rounded-full flex items-center justify-center">A</span>
+            <span class="text-lg font-semibold text-amber-900">AMCP Report</span>
+        </div>
+        <div class="flex-grow mt-4 space-y-2">
+            <a href="#" class="nav-link active" data-target="overview">
+                <span class="nav-link-icon">🏠</span>
+                <span>Overview</span>
+            </a>
+            <a href="#" class="nav-link" data-target="case-study">
+                <span class="nav-link-icon">💡</span>
+                <span>Case Study</span>
+            </a>
+            <a href="#" class="nav-link" data-target="performance">
+                <span class="nav-link-icon">📊</span>
+                <span>Performance</span>
+            </a>
+            <a href="#" class="nav-link" data-target="architecture">
+                <span class="nav-link-icon">🏛️</span>
+                <span>Architecture</span>
+            </a>
+            <a href="#" class="nav-link" data-target="get-started">
+                <span class="nav-link-icon">🚀</span>
+                <span>Get Started</span>
+            </a>
+        </div>
+    </nav>
+
+    <!-- Main Content Area -->
+    <main class="flex-grow h-full overflow-hidden">
+        
+        <!-- Overview Section -->
+        <section id="overview" class="page-section">
+            <h1>Building Enterprise-Scale Agentic Systems</h1>
+            <p class="text-xl text-gray-600">This interactive report explores the **Agent Mesh Communication Protocol (AMCP)**, an event-driven architecture designed to solve the bottlenecks of scaling AI agents. Navigate the sections to see the problems with traditional systems, the 10x performance gains of the AMCP solution, and the architecture that makes it possible.</p>
+
+            <h2>The Core Problem: A Scalability Paradox</h2>
+            <p>Enterprises scaling AI agents face two major failure points: the **Orchestration Bottleneck** (from synchronous, coupled systems) and the **Communication Tax** (from chatty, high-traffic agents). Traditional microservice architectures were not designed for the proactive, autonomous, and high-volume communication of a distributed agent system, leading to fragile, high-latency applications that fail at scale.</p>
+
+            <h2>The Solution: The Agent Mesh (AMCP)</h2>
+            <p>The **Agent Mesh Architecture** is a decentralized, event-driven pattern built for autonomous actors. It uses a **Kafka-based Agent Mesh** as a high-throughput backbone, and **AMCP** as the formal protocol for agent-to-agent communication. This design enables true temporal and spatial decoupling, allowing agents to communicate asynchronously and resiliently.</p>
+            
+            <h2>At a Glance: Key Performance Gains</h2>
+            <p>This approach isn't just theoretical. Real-world implementation has demonstrated massive, quantifiable improvements over legacy systems.</p>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-6">
+                <div class="kard">
+                    <div class="kard-title">Time-to-Action</div>
+                    <div class="kard-value">10x</div>
+                    <div class="kard-delta">Faster (8s down to 500ms)</div>
+                </div>
+                <div class="kard">
+                    <div class="kard-title">Peak Event Throughput</div>
+                    <div class="kard-value">15,500</div>
+                    <div class="kard-delta">Events/sec (vs 1,800)</div>
+                </div>
+                <div class="kard">
+                    <div class="kard-title">Agent Memory Footprint</div>
+                    <div class="kard-value">&lt;25 MB</div>
+                    <div class="kard-delta">~85% Reduction</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Case Study Section -->
+        <section id="case-study" class="page-section hidden">
+            <h1>Case Study: 10x Gains in Manufacturing</h1>
+            <p>This section explores a real-world manufacturing client who moved from a traditional, centralized monitoring system to a hyper-localized **AMCP Agent Mesh**. Their original system suffered from a crippling **Latency Trap**, where time-to-action for a critical machine defect was over 6 seconds, leading to millions in material waste.</p>
+
+            <div class="text-center my-8">
+                <button id="caseStudyToggle" class="bg-amber-600 text-white px-6 py-3 rounded-lg font-semibold shadow-lg hover:bg-amber-700 transition-all">
+                    Now Showing: <span id="toggle-label">After AMCP (Solution)</span>
+                </button>
+                <p class="text-sm text-gray-500 mt-2">Click to toggle between "Before" and "After" data</p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                <div class="chart-container">
+                    <canvas id="timeChart"></canvas>
+                </div>
+                <div class="chart-container">
+                    <canvas id="defectChart"></canvas>
+                </div>
+                <div class="chart-container">
+                    <canvas id="downtimeChart"></canvas>
+                </div>
+                <div class="chart-container">
+                    <canvas id="costChart"></canvas>
+                </div>
+            </div>
+        </section>
+
+        <!-- Performance Section -->
+        <section id="performance" class="page-section hidden">
+            <h1>Performance Deep Dive</h1>
+            <p>AMCP's design directly translates to superior performance in throughput, latency, and resource efficiency. These benchmarks, gathered from stress tests using native-compiled **Quarkus agents**, illustrate the difference between the **AMCP Agent Mesh** and a traditional REST/gRPC-based microservice mesh.</p>
+            
+            <div class="chart-container !max-w-4xl !h-96 md:!h-[500px] mt-8">
+                <canvas id="benchmarkChart"></canvas>
+            </div>
+        </section>
+
+        <!-- Architecture Section -->
+        <section id="architecture" class="page-section hidden">
+            <h1>Architecture Deep Dive</h1>
+            <p>This section provides a deeper look into the "how" of AMCP. Explore the core components, learn about enterprise-grade best practices for security and reliability, and see how this architecture stacks up against traditional technologies.</p>
+
+            <div class="w-full max-w-5xl mx-auto mt-6">
+                <div id="arch-tabs" class="flex items-center bg-gray-200/60 p-1 rounded-lg space-x-1">
+                    <button class="tab-button active" data-target="arch-core">AMCP Core</button>
+                    <button class="tab-button" data-target="arch-practices">Best Practices</button>
+                    <button class="tab-button" data-target="arch-comparison">Comparison</button>
+                </div>
+
+                <div id="arch-core" class="tab-panel">
+                    <h3>AMCP: The Contract for Agentic Communication</h3>
+                    <p>AMCP is the formalized protocol that agents use to interact over the mesh. It provides the structured payload and semantic rules to ensure reliable, auditable communication.</p>
+                    <h4>Primary Components:</h4>
+                    <ol class="list-decimal list-inside space-y-2">
+                        <li><strong>Events (The What):</strong> Immutable facts or changes of state (e.g., `ASSET_BROKEN`, `ORDER_PLACED`). Events are the only way agents interact.</li>
+                        <li><strong>Channels (The Where):</strong> Durable, ordered streams (Kafka topics) that events are published to. Agents subscribe only to relevant channels.</li>
+                        <li><strong>Payload (The How):</strong> A strict schema with metadata for `sender_id`, `timestamp`, `trace_id`, and `event_version` to ensure idempotency and auditability.</li>
+                    </ol>
+                    
+                    <h4>Key Differentiators: Decoupling and Durability</h4>
+                    <ul>
+                        <li><strong>Temporal Decoupling:</strong> The sending agent doesn't need the receiving agent to be available. The event persists on the Kafka channel.</li>
+                        <li><strong>Spatial Decoupling:</strong> Agents are location-agnostic. They can be migrated across clusters or to the edge without changing communication logic.</li>
+                    </ul>
+                </div>
+                
+                <div id="arch-practices" class="tab-panel hidden">
+                    <h3>Enterprise Best Practices</h3>
+                    <p>A distributed system is only as good as its reliability and security. AMCP is designed with these enterprise non-functional requirements at its core.</p>
+                    
+                    <h4>Zero-Trust Security for Agent Mesh</h4>
+                    <p>Agents are autonomous and distributed, mandating a zero-trust model.</p>
+                    <ul>
+                        <li><strong>mTLS (Mutual TLS):</strong> Every Quarkus agent authenticates with the Kafka backbone using mTLS, ensuring only trusted agents can join the mesh.</li>
+                        <li><strong>RBAC (Role-Based Access Control):</strong> Permissions are tied to Kafka topics. An `OrderProcessingAgent` can only read from `order-created` and write to `shipping-request`.</li>
+                    </ul>
+
+                    <h4>Achieving Idempotency with AMCP Metadata</h4>
+                    <p>The mandatory `trace_id` in every AMCP payload is the key to idempotency (preventing duplicate actions). If an agent fails and restarts, it can check a cache for the `trace_id` before processing an event, guaranteeing an action only runs once.</p>
+
+                    <h4>Unified Monitoring and Observability</h4>
+                    <p>The standardized payload (`sender_id`, `timestamp`, `trace_id`) allows monitoring tools to easily reconstruct the entire chain of actions across the mesh, simplifying debugging and performance profiling.</p>
+                </div>
+
+                <div id="arch-comparison" class="tab-panel hidden">
+                    <h3>AMCP vs. The Old Guard</h3>
+                    <p>Here’s how AMCP's agent-first approach compares to traditional integration tools, which are not optimized for autonomous, proactive agent communication.</p>
+                    
+                    <div class="overflow-x-auto">
+                        <table class="w-full min-w-max text-left border-collapse mt-4">
+                            <thead class="bg-gray-100">
+                                <tr>
+                                    <th class="p-3 border border-gray-300 font-semibold text-sm">Feature</th>
+                                    <th class="p-3 border border-gray-300 font-semibold text-sm">AMCP Agent Mesh</th>
+                                    <th class="p-3 border border-gray-300 font-semibold text-sm">Traditional RPC (gRPC)</th>
+                                    <th class="p-3 border border-gray-300 font-semibold text-sm">Spring Cloud Stream</th>
+                                    <th class="p-3 border border-gray-300 font-semibold text-sm">Apache Camel</th>
+                                </tr>
+                            </thead>
+                            <tbody class="bg-white">
+                                <tr>
+                                    <td class="p-3 border border-gray-300 font-medium">Communication</td>
+                                    <td class="p-3 border border-gray-300">Asynchronous Event-Driven</td>
+                                    <td class="p-3 border border-gray-300">Synchronous Request/Response</td>
+                                    <td class="p-3 border border-gray-300">Asynchronous (General)</td>
+                                    <td class="p-3 border border-gray-300">Routing & Integration</td>
+                                </tr>
+                                <tr>
+                                    <td class="p-3 border border-gray-300 font-medium">Core Value</td>
+                                    <td class="p-3 border border-gray-300">Autonomous Agent Coordination</td>
+                                    <td class="p-3 border border-gray-300">Service-to-Service Data Exchange</td>
+                                    <td class="p-3 border border-gray-300">Data Stream Processing</td>
+                                    <td class="p-3 border border-gray-300">Message Transformation</td>
+                                legacy-systems>
+                                <tr>
+                                    <td class="p-3 border border-gray-300 font-medium">Agent Focus</td>
+                                    <td class="p-3 border border-gray-300">Proactive, Decoupled Actors</td>
+                                    <td class="p-3 border border-gray-300">Reactive, Tightly Coupled Clients</td>
+                                    <td class="p-3 border border-gray-300">Standard Microservice Adapters</td>
+                                    <td class="p-3 border border-gray-300">Message Routers/Filters</td>
+                                </tr>
+                                <tr>
+                                    <td class="p-3 border border-gray-300 font-medium">Best for</td>
+                                    <td class="p-3 border border-gray-300">Enterprise Agentic AI, Edge, IoT</td>
+                                    <td class="p-3 border border-gray-300">Simple Microservice Data Transfer</td>
+                                    <td class="p-3 border border-gray-300">Non-Agent Data Streaming</td>
+                                    <td class="p-3 border border-gray-300">Legacy Protocol Translation</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Get Started Section -->
+        <section id="get-started" class="page-section hidden">
+            <h1>Get Started with AMCP</h1>
+            <p>This section provides the resources you need to start building. See a 5-minute quick-start guide for your first **Quarkus agent**, check the future roadmap, and find links to the official documentation and code repositories.</p>
+
+            <div class="w-full max-w-5xl mx-auto mt-6">
+                <div id="start-tabs" class="flex items-center bg-gray-200/60 p-1 rounded-lg space-x-1">
+                    <button class="tab-button active" data-target="start-quick">Quick Start</button>
+                    <button class="tab-button" data-target="start-roadmap">Roadmap</button>
+                    <button class="tab-button" data-target="start-resources">Resources</button>
+                </div>
+
+                <div id="start-quick" class="tab-panel">
+                    <h3>Your First AMCP Agent in 5 Minutes</h3>
+                    <p>You'll need Java 17+, Maven, and a running Kafka cluster.</p>
+
+                    <h4>Step 1: Bootstrap the Quarkus Project</h4>
+                    <pre>
+<button class="copy-btn">Copy</button>
+<code># Generate a Quarkus project with Kafka/Reactive Messaging
+quarkus create app agent-mesh-starter \
+    --extensions=quarkus-smallrye-reactive-messaging-kafka,quarkus-resteasy-reactive
+</code></pre>
+
+                    <h4>Step 2: Configure the AMCP Channel</h4>
+                    <p>In <code>application.properties</code>, define your Kafka connection and channels.</p>
+                    <pre>
+<button class="copy-btn">Copy</button>
+<code># Kafka broker connection
+kafka.bootstrap.servers=localhost:9092
+
+# AMCP Channel Definition
+# Define 'events-in' (the channel we listen to)
+mp.messaging.incoming.events-in.connector=smallrye-kafka
+mp.messaging.incoming.events-in.topic=amcp-general-events
+
+# Define 'events-out' (the channel we publish to)
+mp.messaging.outgoing.events-out.connector=smallrye-kafka
+mp.messaging.outgoing.events-out.topic=amcp-general-events
+</code></pre>
+
+                    <h4>Step 3: Implement the Simple Agent</h4>
+                    <p>This agent listens for a `REQUEST_PING` event and responds with a `RESPONSE_PONG` event.</p>
+                    <pre>
+<button class="copy-btn">Copy</button>
+<code>import jakarta.enterprise.context.ApplicationScoped;
+import org.eclipse.microprofile.reactive.messaging.Incoming;
+import org.eclipse.microprofile.reactive.messaging.Outgoing;
+
+@ApplicationScoped
+public class SimpleAgent {
+    
+    // Agent listens to incoming events
+    @Incoming("events-in")
+    @Outgoing("events-out")
+    public String processIncomingEvent(String incomingPayload) {
+        
+        // 1. Basic agentic logic: Check if the event is a 'REQUEST_PING'
+        if (incomingPayload.contains("REQUEST_PING")) {
+            
+            // 2. Respond with an AMCP-compliant payload (simplified)
+            String responseEvent = String.format(
+                "{\"event_type\": \"RESPONSE_PONG\", \"sender_id\": \"SimpleAgent\", \"data\": \"%s\"}",
+                incomingPayload.split(":")[1]
+            );
+            
+            System.out.println("Agent received PING and is sending PONG.");
+            return responseEvent; // Event is sent to 'events-out'
+        }
+        
+        return null; // Do nothing if not a PING request
+    }
+}
+</code></pre>
+                </div>
+                
+                <div id="start-roadmap" class="tab-panel hidden">
+                    <h3>The AMCP Roadmap</h3>
+                    <p>AMCP is a living standard focused on pushing the boundaries of security and complex multi-agent reasoning.</p>
+                    
+                    <ul class="space-y-3">
+                        <li><strong>v1.7: Enhanced Zero-Trust Features</strong><br><span class="text-sm text-gray-600">Introducing support for Confidential Computing environments and secure enclaves.</span></li>
+                        <li><strong>v1.8: Advanced LLM Tool-Use Integration</strong><br><span class="text-sm text-gray-600">Standardized AMCP event types for Tool Invocation and Tool Result feedback for LLM agents.</span></li>
+                        <li><strong>v1.9: Adaptive Mesh Routing</strong><br><span class="text-sm text-gray-600">Content-based routing to target agents based on runtime attributes, not just topics.</span></li>
+                        <li><strong>v2.0: Multi-Protocol Bridge</strong><br><span class="text-sm text-gray-600">Enabling seamless communication between AMCP and legacy enterprise systems (SOAP, MQ).</span></li>
+                    </ul>
+                </div>
+
+                <div id="start-resources" class="tab-panel hidden">
+                    <h3>Resources & Community</h3>
+                    <p>You have the blueprint. Now, join the community and start building.</p>
+                    <ul class="space-y-4">
+                        <li>
+                            <a href="https://agentmeshcommunicationprotocol.github.io/docs/" target="_blank" class="text-amber-700 font-medium hover:underline">
+                                **Dive into the Documentation** &rarr;
+                            </a><br>
+                            <span class="text-sm text-gray-600">Get the full specification for the AMCP protocol, schema definitions, and event versioning guides.</span>
+                        </li>
+                        <li>
+                            <a href="https://github.com/agentmeshcommunicationprotocol/amcpcore.github.io" target="_blank" class="text-amber-700 font-medium hover:underline">
+                                **Explore the Code on GitHub** &rarr;
+                            </a><br>
+                            <span class="text-sm text-gray-600">See the open-source reference implementations, built with Quarkus and Kafka.</span>
+                        </li>
+                        <li>
+                            <a href="#" class="text-amber-700 font-medium hover:underline">
+                                **Engage with the Community** &rarr;
+                            </a><br>
+                            <span class="text-sm text-gray-600">Share your use cases and challenges with other pioneers in the discussions forum.</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+        
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+
+            // --- Navigation Logic ---
+            const navLinks = document.querySelectorAll('.nav-link');
+            const sections = document.querySelectorAll('.page-section');
+            
+            navLinks.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const targetId = link.dataset.target;
+
+                    sections.forEach(section => {
+                        section.classList.add('hidden');
+                    });
+                    document.getElementById(targetId).classList.remove('hidden');
+
+                    navLinks.forEach(nav => nav.classList.remove('active'));
+                    link.classList.add('active');
+                });
+            });
+
+            // --- Tab Logic ---
+            function setupTabs(tabContainerId) {
+                const tabContainer = document.getElementById(tabContainerId);
+                if (!tabContainer) return;
+                
+                const tabButtons = tabContainer.querySelectorAll('.tab-button');
+                const tabPanels = tabContainer.parentElement.querySelectorAll('.tab-panel');
+
+                tabButtons.forEach(button => {
+                    button.addEventListener('click', () => {
+                        const targetId = button.dataset.target;
+                        
+                        tabButtons.forEach(btn => btn.classList.remove('active'));
+                        button.classList.add('active');
+                        
+                        tabPanels.forEach(panel => {
+                            if (panel.id === targetId) {
+                                panel.classList.remove('hidden');
+                            } else {
+                                panel.classList.add('hidden');
+                            }
+                        });
+                    });
+                });
+            }
+            setupTabs('arch-tabs');
+            setupTabs('start-tabs');
+
+            // --- Code Copy Logic ---
+            document.querySelectorAll('.copy-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const code = btn.previousElementSibling.innerText;
+                    const ta = document.createElement('textarea');
+                    ta.value = code;
+                    document.body.appendChild(ta);
+                    ta.select();
+                    try {
+                        document.execCommand('copy');
+                        btn.innerText = 'Copied!';
+                        setTimeout(() => { btn.innerText = 'Copy'; }, 2000);
+                    } catch (err) {
+                        console.error('Failed to copy', err);
+                        btn.innerText = 'Error';
+                    }
+                    document.body.removeChild(ta);
+                });
+            });
+
+            // --- Chart.js Global Config ---
+            Chart.defaults.font.family = 'Inter';
+            Chart.defaults.font.weight = '500';
+
+            // --- Case Study Chart Data ---
+            const caseStudyData = {
+                before: {
+                    time: [6000, 8000],
+                    defect: [78, 22],
+                    downtime: [48],
+                    cost: [3.2]
+                },
+                after: {
+                    time: [500, 800],
+                    defect: [99.5, 0.5],
+                    downtime: [4.5],
+                    cost: [0.5]
+                }
+            };
+            let isShowingAfter = true;
+            let timeChart, defectChart, downtimeChart, costChart;
+
+            // --- Create Case Study Charts ---
+            function createCaseStudyCharts() {
+                const data = isShowingAfter ? caseStudyData.after : caseStudyData.before;
+                
+                // 1. Time-to-Action Chart
+                const timeCtx = document.getElementById('timeChart')?.getContext('2d');
+                if (timeCtx) {
+                    timeChart = new Chart(timeCtx, {
+                        type: 'bar',
+                        data: {
+                            labels: ['Min Time', 'Max Time'],
+                            datasets: [{
+                                label: 'Time-to-Action (ms)',
+                                data: data.time,
+                                backgroundColor: ['#f59e0b', '#d97706'],
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            plugins: {
+                                title: { display: true, text: 'Time-to-Action (ms)', font: { size: 16 } },
+                                legend: { display: false }
+                            },
+                            scales: { y: { beginAtZero: true } }
+                        }
+                    });
+                }
+                
+                // 2. Defect Capture Chart
+                const defectCtx = document.getElementById('defectChart')?.getContext('2d');
+                if (defectCtx) {
+                    defectChart = new Chart(defectCtx, {
+                        type: 'doughnut',
+                        data: {
+                            labels: ['Captured', 'Missed'],
+                            datasets: [{
+                                data: data.defect,
+                                backgroundColor: ['#10b981', '#ef4444'],
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            plugins: {
+                                title: { display: true, text: 'Defect Capture Rate (%)', font: { size: 16 } },
+                                legend: { position: 'bottom' }
+                            }
+                        }
+                    });
+                }
+
+                // 3. Downtime Chart
+                const downtimeCtx = document.getElementById('downtimeChart')?.getContext('2d');
+                if (downtimeCtx) {
+                    downtimeChart = new Chart(downtimeCtx, {
+                        type: 'bar',
+                        data: {
+                            labels: ['Monthly Downtime'],
+                            datasets: [{
+                                label: 'Hours',
+                                data: data.downtime,
+                                backgroundColor: ['#3b82f6'],
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            plugins: {
+                                title: { display: true, text: 'Avg. Monthly Downtime (Hours)', font: { size: 16 } },
+                                legend: { display: false }
+                            },
+                            scales: { y: { beginAtZero: true } }
+                        }
+                    });
+                }
+
+                // 4. Cost Chart
+                const costCtx = document.getElementById('costChart')?.getContext('2d');
+                if (costCtx) {
+                    costChart = new Chart(costCtx, {
+                        type: 'bar',
+                        data: {
+                            labels: ['Scrapped Material'],
+                            datasets: [{
+                                label: 'Cost ($ Millions)',
+                                data: data.cost,
+                                backgroundColor: ['#8b5cf6'],
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            plugins: {
+                                title: { display: true, text: 'Annual Cost of Waste ($M)', font: { size: 16 } },
+                                legend: { display: false }
+                            },
+                            scales: { y: { beginAtZero: true } }
+                        }
+                    });
+                }
+            }
+
+            // --- Update Case Study Charts ---
+            function updateCaseStudyCharts() {
+                isShowingAfter = !isShowingAfter;
+                const data = isShowingAfter ? caseStudyData.after : caseStudyData.before;
+                const label = isShowingAfter ? 'After AMCP (Solution)' : 'Before AMCP (Problem)';
+                document.getElementById('toggle-label').innerText = label;
+
+                if (timeChart) {
+                    timeChart.data.datasets[0].data = data.time;
+                    timeChart.update();
+                }
+                if (defectChart) {
+                    defectChart.data.datasets[0].data = data.defect;
+                    defectChart.update();
+                }
+                if (downtimeChart) {
+                    downtimeChart.data.datasets[0].data = data.downtime;
+                    downtimeChart.update();
+                }
+                if (costChart) {
+                    costChart.data.datasets[0].data = data.cost;
+                    costChart.update();
+                }
+            }
+            
+            document.getElementById('caseStudyToggle')?.addEventListener('click', updateCaseStudyCharts);
+            createCaseStudyCharts();
+
+            // --- Performance Benchmark Chart ---
+            const benchmarkCtx = document.getElementById('benchmarkChart')?.getContext('2d');
+            if (benchmarkCtx) {
+                new Chart(benchmarkCtx, {
+                    type: 'bar',
+                    data: {
+                        labels: ['Peak Throughput (events/s)', 'P99 Latency (ms)', 'Memory Footprint (MB)'],
+                        datasets: [
+                            {
+                                label: 'AMCP on Quarkus (Native)',
+                                data: [15500, 35, 25],
+                                backgroundColor: '#d97706',
+                            },
+                            {
+                                label: 'Traditional REST/gRPC Mesh',
+                                data: [1800, 180, 150], 
+                                backgroundColor: '#6b7280',
+                            }
+                        ]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            title: { display: true, text: 'AMCP vs. Traditional Architecture Benchmarks', font: { size: 16 } },
+                            legend: { position: 'bottom' }
+                        },
+                        scales: {
+                            y: {
+                                type: 'logarithmic',
+                                beginAtZero: true,
+                                ticks: {
+                                    callback: function(value, index, values) {
+                                        return Number(value.toString()).toLocaleString();
+                                    }
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html>
