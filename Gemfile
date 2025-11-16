@@ -1,18 +1,13 @@
 source "https://rubygems.org"
 
-# GitHub Pages gem
-gem "github-pages", "~> 228", group: :jekyll_plugins
+# GitHub Pages gem - Latest stable version
+gem "github-pages", "~> 231", group: :jekyll_plugins
 
-# Jekyll plugins
+# Jekyll plugins (included in github-pages, but explicitly listed for clarity)
 group :jekyll_plugins do
-  gem "jekyll-feed", "~> 0.12"
-  gem "jekyll-sitemap", "~> 1.4"
-  gem "jekyll-seo-tag", "~> 2.6"
-  gem "jekyll-paginate", "~> 1.1"
-  gem "jekyll-redirect-from", "~> 0.16"
-  gem "jekyll-archives", "~> 2.2"
-  gem "jekyll-gist", "~> 1.5"
-  gem "jekyll-github-metadata", "~> 2.13"
+  gem "jekyll-feed"
+  gem "jekyll-sitemap"
+  gem "jekyll-seo-tag"
 end
 
 # Development and testing gems
