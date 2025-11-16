@@ -23,6 +23,27 @@ markdown: kramdown
 highlighter: rouge
 theme: minima
 
+# Exclude files and directories from Jekyll build
+exclude:
+  - "*.sh"
+  - "*.py"
+  - "amcp-core-project/"
+  - "node_modules/"
+  - "vendor/"
+  - ".git/"
+  - ".github/"
+  - "Gemfile"
+  - "Gemfile.lock"
+  - "README.md"
+  - "LICENSE"
+  - ".gitignore"
+  - "*_SUMMARY.md"
+  - "*_REPORT.md"
+  - "*_GUIDE.md"
+  - "*_LOG.md"
+  - "*_STATUS.md"
+  - "*_FIX.md"
+
 # Plugins
 plugins:
   - jekyll-feed
