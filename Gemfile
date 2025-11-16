@@ -1,7 +1,7 @@
 source "https://rubygems.org"
 
-# GitHub Pages gem - Latest stable version
-gem "github-pages", "~> 231", group: :jekyll_plugins
+# GitHub Pages gem - Stable version compatible with GitHub Pages
+gem "github-pages", "~> 227", group: :jekyll_plugins
 
 # Jekyll plugins (included in github-pages, but explicitly listed for clarity)
 group :jekyll_plugins do
