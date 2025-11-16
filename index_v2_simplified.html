@@ -1,0 +1,222 @@
+---
+layout: default
+title: "AMCP v1.6 - Agent Mesh Communication Protocol | Enterprise Multi-Agent Framework"
+description: "Build intelligent multi-agent systems with agent mobility, LLM orchestration, and event-driven architecture. Deploy on Kubernetes, Quarkus, Kafka, NATS."
+keywords: "agent mesh, multi-agent systems, agent orchestration, LLM agents, agent mobility, Kubernetes, Quarkus, Kafka, NATS, agentic AI"
+---
+
+<\!-- Hero Section -->
+<section style="padding: 100px 0; background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); color: white; text-align: center;">
+  <div class="container">
+    <h1 style="font-size: 3rem; margin-bottom: 20px; font-weight: 800;">The Agent Mesh Communication Protocol</h1>
+    <p style="font-size: 1.2rem; margin-bottom: 30px; line-height: 1.8; max-width: 800px; margin-left: auto; margin-right: auto;">Build scalable, intelligent multi-agent systems with <strong>agent mobility</strong>, <strong>LLM orchestration</strong>, and <strong>event-driven architecture</strong>. Deploy on Kubernetes, Quarkus, Kafka, and NATS.</p>
+    <div style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap;">
+      <a href="#core-concepts" style="background: #2196F3; color: white; padding: 12px 28px; border-radius: 6px; text-decoration: none; font-weight: 600;">Explore Concepts</a>
+      <a href="https://github.com/agentmeshcommunicationprotocol/amcpcore.github.io" style="background: transparent; color: white; padding: 12px 28px; border-radius: 6px; border: 2px solid white; text-decoration: none; font-weight: 600;">GitHub</a>
+    </div>
+  </div>
+</section>
+
+<\!-- Core Concepts Section -->
+<section id="core-concepts" style="padding: 80px 0; background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);">
+  <div class="container">
+    <h2 style="font-size: 2.5rem; text-align: center; margin-bottom: 60px; font-weight: 700; color: #1a1a2e;">Three Core Agent Types</h2>
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px;">
+      <div style="background: white; padding: 40px; border-radius: 10px; box-shadow: 0 8px 25px rgba(0,0,0,0.1); border-top: 5px solid #2196F3;">
+        <div style="font-size: 3rem; margin-bottom: 15px;">💬</div>
+        <h3 style="font-size: 1.4rem; margin-bottom: 12px; color: #2196F3; font-weight: 700;">Chat Agent</h3>
+        <p style="color: #666; line-height: 1.7; margin-bottom: 15px;">LLM-powered conversational agents. Handle user interactions, process natural language, and orchestrate complex dialogues.</p>
+        <ul style="list-style: none; padding: 0; color: #555; font-size: 0.95rem;">
+          <li style="margin-bottom: 8px;">✓ Multi-turn conversations</li>
+          <li style="margin-bottom: 8px;">✓ Context preservation</li>
+          <li style="margin-bottom: 8px;">✓ Tool integration (MCP)</li>
+        </ul>
+      </div>
+      <div style="background: white; padding: 40px; border-radius: 10px; box-shadow: 0 8px 25px rgba(0,0,0,0.1); border-top: 5px solid #FF9800;">
+        <div style="font-size: 3rem; margin-bottom: 15px;">🎼</div>
+        <h3 style="font-size: 1.4rem; margin-bottom: 12px; color: #FF9800; font-weight: 700;">Orchestrator Agent</h3>
+        <p style="color: #666; line-height: 1.7; margin-bottom: 15px;">Coordinates complex workflows across multiple agents. Manages task distribution and state synchronization.</p>
+        <ul style="list-style: none; padding: 0; color: #555; font-size: 0.95rem;">
+          <li style="margin-bottom: 8px;">✓ Workflow orchestration</li>
+          <li style="margin-bottom: 8px;">✓ Task distribution</li>
+          <li style="margin-bottom: 8px;">✓ Error recovery</li>
+        </ul>
+      </div>
+      <div style="background: white; padding: 40px; border-radius: 10px; box-shadow: 0 8px 25px rgba(0,0,0,0.1); border-top: 5px solid #4CAF50;">
+        <div style="font-size: 3rem; margin-bottom: 15px;">🕸️</div>
+        <h3 style="font-size: 1.4rem; margin-bottom: 12px; color: #4CAF50; font-weight: 700;">Mesh Agent</h3>
+        <p style="color: #666; line-height: 1.7; margin-bottom: 15px;">Infrastructure agents managing the mesh. Handle routing, discovery, monitoring, and reliable communication.</p>
+        <ul style="list-style: none; padding: 0; color: #555; font-size: 0.95rem;">
+          <li style="margin-bottom: 8px;">✓ Event routing</li>
+          <li style="margin-bottom: 8px;">✓ Agent discovery</li>
+          <li style="margin-bottom: 8px;">✓ Load balancing</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<\!-- Agent Mobility Section -->
+<section style="padding: 80px 0; background: white;">
+  <div class="container">
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 50px; align-items: center;">
+      <div>
+        <h2 style="font-size: 2.2rem; margin-bottom: 25px; font-weight: 700; color: #1a1a2e;">🚀 Agent Mobility</h2>
+        <p style="font-size: 1rem; color: #666; line-height: 1.8; margin-bottom: 20px;">AMCP implements IBM Aglet-style strong mobility – agents migrate across contexts at runtime with full state preservation. Deploy in the cloud, move to the edge, all state intact.</p>
+        <div style="background: #f0f4ff; padding: 25px; border-radius: 8px; border-left: 5px solid #2196F3;">
+          <h4 style="color: #2196F3; margin-bottom: 15px; font-weight: 700;">Key Capabilities:</h4>
+          <ul style="list-style: none; padding: 0; color: #555; font-size: 0.95rem;">
+            <li style="margin-bottom: 10px;">✓ State serialization & restoration</li>
+            <li style="margin-bottom: 10px;">✓ Subscription migration</li>
+            <li style="margin-bottom: 10px;">✓ Zero message loss guarantee</li>
+            <li style="margin-bottom: 10px;">✓ Agent cloning for redundancy</li>
+          </ul>
+        </div>
+      </div>
+      <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 40px; border-radius: 10px; color: white; font-family: monospace; font-size: 0.85rem; line-height: 1.8;">
+        <h4 style="margin-bottom: 20px; font-weight: 700;">Migration Flow</h4>
+        <div style="margin-bottom: 15px;">
+          <div>1. Save State</div>
+          <div style="color: #4dd0e1; margin-left: 15px;">onDeactivate() → serialize</div>
+        </div>
+        <div style="margin-bottom: 15px;">
+          <div>2. Transfer</div>
+          <div style="color: #81c784; margin-left: 15px;">Network → Context B</div>
+        </div>
+        <div>
+          <div>3. Activate</div>
+          <div style="color: #ef5350; margin-left: 15px;">onLoad() → resume</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<\!-- LLM Orchestration Section -->
+<section style="padding: 80px 0; background: #f8f9fa;">
+  <div class="container">
+    <h2 style="font-size: 2.2rem; text-align: center; margin-bottom: 50px; font-weight: 700; color: #1a1a2e;">🧠 LLM Orchestration & Multi-Agent Chat</h2>
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 25px;">
+      <div style="background: white; padding: 25px; border-radius: 8px; border-left: 5px solid #2196F3; box-shadow: 0 4px 12px rgba(0,0,0,0.05);">
+        <h3 style="color: #2196F3; margin-bottom: 12px; font-size: 1rem; font-weight: 700;">📊 Multi-Model Support</h3>
+        <p style="color: #666; line-height: 1.6; font-size: 0.95rem;">Integrate OpenAI, Anthropic, LLaMA. Route requests by complexity, cost, or latency.</p>
+      </div>
+      <div style="background: white; padding: 25px; border-radius: 8px; border-left: 5px solid #FF9800; box-shadow: 0 4px 12px rgba(0,0,0,0.05);">
+        <h3 style="color: #FF9800; margin-bottom: 12px; font-size: 1rem; font-weight: 700;">🔗 Tool Integration (MCP)</h3>
+        <p style="color: #666; line-height: 1.6; font-size: 0.95rem;">Connect to external tools via Model Context Protocol with secure auth.</p>
+      </div>
+      <div style="background: white; padding: 25px; border-radius: 8px; border-left: 5px solid #4CAF50; box-shadow: 0 4px 12px rgba(0,0,0,0.05);">
+        <h3 style="color: #4CAF50; margin-bottom: 12px; font-size: 1rem; font-weight: 700;">💭 Reasoning & Planning</h3>
+        <p style="color: #666; line-height: 1.6; font-size: 0.95rem;">Agents collaborate using chain-of-thought reasoning and multi-step planning.</p>
+      </div>
+      <div style="background: white; padding: 25px; border-radius: 8px; border-left: 5px solid #9C27B0; box-shadow: 0 4px 12px rgba(0,0,0,0.05);">
+        <h3 style="color: #9C27B0; margin-bottom: 12px; font-size: 1rem; font-weight: 700;">🧠 Context Management</h3>
+        <p style="color: #666; line-height: 1.6; font-size: 0.95rem;">Maintain conversation context across agents with efficient memory management.</p>
+      </div>
+      <div style="background: white; padding: 25px; border-radius: 8px; border-left: 5px solid #00BCD4; box-shadow: 0 4px 12px rgba(0,0,0,0.05);">
+        <h3 style="color: #00BCD4; margin-bottom: 12px; font-size: 1rem; font-weight: 700;">⚡ Real-time Streaming</h3>
+        <p style="color: #666; line-height: 1.6; font-size: 0.95rem;">Stream LLM responses in real-time for responsive user experiences.</p>
+      </div>
+      <div style="background: white; padding: 25px; border-radius: 8px; border-left: 5px solid #E91E63; box-shadow: 0 4px 12px rgba(0,0,0,0.05);">
+        <h3 style="color: #E91E63; margin-bottom: 12px; font-size: 1rem; font-weight: 700;">🛡️ Safety & Guardrails</h3>
+        <p style="color: #666; line-height: 1.6; font-size: 0.95rem;">Guardian agents enforce policies and audit all LLM interactions.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<\!-- Deployment Technologies Section -->
+<section style="padding: 80px 0; background: white;">
+  <div class="container">
+    <h2 style="font-size: 2.2rem; text-align: center; margin-bottom: 50px; font-weight: 700; color: #1a1a2e;">☁️ Scale with Modern Infrastructure</h2>
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px;">
+      <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 30px; border-radius: 8px; color: white; text-align: center; box-shadow: 0 8px 20px rgba(102, 126, 234, 0.3);">
+        <div style="font-size: 2.5rem; margin-bottom: 12px;">☸️</div>
+        <h3 style="margin-bottom: 10px; font-size: 1.1rem; font-weight: 700;">Kubernetes</h3>
+        <p style="opacity: 0.9; font-size: 0.9rem;">Native K8s with Helm charts and auto-scaling.</p>
+      </div>
+      <div style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); padding: 30px; border-radius: 8px; color: white; text-align: center; box-shadow: 0 8px 20px rgba(245, 87, 108, 0.3);">
+        <div style="font-size: 2.5rem; margin-bottom: 12px;">⚡</div>
+        <h3 style="margin-bottom: 10px; font-size: 1.1rem; font-weight: 700;">Quarkus</h3>
+        <p style="opacity: 0.9; font-size: 0.9rem;">Sub-second startup, minimal memory.</p>
+      </div>
+      <div style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); padding: 30px; border-radius: 8px; color: white; text-align: center; box-shadow: 0 8px 20px rgba(79, 172, 254, 0.3);">
+        <div style="font-size: 2.5rem; margin-bottom: 12px;">📨</div>
+        <h3 style="margin-bottom: 10px; font-size: 1.1rem; font-weight: 700;">Kafka</h3>
+        <p style="opacity: 0.9; font-size: 0.9rem;">High-throughput event streaming.</p>
+      </div>
+      <div style="background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%); padding: 30px; border-radius: 8px; color: white; text-align: center; box-shadow: 0 8px 20px rgba(67, 233, 123, 0.3);">
+        <div style="font-size: 2.5rem; margin-bottom: 12px;">🚀</div>
+        <h3 style="margin-bottom: 10px; font-size: 1.1rem; font-weight: 700;">NATS</h3>
+        <p style="opacity: 0.9; font-size: 0.9rem;">Ultra-fast messaging for edge.</p>
+      </div>
+      <div style="background: linear-gradient(135deg, #fa709a 0%, #fee140 100%); padding: 30px; border-radius: 8px; color: white; text-align: center; box-shadow: 0 8px 20px rgba(250, 112, 154, 0.3);">
+        <div style="font-size: 2.5rem; margin-bottom: 12px;">🏗️</div>
+        <h3 style="margin-bottom: 10px; font-size: 1.1rem; font-weight: 700;">Microservices</h3>
+        <p style="opacity: 0.9; font-size: 0.9rem;">Independently deployable agents.</p>
+      </div>
+      <div style="background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%); padding: 30px; border-radius: 8px; color: white; text-align: center; box-shadow: 0 8px 20px rgba(168, 237, 234, 0.3);">
+        <div style="font-size: 2.5rem; margin-bottom: 12px;">🔐</div>
+        <h3 style="margin-bottom: 10px; font-size: 1.1rem; font-weight: 700;">Service Mesh</h3>
+        <p style="opacity: 0.9; font-size: 0.9rem;">Istio & Linkerd with mTLS.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<\!-- v1.6 Features Section -->
+<section style="padding: 80px 0; background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); color: white;">
+  <div class="container">
+    <h2 style="font-size: 2.2rem; text-align: center; margin-bottom: 50px; font-weight: 700;">🎯 AMCP v1.6 Major Features</h2>
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px;">
+      <div style="background: rgba(255,255,255,0.08); padding: 30px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.15);">
+        <h3 style="margin-bottom: 12px; font-size: 1.1rem; color: #4dd0e1; font-weight: 700;">📊 Advanced Monitoring</h3>
+        <p style="opacity: 0.9; line-height: 1.6; margin-bottom: 12px; font-size: 0.95rem;">Real-time insights with event throughput, latency heatmaps, and error rates.</p>
+        <ul style="list-style: none; padding: 0; opacity: 0.85; font-size: 0.9rem;">
+          <li>✓ Real-time agent status</li>
+          <li>✓ Distributed tracing</li>
+          <li>✓ Performance heatmaps</li>
+        </ul>
+      </div>
+      <div style="background: rgba(255,255,255,0.08); padding: 30px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.15);">
+        <h3 style="margin-bottom: 12px; font-size: 1.1rem; color: #81c784; font-weight: 700;">🎮 Management API</h3>
+        <p style="opacity: 0.9; line-height: 1.6; margin-bottom: 12px; font-size: 0.95rem;">Full programmatic control with REST/gRPC APIs.</p>
+        <ul style="list-style: none; padding: 0; opacity: 0.85; font-size: 0.9rem;">
+          <li>✓ Agent lifecycle control</li>
+          <li>✓ Policy management</li>
+          <li>✓ Event injection</li>
+        </ul>
+      </div>
+      <div style="background: rgba(255,255,255,0.08); padding: 30px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.15);">
+        <h3 style="margin-bottom: 12px; font-size: 1.1rem; color: #ffb74d; font-weight: 700;">🔐 Enhanced Security</h3>
+        <p style="opacity: 0.9; line-height: 1.6; margin-bottom: 12px; font-size: 0.95rem;">Enterprise-grade security with audit trails.</p>
+        <ul style="list-style: none; padding: 0; opacity: 0.85; font-size: 0.9rem;">
+          <li>✓ Structured audit logs</li>
+          <li>✓ Policy enforcement</li>
+          <li>✓ Compliance reporting</li>
+        </ul>
+      </div>
+      <div style="background: rgba(255,255,255,0.08); padding: 30px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.15);">
+        <h3 style="margin-bottom: 12px; font-size: 1.1rem; color: #ef5350; font-weight: 700;">🌍 Multi-Tenancy</h3>
+        <p style="opacity: 0.9; line-height: 1.6; margin-bottom: 12px; font-size: 0.95rem;">Secure isolation for SaaS deployments.</p>
+        <ul style="list-style: none; padding: 0; opacity: 0.85; font-size: 0.9rem;">
+          <li>✓ Tenant isolation</li>
+          <li>✓ Usage tracking</li>
+          <li>✓ Resource quotas</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<\!-- CTA Section -->
+<section style="padding: 60px 0; background: white; text-align: center;">
+  <div class="container">
+    <h2 style="font-size: 2rem; margin-bottom: 20px; font-weight: 700; color: #1a1a2e;">Ready to Build Your Agent Mesh?</h2>
+    <p style="font-size: 1.1rem; color: #666; margin-bottom: 30px;">Start with AMCP v1.6 today. Open-source, enterprise-ready, and built for scale.</p>
+    <div style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap;">
+      <a href="/docs/getting-started/" style="background: #2196F3; color: white; padding: 12px 28px; border-radius: 6px; text-decoration: none; font-weight: 600;">Get Started</a>
+      <a href="https://github.com/agentmeshcommunicationprotocol/amcpcore.github.io" style="background: #f5f5f5; color: #333; padding: 12px 28px; border-radius: 6px; text-decoration: none; font-weight: 600;">View on GitHub</a>
+    </div>
+  </div>
+</section>
