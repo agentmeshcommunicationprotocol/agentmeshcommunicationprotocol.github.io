@@ -47,11 +47,56 @@ description: "Enterprise grade multi-agent communication framework for modern di
   </div>
 </section>
 
-<section class="video-section">
+<section class="featured-video-section">
   <div class="container">
+    <div class="featured-video-container">
+      <div class="featured-video-badge">🎬 FEATURED VIDEO</div>
+      <h2 class="featured-video-title">AMCP: The Agent Superhighway</h2>
+      <p class="featured-video-subtitle">See AMCP v1.6 in action - Multi-agent communication, orchestration, and enterprise-scale deployment</p>
+      
+      <div class="featured-video-wrapper">
+        <video 
+          controls 
+          preload="metadata" 
+          class="featured-video-player"
+          poster="/promo/video-poster.jpg">
+          <source src="/promo/AMCP__The_Agent_Superhighway.mp4" type="video/mp4">
+          <p>Your browser does not support the video tag. <a href="/promo/AMCP__The_Agent_Superhighway.mp4">Download the video</a> to watch it.</p>
+        </video>
+        <div class="video-play-overlay">
+          <div class="play-button">▶</div>
+        </div>
+      </div>
+      
+      <div class="featured-video-info">
+        <div class="video-stat">
+          <span class="stat-label">Duration</span>
+          <span class="stat-value">2:30</span>
+        </div>
+        <div class="video-stat">
+          <span class="stat-label">Topics</span>
+          <span class="stat-value">Agent Mesh, Orchestration, v1.6 Features</span>
+        </div>
+        <div class="video-stat">
+          <span class="stat-label">Format</span>
+          <span class="stat-value">MP4 (1080p)</span>
+        </div>
+      </div>
+      
+      <div class="featured-video-actions">
+        <a href="/promo/AMCP__The_Agent_Superhighway.mp4" class="btn btn-primary btn-lg" download>📥 Download Video</a>
+        <a href="#video-section" class="btn btn-outline btn-lg">View More Videos</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="video-section" id="video-section">
+  <div class="container">
+    <h2 class="section-title">Video Resources</h2>
     <div class="video-content">
       <div class="video-text">
-        <h2>AMCP: The Agent Superhighway</h2>
+        <h3>AMCP: The Agent Superhighway</h3>
         <p class="video-subtitle">
           Discover how AMCP revolutionizes multi-agent communication and orchestration in modern distributed systems.
         </p>
@@ -188,66 +233,140 @@ description: "Enterprise grade multi-agent communication framework for modern di
   </div>
 </section>
 
-<section class="demo-section">
+<section class="core-concepts-section">
   <div class="container">
-    <div class="demo-content">
-      <div class="demo-text">
-        <h2>See AMCP in Action</h2>
-        <p>Experience the power of multi-agent communication with our interactive examples and real-world use cases.</p>
-        <div class="demo-features">
-          <div class="demo-feature">
-            <span class="demo-icon">🌤️</span>
-            <span>Weather Agent with API integration</span>
-          </div>
-          <div class="demo-feature">
-            <span class="demo-icon">💬</span>
-            <span>AI-powered chat with LLM orchestration</span>
-          </div>
-          <div class="demo-feature">
-            <span class="demo-icon">📈</span>
-            <span>Financial data processing and analytics</span>
-          </div>
-        </div>
-        <div class="demo-actions">
-          <a href="/examples/" class="btn btn-primary">Explore Examples</a>
-          <a href="{{ site.amcp_core_url }}" class="btn btn-outline" target="_blank">View Source Code</a>
+    <h2 class="section-title">AMCP Core Concepts</h2>
+    <div class="concepts-grid">
+      <div class="concept-card">
+        <div class="concept-icon">💬</div>
+        <h3>Chat Agent</h3>
+        <p>Conversational interface for multi-agent systems. Enables natural language interaction with intelligent agents, supporting context management, conversation history, and dynamic agent discovery.</p>
+        <div class="concept-features">
+          <span class="feature-tag">Natural Language</span>
+          <span class="feature-tag">Context Aware</span>
+          <span class="feature-tag">Multi-turn</span>
         </div>
       </div>
-      <div class="demo-visual">
-        <div class="terminal-window">
-          <div class="terminal-header">
-            <span class="terminal-button red"></span>
-            <span class="terminal-button yellow"></span>
-            <span class="terminal-button green"></span>
-            <span class="terminal-title">AMCP Live Demo</span>
-          </div>
-          <div class="terminal-body">
-          <div class="terminal-line">
-            <span class="prompt">amcp></span> activate weather
-          </div>
-          <div class="terminal-line output">
-            ✅ WeatherAgent activated successfully
-          </div>
-          <div class="terminal-line">
-            <span class="prompt">amcp></span> weather Paris
-          </div>
-          <div class="terminal-line output">
-            🌤️ Paris: 15°C, partly cloudy
-          </div>
-          <div class="terminal-line">
-            <span class="prompt">amcp></span> activate orchestrator
-          </div>
-          <div class="terminal-line output">
-            🧠 OrchestratorAgent with LLM ready
-          </div>
-          <div class="terminal-line">
-            <span class="prompt">amcp></span> <span class="cursor">|</span>
-          </div>
+      <div class="concept-card">
+        <div class="concept-icon">🎼</div>
+        <h3>Orchestrator Agent</h3>
+        <p>Intelligent coordinator for complex workflows. Manages agent lifecycle, routes messages, handles task decomposition, and orchestrates multi-step processes with LLM-powered decision making.</p>
+        <div class="concept-features">
+          <span class="feature-tag">Workflow Management</span>
+          <span class="feature-tag">Task Routing</span>
+          <span class="feature-tag">LLM-Powered</span>
+        </div>
+      </div>
+      <div class="concept-card">
+        <div class="concept-icon">🕸️</div>
+        <h3>Mesh Agent</h3>
+        <p>Distributed node in the agent mesh network. Provides autonomous capabilities, event-driven communication, service discovery, and seamless integration with the AMCP protocol for enterprise-scale deployments.</p>
+        <div class="concept-features">
+          <span class="feature-tag">Distributed</span>
+          <span class="feature-tag">Event-Driven</span>
+          <span class="feature-tag">Autonomous</span>
         </div>
       </div>
     </div>
   </div>
-</div>
+</section>
+
+<section class="protocols-section">
+  <div class="container">
+    <h2 class="section-title">Protocol Support & Interoperability</h2>
+    <div class="protocols-grid">
+      <div class="protocol-card">
+        <div class="protocol-icon">🔌</div>
+        <h3>MCP (Model Context Protocol)</h3>
+        <p>Native support for Model Context Protocol enables seamless integration with AI models and tools. AMCP agents can act as MCP clients and servers, providing standardized interfaces for model interactions and resource access.</p>
+        <div class="protocol-details">
+          <span class="detail-item">✓ MCP Client/Server</span>
+          <span class="detail-item">✓ Tool Integration</span>
+          <span class="detail-item">✓ Resource Management</span>
+        </div>
+      </div>
+      <div class="protocol-card">
+        <div class="protocol-icon">🔄</div>
+        <h3>A2A (Agent-to-Agent)</h3>
+        <p>Direct agent-to-agent communication protocol for peer-to-peer interactions. Enables agents to discover, negotiate, and communicate with each other without central coordination, supporting decentralized multi-agent architectures.</p>
+        <div class="protocol-details">
+          <span class="detail-item">✓ Peer-to-Peer</span>
+          <span class="detail-item">✓ Service Discovery</span>
+          <span class="detail-item">✓ Decentralized</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="v16-features-section">
+  <div class="container">
+    <h2 class="section-title">AMCP v1.6 Major Features</h2>
+    <p class="section-subtitle">Production-ready distributed agent framework with advanced capabilities</p>
+    <div class="v16-features-grid">
+      <div class="v16-feature-card">
+        <div class="v16-feature-icon">🚀</div>
+        <h3>Strong Mobility Framework</h3>
+        <p>Automatic state preservation for seamless agent migration across nodes. ATP (Agent Transfer Protocol) with bytecode instrumentation enables 70-80% code reduction.</p>
+        <div class="v16-highlights">
+          <span class="highlight">Automatic State Preservation</span>
+          <span class="highlight">ATP Protocol</span>
+          <span class="highlight">70-80% Code Reduction</span>
+        </div>
+      </div>
+      <div class="v16-feature-card">
+        <div class="v16-feature-icon">☁️</div>
+        <h3>CloudEvents Integration</h3>
+        <p>Industry-standard CloudEvents v1.0 compliance with advanced event routing, filtering, distributed tracing, and event sourcing capabilities.</p>
+        <div class="v16-highlights">
+          <span class="highlight">CloudEvents v1.0</span>
+          <span class="highlight">Event Routing & Filtering</span>
+          <span class="highlight">Distributed Tracing</span>
+        </div>
+      </div>
+      <div class="v16-feature-card">
+        <div class="v16-feature-icon">🔐</div>
+        <h3>Enterprise Security</h3>
+        <p>Comprehensive security with mTLS support, RBAC implementation, comprehensive audit logging, and HashiCorp Vault integration for secrets management.</p>
+        <div class="v16-highlights">
+          <span class="highlight">mTLS Support</span>
+          <span class="highlight">RBAC Implementation</span>
+          <span class="highlight">Vault Integration</span>
+        </div>
+      </div>
+      <div class="v16-feature-card">
+        <div class="v16-feature-icon">⚡</div>
+        <h3>Enhanced LLM Orchestration</h3>
+        <p>95% faster cached responses (50ms vs 500ms) with intelligent fallback system, two-tier caching, and 60% reduced memory usage for optimal performance.</p>
+        <div class="v16-highlights">
+          <span class="highlight">95% Faster Responses</span>
+          <span class="highlight">Intelligent Fallback</span>
+          <span class="highlight">60% Memory Reduction</span>
+        </div>
+      </div>
+      <div class="v16-feature-card">
+        <div class="v16-feature-icon">🔄</div>
+        <h3>Advanced Agent Mesh</h3>
+        <p>Dynamic service discovery, intelligent load balancing, circuit breaker pattern, and seamless service mesh integration with Istio and Linkerd.</p>
+        <div class="v16-highlights">
+          <span class="highlight">Dynamic Discovery</span>
+          <span class="highlight">Load Balancing</span>
+          <span class="highlight">Circuit Breaker</span>
+        </div>
+      </div>
+      <div class="v16-feature-card">
+        <div class="v16-feature-icon">👨‍💻</div>
+        <h3>Developer Experience</h3>
+        <p>Enhanced CLI v2, visual agent designer, performance profiler, and comprehensive testing framework for rapid development and debugging.</p>
+        <div class="v16-highlights">
+          <span class="highlight">Enhanced CLI v2</span>
+          <span class="highlight">Visual Designer</span>
+          <span class="highlight">Performance Profiler</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
 <section id="features" class="features-section">
   <div class="container">
@@ -282,6 +401,156 @@ description: "Enterprise grade multi-agent communication framework for modern di
         <div class="feature-icon">🚀</div>
         <h3>High Performance</h3>
         <p>Optimized for low latency and high throughput with async processing and efficient resource usage.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="deployment-section">
+  <div class="container">
+    <h2 class="section-title">Enterprise Deployment Architecture</h2>
+    <p class="section-subtitle">AMCP is built for modern cloud-native deployments with support for containerization, orchestration, and event streaming.</p>
+    <div class="deployment-grid">
+      <div class="deployment-card">
+        <div class="deployment-icon">📚</div>
+        <h3>Microservices Architecture</h3>
+        <p>Deploy AMCP agents as independent microservices with clear boundaries and responsibilities. Each agent can be scaled, updated, and managed independently while maintaining seamless communication through the AMCP protocol.</p>
+        <div class="deployment-tech">
+          <span class="tech-tag">Service Mesh</span>
+          <span class="tech-tag">API Gateway</span>
+          <span class="tech-tag">Load Balancing</span>
+        </div>
+      </div>
+      <div class="deployment-card">
+        <div class="deployment-icon">💫</div>
+        <h3>Kafka Integration</h3>
+        <p>Leverage Apache Kafka for event streaming and message persistence. AMCP agents can publish and subscribe to Kafka topics, enabling high-throughput, fault-tolerant communication patterns for distributed systems at scale.</p>
+        <div class="deployment-tech">
+          <span class="tech-tag">Event Streaming</span>
+          <span class="tech-tag">Message Persistence</span>
+          <span class="tech-tag">Fault Tolerance</span>
+        </div>
+      </div>
+      <div class="deployment-card">
+        <div class="deployment-icon">☸️</div>
+        <h3>Kubernetes Orchestration</h3>
+        <p>Run AMCP agents on Kubernetes with native container orchestration. Automatic scaling, self-healing, and resource management enable production-grade deployments with high availability and disaster recovery capabilities.</p>
+        <div class="deployment-tech">
+          <span class="tech-tag">Container Orchestration</span>
+          <span class="tech-tag">Auto-Scaling</span>
+          <span class="tech-tag">High Availability</span>
+        </div>
+      </div>
+      <div class="deployment-card">
+        <div class="deployment-icon">⚡</div>
+        <h3>Quarkus Runtime</h3>
+        <p>Build ultra-lightweight AMCP agents with Quarkus for minimal resource footprint and instant startup times. Perfect for serverless deployments, edge computing, and resource-constrained environments.</p>
+        <div class="deployment-tech">
+          <span class="tech-tag">Lightweight</span>
+          <span class="tech-tag">Fast Startup</span>
+          <span class="tech-tag">Low Memory</span>
+        </div>
+      </div>
+    </div>
+    <div class="deployment-benefits">
+      <h3>Deployment Benefits</h3>
+      <div class="benefits-list">
+        <div class="benefit-item">
+          <span class="benefit-icon">✓</span>
+          <span>Horizontal scaling across multiple nodes and regions</span>
+        </div>
+        <div class="benefit-item">
+          <span class="benefit-icon">✓</span>
+          <span>Event-driven architecture for reactive systems</span>
+        </div>
+        <div class="benefit-item">
+          <span class="benefit-icon">✓</span>
+          <span>Resilient communication with message queuing and retries</span>
+        </div>
+        <div class="benefit-item">
+          <span class="benefit-icon">✓</span>
+          <span>Observability with distributed tracing and metrics</span>
+        </div>
+        <div class="benefit-item">
+          <span class="benefit-icon">✓</span>
+          <span>Multi-cloud and hybrid deployment support</span>
+        </div>
+        <div class="benefit-item">
+          <span class="benefit-icon">✓</span>
+          <span>Zero-downtime updates and canary deployments</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="implementation-paths-section">
+  <div class="container">
+    <h2 class="section-title">Implementation Paths</h2>
+    <p class="section-subtitle">Choose your path based on timeline and requirements</p>
+    <div class="paths-grid">
+      <div class="path-card path-poc">
+        <div class="path-badge">FASTEST</div>
+        <h3>🚀 Proof of Concept</h3>
+        <div class="path-duration">4 Weeks</div>
+        <p>Fastest path to working demo and validation of AMCP concepts.</p>
+        <div class="path-phases">
+          <div class="phase">
+            <span class="phase-number">1</span>
+            <span class="phase-name">Foundation (Week 1-2)</span>
+          </div>
+          <div class="phase">
+            <span class="phase-number">2</span>
+            <span class="phase-name">Core Refactoring (Week 3)</span>
+          </div>
+          <div class="phase">
+            <span class="phase-number">3</span>
+            <span class="phase-name">Basic Quarkus (Week 4)</span>
+          </div>
+        </div>
+        <a href="/docs/getting-started/" class="btn btn-sm btn-primary">Start PoC</a>
+      </div>
+      <div class="path-card path-mvp">
+        <div class="path-badge">RECOMMENDED</div>
+        <h3>🌟 MVP</h3>
+        <div class="path-duration">8 Weeks</div>
+        <p>Production-ready basic version with core features and testing.</p>
+        <div class="path-phases">
+          <div class="phase">
+            <span class="phase-number">1-2</span>
+            <span class="phase-name">Foundation & Core (Week 1-7)</span>
+          </div>
+          <div class="phase">
+            <span class="phase-number">3</span>
+            <span class="phase-name">HelloWorld Example (Week 8)</span>
+          </div>
+          <div class="phase">
+            <span class="phase-number">4</span>
+            <span class="phase-name">Testing & Validation</span>
+          </div>
+        </div>
+        <a href="/docs/tutorials/first-agent/" class="btn btn-sm btn-primary">Start MVP</a>
+      </div>
+      <div class="path-card path-full">
+        <div class="path-badge">COMPLETE</div>
+        <h3>🎆 Full Implementation</h3>
+        <div class="path-duration">19 Weeks</div>
+        <p>Complete AMCP v1.6 with all features and comprehensive validation.</p>
+        <div class="path-phases">
+          <div class="phase">
+            <span class="phase-number">1-8</span>
+            <span class="phase-name">All Phases from Roadmap</span>
+          </div>
+          <div class="phase">
+            <span class="phase-number">9</span>
+            <span class="phase-name">Comprehensive Testing</span>
+          </div>
+          <div class="phase">
+            <span class="phase-number">10</span>
+            <span class="phase-name">Production Deployment</span>
+          </div>
+        </div>
+        <a href="/docs/architecture/" class="btn btn-sm btn-primary">View Roadmap</a>
       </div>
     </div>
   </div>
@@ -357,37 +626,37 @@ description: "Enterprise grade multi-agent communication framework for modern di
 
 <section class="use-cases-section">
   <div class="container">
-    <h2 class="section-title">Use Cases</h2>
+    <h2 class="section-title">Real-World Use Cases</h2>
     <div class="use-cases-grid">
       <div class="use-case-card">
-        <h3>🌤️ Weather Intelligence</h3>
-        <p>Real-time weather monitoring and forecasting with OpenWeatherMap integration and intelligent alerting.</p>
-        <a href="/examples/weather-agent/">Learn More →</a>
-      </div>
-      <div class="use-case-card">
-        <h3>💬 Conversational AI</h3>
-        <p>Build sophisticated chatbots and virtual assistants with LLM integration and context management.</p>
+        <h3>💬 Conversational AI & Chatbots</h3>
+        <p>Build intelligent conversational systems with multi-turn dialogue, context awareness, and LLM-powered responses. Chat agents handle user interactions while orchestrators manage complex workflows and integrate with backend services.</p>
         <a href="/examples/meshchat/">Learn More →</a>
       </div>
       <div class="use-case-card">
-        <h3>🧠 LLM Orchestration</h3>
-        <p>Coordinate multiple AI models for complex reasoning, planning, and decision-making workflows.</p>
+        <h3>🧠 Intelligent Workflow Orchestration</h3>
+        <p>Coordinate multiple specialized agents to handle complex business processes. Orchestrator agents decompose tasks, route work to appropriate agents, and manage state across distributed systems.</p>
         <a href="/examples/orchestration/">Learn More →</a>
       </div>
       <div class="use-case-card">
-        <h3>📈 Financial Analytics</h3>
-        <p>Real-time stock monitoring, portfolio analysis, and automated trading with market data integration.</p>
-        <a href="/examples/stock-agent/">Learn More →</a>
-      </div>
-      <div class="use-case-card">
-        <h3>✈️ Travel Planning</h3>
-        <p>Intelligent trip planning with flight search, hotel booking, and itinerary optimization.</p>
-        <a href="/examples/travel-agent/">Learn More →</a>
-      </div>
-      <div class="use-case-card">
-        <h3>🏢 Enterprise Integration</h3>
-        <p>Connect existing systems with event-driven architecture and microservices orchestration.</p>
+        <h3>💫 Enterprise System Integration</h3>
+        <p>Connect legacy systems, microservices, and cloud platforms through AMCP. Mesh agents act as integration points, translating between different protocols and enabling seamless inter-system communication.</p>
         <a href="/docs/enterprise/">Learn More →</a>
+      </div>
+      <div class="use-case-card">
+        <h3>📚 Data Processing Pipelines</h3>
+        <p>Build scalable data processing workflows with specialized agents handling ingestion, transformation, enrichment, and storage. Event-driven architecture ensures efficient resource utilization and fault tolerance.</p>
+        <a href="/docs/tutorials/">Learn More →</a>
+      </div>
+      <div class="use-case-card">
+        <h3>🔍 Intelligent Monitoring & Alerting</h3>
+        <p>Deploy mesh agents across infrastructure to monitor systems, detect anomalies, and trigger intelligent responses. Agents communicate findings through the AMCP mesh for coordinated incident response.</p>
+        <a href="/docs/best-practices/">Learn More →</a>
+      </div>
+      <div class="use-case-card">
+        <h3>📎 Multi-Agent Collaboration</h3>
+        <p>Enable teams of specialized agents to collaborate on complex problems. Each agent brings domain expertise, and the AMCP protocol ensures efficient coordination and knowledge sharing across the mesh.</p>
+        <a href="/docs/architecture/">Learn More →</a>
       </div>
     </div>
   </div>
@@ -490,6 +759,161 @@ description: "Enterprise grade multi-agent communication framework for modern di
 </section>
 
 <style>
+/* Featured Video Section */
+.featured-video-section {
+  padding: 80px 0;
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+  color: white;
+  position: relative;
+  overflow: hidden;
+}
+
+.featured-video-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(circle at 20% 50%, rgba(33, 150, 243, 0.1) 0%, transparent 50%),
+              radial-gradient(circle at 80% 80%, rgba(76, 175, 80, 0.1) 0%, transparent 50%);
+  pointer-events: none;
+}
+
+.featured-video-container {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.featured-video-badge {
+  display: inline-block;
+  background: rgba(255, 255, 255, 0.1);
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  color: #4CAF50;
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  margin-bottom: 20px;
+  backdrop-filter: blur(10px);
+}
+
+.featured-video-title {
+  font-size: 3rem;
+  font-weight: 700;
+  margin-bottom: 15px;
+  line-height: 1.2;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+}
+
+.featured-video-subtitle {
+  font-size: 1.3rem;
+  color: rgba(255, 255, 255, 0.8);
+  margin-bottom: 40px;
+  line-height: 1.6;
+}
+
+.featured-video-wrapper {
+  position: relative;
+  margin-bottom: 40px;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+  animation: slideUp 0.8s ease-out;
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.featured-video-player {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 12px;
+  background: #000;
+}
+
+.video-play-overlay {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.featured-video-wrapper:hover .video-play-overlay {
+  opacity: 1;
+}
+
+.play-button {
+  width: 80px;
+  height: 80px;
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.5rem;
+  color: #2196F3;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.featured-video-info {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 30px;
+  margin-bottom: 40px;
+  padding: 30px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+  backdrop-filter: blur(10px);
+}
+
+.video-stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.stat-label {
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.6);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 8px;
+}
+
+.stat-value {
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: #4CAF50;
+}
+
+.featured-video-actions {
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.btn-lg {
+  padding: 14px 35px;
+  font-size: 1.05rem;
+}
+
 /* Promotional Banner */
 .promo-banner {
   background: linear-gradient(135deg, #FF6B6B 0%, #FF8E53 100%);
@@ -1163,6 +1587,430 @@ description: "Enterprise grade multi-agent communication framework for modern di
   margin-bottom: 10px;
 }
 
+/* AMCP v1.6 Features Section */
+.v16-features-section {
+  padding: 80px 0;
+  background: linear-gradient(135deg, #fff3e0 0%, #ffe0b2 100%);
+}
+
+.v16-features-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+  gap: 30px;
+}
+
+.v16-feature-card {
+  background: white;
+  padding: 35px 25px;
+  border-radius: 12px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease;
+  border-top: 4px solid #FF9800;
+  position: relative;
+}
+
+.v16-feature-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+}
+
+.v16-feature-icon {
+  font-size: 2.8rem;
+  margin-bottom: 15px;
+}
+
+.v16-feature-card h3 {
+  font-size: 1.3rem;
+  margin-bottom: 12px;
+  color: #333;
+  font-weight: 600;
+}
+
+.v16-feature-card p {
+  color: #666;
+  line-height: 1.6;
+  margin-bottom: 18px;
+  font-size: 0.95rem;
+}
+
+.v16-highlights {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.v16-highlights .highlight {
+  display: inline-block;
+  background: #fff3e0;
+  color: #e65100;
+  padding: 5px 10px;
+  border-radius: 16px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  border: 1px solid #ffe0b2;
+}
+
+/* Implementation Paths Section */
+.implementation-paths-section {
+  padding: 80px 0;
+  background: #f8f9fa;
+}
+
+.paths-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 30px;
+  margin-top: 50px;
+}
+
+.path-card {
+  background: white;
+  padding: 40px 30px;
+  border-radius: 12px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease;
+  position: relative;
+  border-top: 5px solid #2196F3;
+}
+
+.path-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+}
+
+.path-poc {
+  border-top-color: #FF6B6B;
+}
+
+.path-mvp {
+  border-top-color: #4CAF50;
+  transform: scale(1.02);
+}
+
+.path-full {
+  border-top-color: #9C27B0;
+}
+
+.path-badge {
+  position: absolute;
+  top: -12px;
+  right: 20px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+
+.path-poc .path-badge {
+  background: linear-gradient(135deg, #FF6B6B 0%, #FF8E53 100%);
+}
+
+.path-mvp .path-badge {
+  background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%);
+}
+
+.path-full .path-badge {
+  background: linear-gradient(135deg, #9C27B0 0%, #7B1FA2 100%);
+}
+
+.path-card h3 {
+  font-size: 1.4rem;
+  margin-bottom: 10px;
+  color: #333;
+  font-weight: 600;
+  margin-top: 10px;
+}
+
+.path-duration {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #2196F3;
+  margin-bottom: 15px;
+}
+
+.path-card p {
+  color: #666;
+  line-height: 1.6;
+  margin-bottom: 25px;
+  font-size: 0.95rem;
+}
+
+.path-phases {
+  background: #f8f9fa;
+  padding: 20px;
+  border-radius: 8px;
+  margin-bottom: 25px;
+}
+
+.phase {
+  display: flex;
+  align-items: center;
+  margin-bottom: 12px;
+  font-size: 0.9rem;
+}
+
+.phase:last-child {
+  margin-bottom: 0;
+}
+
+.phase-number {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  background: #2196F3;
+  color: white;
+  border-radius: 50%;
+  font-weight: bold;
+  margin-right: 12px;
+  flex-shrink: 0;
+  font-size: 0.85rem;
+}
+
+.phase-name {
+  color: #555;
+  font-weight: 500;
+}
+
+/* Core Concepts Section */
+.core-concepts-section {
+  padding: 80px 0;
+  background: linear-gradient(135deg, #f0f4ff 0%, #f8f9fa 100%);
+}
+
+.concepts-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 40px;
+}
+
+.concept-card {
+  background: white;
+  padding: 40px 30px;
+  border-radius: 12px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  border-left: 4px solid #2196F3;
+}
+
+.concept-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+}
+
+.concept-icon {
+  font-size: 3rem;
+  margin-bottom: 20px;
+}
+
+.concept-card h3 {
+  font-size: 1.4rem;
+  margin-bottom: 15px;
+  color: #333;
+  font-weight: 600;
+}
+
+.concept-card p {
+  color: #666;
+  line-height: 1.7;
+  margin-bottom: 20px;
+}
+
+.concept-features {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.feature-tag {
+  display: inline-block;
+  background: #e3f2fd;
+  color: #1976d2;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+/* Protocols Section */
+.protocols-section {
+  padding: 80px 0;
+  background: #f8f9fa;
+}
+
+.protocols-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 40px;
+}
+
+.protocol-card {
+  background: white;
+  padding: 40px 30px;
+  border-radius: 12px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  border-top: 4px solid #4CAF50;
+}
+
+.protocol-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+}
+
+.protocol-icon {
+  font-size: 3rem;
+  margin-bottom: 20px;
+}
+
+.protocol-card h3 {
+  font-size: 1.4rem;
+  margin-bottom: 15px;
+  color: #333;
+  font-weight: 600;
+}
+
+.protocol-card p {
+  color: #666;
+  line-height: 1.7;
+  margin-bottom: 20px;
+}
+
+.protocol-details {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.detail-item {
+  display: flex;
+  align-items: center;
+  color: #555;
+  font-size: 0.95rem;
+}
+
+/* Deployment Section */
+.deployment-section {
+  padding: 80px 0;
+  background: linear-gradient(135deg, #e8f5e8 0%, #f0f8f0 100%);
+}
+
+.section-subtitle {
+  text-align: center;
+  font-size: 1.2rem;
+  color: #666;
+  margin-bottom: 50px;
+  max-width: 700px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.deployment-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 30px;
+  margin-bottom: 60px;
+}
+
+.deployment-card {
+  background: white;
+  padding: 35px 25px;
+  border-radius: 12px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease;
+  border-bottom: 4px solid #FF9800;
+}
+
+.deployment-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 25px rgba(0, 0, 0, 0.12);
+}
+
+.deployment-icon {
+  font-size: 2.5rem;
+  margin-bottom: 15px;
+}
+
+.deployment-card h3 {
+  font-size: 1.3rem;
+  margin-bottom: 12px;
+  color: #333;
+  font-weight: 600;
+}
+
+.deployment-card p {
+  color: #666;
+  line-height: 1.6;
+  margin-bottom: 15px;
+  font-size: 0.95rem;
+}
+
+.deployment-tech {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.tech-tag {
+  display: inline-block;
+  background: #fff3e0;
+  color: #e65100;
+  padding: 5px 10px;
+  border-radius: 16px;
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+
+.deployment-benefits {
+  background: white;
+  padding: 50px;
+  border-radius: 12px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+}
+
+.deployment-benefits h3 {
+  font-size: 1.8rem;
+  margin-bottom: 30px;
+  color: #333;
+  text-align: center;
+}
+
+.benefits-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
+}
+
+.benefit-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 15px;
+}
+
+.benefit-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  background: #4CAF50;
+  color: white;
+  border-radius: 50%;
+  font-weight: bold;
+  flex-shrink: 0;
+  font-size: 1.1rem;
+}
+
+.benefit-item span:last-child {
+  color: #555;
+  line-height: 1.6;
+  font-size: 0.95rem;
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
   .hero-title {
@@ -1225,6 +2073,57 @@ description: "Enterprise grade multi-agent communication framework for modern di
   
   .media-resources-grid {
     grid-template-columns: 1fr;
+  }
+  
+  .concepts-grid,
+  .protocols-grid,
+  .deployment-grid,
+  .v16-features-grid,
+  .paths-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .deployment-benefits {
+    padding: 30px;
+  }
+  
+  .benefits-list {
+    grid-template-columns: 1fr;
+  }
+  
+  .path-mvp {
+    transform: scale(1);
+  }
+  
+  .path-badge {
+    top: 10px;
+    right: 10px;
+  }
+  
+  .featured-video-title {
+    font-size: 2rem;
+  }
+  
+  .featured-video-subtitle {
+    font-size: 1rem;
+  }
+  
+  .featured-video-info {
+    grid-template-columns: 1fr;
+  }
+  
+  .featured-video-actions {
+    flex-direction: column;
+  }
+  
+  .btn-lg {
+    width: 100%;
+  }
+  
+  .play-button {
+    width: 60px;
+    height: 60px;
+    font-size: 1.8rem;
   }
 }
 </style>
